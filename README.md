@@ -7,3 +7,9 @@ npm install
 npm start
 ```
 
+### How to strart dummy server
+```
+pip3 install flask 
+python3 dummy_server.py
+```
+
