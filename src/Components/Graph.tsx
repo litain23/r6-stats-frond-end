@@ -3,12 +3,11 @@ import React from 'react'
 
 
 interface Props {
-    data : [{color:string, title:string, value:number}]
-    animated: boolean
+    data : {color:string, title:string, value:number}[]
 }
 
 
-export default class Grpah extends React.Component<Props> {
+export default class PieGraph extends React.Component<Props> {
 
 // color: '#e84057',
 // title: 'Win',
@@ -20,7 +19,7 @@ export default class Grpah extends React.Component<Props> {
     render(){
         return(
             <ReactMinimalPieChart
-                animate={this.props.animated}
+                animate={false}
                 animationDuration={400}
                 animationEasing="ease-out"
                 cx={50}
