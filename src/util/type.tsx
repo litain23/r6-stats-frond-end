@@ -20,7 +20,7 @@ export interface RANKAPI {
 
 
 export interface GENERALAPI {
-
+    
     totalMatchLost:number,
     totalMatchWon:number,
     totalMatchPlayed:number,
@@ -32,4 +32,5 @@ export interface GENERALAPI {
     totalRevive:number,
     totalBulletHit:number,
     totalTimePlayed:number,
+    totalHeadShot:number
 }

@@ -1,50 +1,166 @@
-import { CSSProperties} from "react";
 
-namespace Theme {
+const theme = {
 
-    // enum Color {
-    //     red = "#e84057",
-    //     blue = "#5383e8",
-    //     darkGray = "#31313C",
-    //     bgDarkGray = "#1C1C1F",
-    // }
-    
-    enum FontSize {
-        large,
-        small,
-        middle,
-    }
-    
-    enum FontWieght {
-        bold,
-        normal
-    }
+    typography : {
+        type: {
+          primary: '"Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif',
+          code: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace',
+        },
+        weight: {
+          regular: '400',
+          bold: '700',
+          extrabold: '800',
+          black: '900',
+        },
+        size: {
+          s1: '12',
+          s2: '14',
+          s3: '16',
+          m1: '20',
+          m2: '24',
+          m3: '28',
+          l1: '32',
+          l2: '40',
+          l3: '48',
+          code: '90',
+        },
+    },
+      
+    color : {
+        content_bg: "#1c1c1f",
+        main_100: "#28344e",
+        main_200: "#2f436e",
+        main_300: "#2f436e",
+        main_400: "#4171d6",
+        main_500: "#5383e8",
+        main_600: "#5383e8",
+        main_700: "#5383e8",
+        main_800: "#81acff",
+        main_900: "#81acff",
+        gray_0: "#31313c",
+        gray_100: "#282830",
+        gray_200: "#1c1c1f",
+        gray_250: "#424254",
+        gray_300: "#515163",
+        gray_400: "#7b7a8e",
+        gray_500: "#9e9eb1",
+        gray_600: "#9e9eb1",
+        gray_700: "#b7b7c9",
+        gray_800: "#b7b7c9",
+        gray_900: "#fff",
+        darkpurple_100: "#cfcfe1",
+        darkpurple_200: "#b7b7c9",
+        darkpurple_300: "#9e9eb1",
+        darkpurple_400: "#7b7a8e",
+        darkpurple_500: "#676678",
+        darkpurple_600: "#515163",
+        darkpurple_700: "#424254",
+        darkpurple_800: "#31313c",
+        darkpurple_850: "#282830",
+        darkpurple_900: "#1c1c1f",
+        red_100: "#59343b",
+        red_200: "#703c47",
+        red_300: "#703c47",
+        red_400: "#d31a45",
+        red_500: "#e84057",
+        red_600: "#e84057",
+        red_700: "#e84057",
+        red_800: "#ff6c81",
+        red_900: "#ff6c81",
+        orange_100: "#703100",
+        orange_200: "#8e3e00",
+        orange_300: "#8e3e00",
+        orange_400: "#f06f00",
+        orange_500: "#ff8200",
+        orange_600: "#ff8200",
+        orange_700: "#ff8200",
+        orange_800: "#ff9f4a",
+        orange_900: "#ff9f4a",
+        yellow_100: "#4a340e",
+        yellow_200: "#aa6a19",
+        yellow_300: "#aa6a19",
+        yellow_400: "#e28400",
+        yellow_500: "#eb9c00",
+        yellow_600: "#eb9c00",
+        yellow_700: "#eb9c00",
+        yellow_800: "#ffb900",
+        yellow_900: "#ffb900",
+        green_100: "#304a1d",
+        green_200: "#24662b",
+        green_300: "#24662b",
+        green_400: "#139020",
+        green_500: "#00ae0a",
+        green_600: "#00ae0a",
+        green_700: "#00ae0a",
+        green_800: "#6cc92d",
+        green_900: "#6cc92d",
+        teal_100: "#1d4346",
+        teal_200: "#00666e",
+        teal_300: "#00666e",
+        teal_400: "#00a399",
+        teal_500: "#00bba3",
+        teal_600: "#00bba3",
+        teal_700: "#00bba3",
+        teal_800: "#00d7b0",
+        teal_900: "#00d7b0",
+        blue_100: "#183955",
+        blue_200: "#114882",
+        blue_300: "#114882",
+        blue_400: "#006de2",
+        blue_500: "#0093ff",
+        blue_600: "#0093ff",
+        blue_700: "#0093ff",
+        blue_800: "#00b8ed",
+        blue_900: "#00b8ed",
+        purple_100: "#332353",
+        purple_200: "#3f2a75",
+        purple_300: "#3f2a75",
+        purple_400: "#6b42dc",
+        purple_500: "#7d59ea",
+        purple_600: "#7d59ea",
+        purple_700: "#7d59ea",
+        purple_800: "#a072ff",
+        purple_900: "#a072ff",
+        pink_100: "#5f225e",
+        pink_200: "#8f178d",
+        pink_300: "#8f178d",
+        pink_400: "#e537a2",
+        pink_500: "#e537a2",
+        pink_600: "#d932d6",
+        pink_700: "#d932d6",
+        pink_800: "#b920b7",
+        pink_900: "#b920b7",
+        bronze_100: "#3a3734",
+        bronze_200: "#52493f",
+        bronze_300: "#52493f",
+        bronze_400: "#7c6750",
+        bronze_500: "#907659",
+        bronze_600: "#907659",
+        bronze_700: "#907659",
+        bronze_800: "#a88a67",
+        bronze_900: "#a88a67",
+    },
 
-    
+    theme_color : {
+        primary: "#5383e8",
+        danger:"#e84057",
+        warning:"#eb9c00",
+        background: "#1c1c1f",
+        dark_theme :{
+            gray : {
+                light:"#424254",
+                lighter: "#505163",
+                normal : "#31313c",
+                dark:"#282830",
+            },
+            text : {
+                light: "#ffffff",
+                normal: "#ebeef1",
+                darker:'#7B7A8E',
+                dark:'#9e9eb1',
+            }
+        }
+    },
 }
 
-/*
-export function getFont(size: Theme.FontSize, weight=Theme.FontWieght.normal, percentage=0, color="#000"): CSSProperties {
-
-    let rtSize: string;
-    let rtPercentage = (percentage / 10);
-    
-    if (size === Theme.FontSize.large) {
-        rtSize = (40 + rtPercentage).toString() + "px"
-    } else if (size === Theme.FontSize.middle){ 
-        rtSize = (30 + rtPercentage).toString() + "px"
-    } else {
-        rtSize = (20 + rtPercentage).toString() + "px"
-    }
-
-    let rtWeight: "normal" | "bold"
-
-    if (weight === Theme.FontWieght.normal) {
-        rtWeight = 'normal'
-    } else {
-        rtWeight = 'bold'
-    }
-
-    return {fontSize: rtSize, fontWeight:rtWeight, color:color}
-
-}*/
+export default theme;

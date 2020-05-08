@@ -1,13 +1,13 @@
 import React from 'react'
 import {ToggleButtonGroup, ToggleButton
 ,Button,ButtonGroup} from 'react-bootstrap'
-import Space from './Space'
+import Space from './R6Br'
 
 // export interface Props {
 //     data:[{name: string, handler: ()=>void}],
 // }
 
-export type dataType = [{name: string, handler: ()=>void}]
+export type dataType = {name: string, handler: ()=>void}[]
 
 interface Props {
     data:dataType,

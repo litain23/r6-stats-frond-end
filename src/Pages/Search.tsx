@@ -1,14 +1,10 @@
-import React, { Fragment, CSSProperties } from 'react';
+import React from 'react';
 import '../App.css'
-import Space from '../Components/Space'
-import BlackCard from '../Components/BlackCard'
-import Typography from '../Components/Typography'
 
 import API from '../util/API'
 import {RANKAPI, GENERALAPI} from '../util/type'
 import ReactMinimalPieChart from 'react-minimal-pie-chart';
 
-import Graph from '../Components/Graph'
 
 import {
     ProgressBar,
@@ -18,16 +14,32 @@ import {
     Row
 } from 'react-bootstrap'
 
-import CenteredRow from '../Components/CenteredRow'
-
+import R6Spinner from '../Components/R6Spinner'
+import R6TypoComponent from '../Components/R6TypoComponent';
+import R6Br from '../Components/R6Br';
+import R6Card from '../Components/R6Card';
+import styled from 'styled-components';
+import theme from '../util/theme'
 
 interface State {
     rankData : RANKAPI
     generalData : GENERALAPI
+    loading: boolean
 }
 
 interface Props {
 }
+
+const Margin = styled.section`
+    margin-left:20px;
+    margin-right:20px;
+`;
+
+const Header = styled.section`
+    width:100%;
+    height:150px;
+    background:${theme.theme_color.dark_theme.gray.light}
+`;
 
 export default class Search extends React.Component<Props, State> {
     
@@ -35,26 +47,185 @@ export default class Search extends React.Component<Props, State> {
         super(props);
         this.state = {
             rankData: {} as RANKAPI,
-            generalData: {} as GENERALAPI
+            generalData: {} as GENERALAPI,
+            loading:true,
         }
     }
 
     
-    async componentDidMount(){
+    componentDidMount(){
+        this.setState({generalData : {
+            "totalMatchLost": 1481200,
+            "totalMatchWon": 673,
+            "totalMatchPlayed": 1287,
+            "totalKills": 5184,
+            "totalDeath": 5168,
+            "totalPenetrationKills": 271,
+            "totalMeleeKills": 43,
+            "totalKillAssists": 1862,
+            "totalHeadShot": 1869,
+            "totalRevive": 121,
+            "totalBulletHit": 47596,
+            "totalTimePlayed": 1287
+          },loading:false
+        })
+        //viewUpdate();
+        /*
         try {
             const generalAPIs = await API<GENERALAPI>("api/v1/general/uplay/piliot")
             this.setState({generalData : generalAPIs})
         } catch(e){
             alert(e);
+        }*/
+    }
+
+    render(){
+        
+        let totalTimePlayed = this.state.generalData.totalTimePlayed
+        let totalTimePlayedInHour = Math.round(this.state.generalData.totalTimePlayed)
+
+        let totalMatches = this.state.generalData.totalMatchPlayed
+
+        let win = this.state.generalData.totalMatchWon
+        let lose = totalMatches - win
+
+        let winPercentage = Math.round((win/totalMatches)*100) 
+        let losePerecentage = Math.round((lose/totalMatches)*100)
+        
+        let totalKills = this.state.generalData.totalKills;
+        let totalDeath = this.state.generalData.totalDeath;
+        let killassist = this.state.generalData.totalKillAssists
+
+        let killdeathPercentage = Math.round((totalKills/this.state.generalData.totalDeath)*100)
+        let killDeathAssistPercentage = Math.round((totalKills+killassist)/totalDeath*100);
+
+        let penetrationkill = this.state.generalData.totalPenetrationKills
+        let meleekill = this.state.generalData.totalMeleeKills
+        let headshotkill = this.state.generalData.totalHeadShot
+        let revive = this.state.generalData.totalRevive
+
+        let bullithit = this.state.generalData.totalBulletHit
+    
+        //advnnced
+
+        
+        //매치당 킬.
+        let killperMatches = Math.round(totalKills/totalMatches*100)
+        //분당 킬.
+        let killperMin = Math.round(totalKills/totalTimePlayed*100)
+        //헤드샷 률.
+        let headshotPerecntage = Math.round(headshotkill/totalKills*100)
+
+
+
+        if (this.state.loading) {
+            return <R6Spinner presentationStyle="full"></R6Spinner>
+        } else {
+            return(
+                <>
+                <Margin>
+                <Header>
+                    <Container>
+                        <Row>
+                            <Col>
+                                <Row>
+                                    안녕
+                                </Row>
+                                <Row>
+                                    안녕
+                                </Row>
+                            </Col>
+                            <Col>
+                                pilot
+                            </Col>
+                            <Col>
+                                pilot
+                            </Col>
+
+                        </Row>
+                    </Container>
+                </Header>
+                <R6Br size="lg"/>
+                <R6Card title={""} isHeaderVisible={false}>
+                <Container fluid>
+                    <Row> 
+                        <Col xs={6} sm={6} md={3}  lg={3}>
+                        <R6TypoComponent header={"총 플레이 시간"} body={totalTimePlayedInHour?.toString()} footer={""}/>
+
+                        </Col>
+                        <Col xs={6} sm={6} md={3}  lg={3}>
+                        <R6TypoComponent header={"총 매치 횟수"} body={totalMatches?.toString()} footer={""}/>
+
+                        </Col>
+                        <Col xs={6} sm={6} md={3}  lg={3}>
+                        <R6TypoComponent header={"승리 횟수"} body={win?.toString()} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
+
+                        </Col>
+                        <Col xs={6} sm={6} md={3}  lg={3}>
+                        <R6TypoComponent header={"패배 횟수"} body={lose?.toString()} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
+
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={6} sm={6} md={3}  lg={3}>
+                        <R6TypoComponent header={"승률"} body={winPercentage?.toString()+"%"} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
+
+                        </Col>
+                        <Col xs={6} sm={6} md={3}  lg={3}>
+                        <R6TypoComponent header={"총 킬 수"} body={totalKills?.toString()} footer={""}/>
+
+                        </Col>
+                        <Col xs={6} sm={6} md={3}  lg={3}>
+                        <R6TypoComponent header={"총 데스 수"} body={totalDeath?.toString()} footer={""}/>
+
+                        </Col>
+                        <Col xs={6} sm={6} md={3}  lg={3}>
+                        <R6TypoComponent header={"KDA"} body={killDeathAssistPercentage?.toString()+"%"} footer={"킬+어시스트 : 데스"}/>
+
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={6} sm={6} md={3}  lg={3}>
+                        <R6TypoComponent header={"KD"} body={killdeathPercentage?.toString()+"%"} footer={"킬 : 데스"}/>
+
+                        </Col>
+                        <Col xs={6} sm={6} md={3}  lg={3}>
+                        <R6TypoComponent header={"헤드샷 수"} body={headshotkill?.toString()} footer={"킬 : 데스"}/>
+
+                        </Col>
+                        <Col xs={6} sm={6} md={3}  lg={3}>
+                        <R6TypoComponent header={"헤드샷 률"} body={headshotPerecntage?.toString()+"%"} footer={"총 킬 " + totalKills?.toString() + " 중"}/>
+
+                        </Col>
+                        <Col xs={6} sm={6} md={3}  lg={3}>
+                        <R6TypoComponent header={"근접킬 수"} body={meleekill?.toString()} footer={""}/>
+
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={6} sm={6} md={3}  lg={3}>
+                        <R6TypoComponent header={"관통킬 수"} body={penetrationkill?.toString()} footer={""}/>
+
+                        </Col>
+                        <Col xs={6} sm={6} md={3}  lg={3}>
+                        <R6TypoComponent header={"매치당 킬"} body={killperMatches?.toString()} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
+
+                        </Col>
+                        <Col xs={6} sm={6} md={3}  lg={3}>
+                        <R6TypoComponent header={"분당 킬"} body={killperMin?.toString()} footer={"총 플레이 " + totalTimePlayed?.toString() + " 중"}/>
+                        </Col>
+                    </Row>
+
+                </Container>
+            </R6Card>
+            </Margin>
+            </>
+
+            )
         }
+        
     }
-
-
-    getProgressBar(value: number) {
-        return (
-            <ProgressBar now={value}></ProgressBar>
-        )
-    }
+    
 
     // winVSLose(){
 
@@ -167,45 +338,6 @@ export default class Search extends React.Component<Props, State> {
                         </Col>
                 </Row>
             </Container>
-        )
-    }
-
-    render(){
-
-        return(
-            <BlackCard title={"안녕!"} isHeaderVisible={true}>
-                <Container fluid>
-                    <Row> 
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                            <Typography header={"안녕"} figure={"20"} bottom={"안녕하세요"}/>
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                            <Typography header={"안녕"} figure={"20"} bottom={"안녕하세요"}/>
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                            <Typography header={"안녕"} figure={"20"} bottom={"안녕하세요"} sign={"%"}/>
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                            <Typography header={"안녕"} figure={"20"} bottom={"안녕하세요"}/>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <Typography header={"안녕"} figure={"20"} bottom={"안녕하세요"}/>
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                            <Typography header={"안녕"} figure={"20"} bottom={"안녕하세요"}/>
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                            <Typography header={"안녕"} figure={"20"} bottom={"안녕하세요"}/>
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                            <Typography header={"안녕"} figure={"20"} bottom={"안녕하세요"}/>
-                        </Col>
-                    </Row>
-
-                </Container>
-            </BlackCard>
         )
     }
 }

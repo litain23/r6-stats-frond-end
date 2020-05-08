@@ -4,7 +4,7 @@ import SegmentedControls from '../Components/SegmentedControls'
 import { withKnobs,text, boolean, number, color, select, radios} from '@storybook/addon-knobs';
 
 export default {
-  title: 'Component|Search Page/SegmentedControls',
+  title: 'R6-Component|R6SegmentedControls',
   component: SegmentedControls,
   decorators:[withKnobs],
   componentSubtitle: '"안녕하세요"라고 보여주는 컴포넌트'

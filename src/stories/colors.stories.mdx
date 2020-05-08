@@ -1,0 +1,62 @@
+import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs/blocks";
+import theme from '../util/theme.tsx'
+
+<Meta title='DESIGN SYSTEM|Colors'/>
+
+# Colors
+
+프로젝트에서 사용되는 컬러를 정리하였습니다.
+
+## 사용법
+
+```
+import theme from '../util/theme'
+
+/* 모든 컬러 셋 */
+theme.color.dark_100 // hex color code가 return됩니다.
+
+/* 테마 컬러 셋 */
+theme.theme_color.primary
+
+```
+
+## Theme Color Set
+
+
+
+### 주요 색상
+
+주요색상은 `primary`,`danger`,`warning` 이 있습니다.
+
+<ColorPalette>
+  <ColorItem title="theme.theme_color.primary" subtitle="primary" colors={[theme.theme_color.primary]} />
+  <ColorItem title="theme.theme_color.danger" subtitle="danger" colors={[theme.theme_color.danger]} />
+  <ColorItem title="theme.theme_color.warning" subtitle="warning" colors={[theme.theme_color.warning]} />
+</ColorPalette>
+
+
+
+### 다크 테마 색상
+
+다크 테마를 기반으로 한 색상들 입니다.
+
+gray는 `lighter`,`light`,`normal`, `dark` 로 스케일이 나뉩니다.
+
+text는 `light`,`normal`, `dark`, `darker` 로 스케일이 나뉩니다.
+
+
+<ColorPalette>
+  <ColorItem title="theme.theme_color.dark_theme.gray.*" subtitle="primary" colors={[
+    theme.theme_color.dark_theme.gray.lighter,
+    theme.theme_color.dark_theme.gray.light,
+    theme.theme_color.dark_theme.gray.normal,
+    theme.theme_color.dark_theme.gray.dark
+  ]} />
+  <ColorItem title="theme.theme_color.dark_theme.text.*" subtitle="danger" colors={[
+    theme.theme_color.dark_theme.text.light,
+    theme.theme_color.dark_theme.text.normal,
+    theme.theme_color.dark_theme.text.dark,
+    theme.theme_color.dark_theme.text.darker,
+    ]} />
+</ColorPalette>
+
