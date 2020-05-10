@@ -13,6 +13,15 @@ type Props = {
  */
 const R6Br = ({size}:Props) => {
 
+    if (size === "lg") {
+        size = 12 
+    } else if (size === "sm") {
+        size = 8
+    } else if (typeof size === "number") {
+        size = size;
+    } else {
+        size = 0
+    }
     const style : CSSProperties = {height : size}
 
     return (
@@ -26,43 +35,3 @@ R6Br.defaultProps = {
 }
 
 export default R6Br;
-// R6Br.defaultProps = {
-//     size:"sm"
-// }
-
-// export default R6Br;
-
-
-
-
-// export default class R6Br extends React.Component<Props> {
-
-//     constructor(props:Props) {
-//         super(props as Props);
-//     }
-    
-//     static defaultProps = {
-//         size : "sm"
-//     }
-
-//     render(){
-//         let size;
-//         if (this.props.size === "lg") {
-//             size = 12 
-//         } else if (this.props.size === "sm") {
-//             size = 8
-//         } else if (typeof this.props.size === "number") {
-//             size = this.props.size;
-//         } else {
-//             size = 0
-//         }
-
-//         const style : CSSProperties = {height : size}
-//         return(
-//             <div style={style}>
-//             </div>
-//         )
-//     }
-// }
-
-

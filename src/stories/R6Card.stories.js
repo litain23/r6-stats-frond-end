@@ -18,7 +18,7 @@ export const Default = () => {
     const visibleProp = boolean('헤더노출여부', true);
     const backgroundColorProp = color('배경색상', "#31313C")
     const fontColorProp = color('폰트색상', "white")
-    return (<R6Card title={titleProp} isHeaderVisible={visibleProp} backgroundColor={backgroundColorProp} fontColor={fontColorProp}>
+    return (<R6Card title={titleProp} visible={visibleProp} backgroundColor={backgroundColorProp} fontColor={fontColorProp}>
         카드컨텐츠
     </R6Card>);
   }
@@ -30,7 +30,7 @@ export const Default = () => {
   }
 
   export const WithoutHeader = () => {
-    return (<R6Card title={"카드제목"} isHeaderVisible={false}>
+    return (<R6Card title={"카드제목"} visible={false}>
         카드컨텐츠
     </R6Card>);
   }

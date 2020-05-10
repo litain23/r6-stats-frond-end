@@ -1,5 +1,5 @@
 import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs/blocks";
-import theme from '../util/theme.tsx'
+import { theme } from '../util/theme.tsx'
 
 <Meta title='DESIGN SYSTEM|Colors'/>
 
@@ -29,9 +29,9 @@ theme.theme_color.primary
 주요색상은 `primary`,`danger`,`warning` 이 있습니다.
 
 <ColorPalette>
-  <ColorItem title="theme.theme_color.primary" subtitle="primary" colors={[theme.theme_color.primary]} />
-  <ColorItem title="theme.theme_color.danger" subtitle="danger" colors={[theme.theme_color.danger]} />
-  <ColorItem title="theme.theme_color.warning" subtitle="warning" colors={[theme.theme_color.warning]} />
+  <ColorItem title="theme.theme_color.primary" subtitle="primary" colors={[theme.theme_color.primary.normal]} />
+  <ColorItem title="theme.theme_color.danger" subtitle="danger" colors={[theme.theme_color.danger.normal]} />
+  <ColorItem title="theme.theme_color.warning" subtitle="warning" colors={[theme.theme_color.warning.normal]} />
 </ColorPalette>
 
 
@@ -47,16 +47,16 @@ text는 `light`,`normal`, `dark`, `darker` 로 스케일이 나뉩니다.
 
 <ColorPalette>
   <ColorItem title="theme.theme_color.dark_theme.gray.*" subtitle="primary" colors={[
-    theme.theme_color.dark_theme.gray.lighter,
-    theme.theme_color.dark_theme.gray.light,
-    theme.theme_color.dark_theme.gray.normal,
-    theme.theme_color.dark_theme.gray.dark
+    theme.color.dark.gray.lighter,
+    theme.color.dark.gray.light,
+    theme.color.dark.gray.normal,
+    theme.color.dark.gray.dark
   ]} />
   <ColorItem title="theme.theme_color.dark_theme.text.*" subtitle="danger" colors={[
-    theme.theme_color.dark_theme.text.light,
-    theme.theme_color.dark_theme.text.normal,
-    theme.theme_color.dark_theme.text.dark,
-    theme.theme_color.dark_theme.text.darker,
+    theme.color.dark.text.light,
+    theme.color.dark.text.normal,
+    theme.color.dark.text.dark,
+    theme.color.dark.text.darker,
     ]} />
 </ColorPalette>
 

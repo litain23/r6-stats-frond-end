@@ -1,6 +1,221 @@
 
+import React from "react";
+import styled, { ThemeProvider, ThemedStyledProps } from "styled-components";
+
+
+/* 자주쓰는 컬러에 대한 enum */
+export type colorType = "primary" | "danger" | "warning" 
+// | "danger" | "warning" | "background"
+export type fontWeightType = "regular" | "bold" | "extrabold" | "black"
+/* 사이즈 종류에 따른 enum */
+export type sizeType = "lg" | "md" | "sm"
+
+export interface themeType {
+
+    element : {
+        /** 엘리먼트의 일반 사이즈 (height) */
+        height : {
+            lg : string
+            sm : string
+            md : string
+        }
+
+        /** 엘리먼트의 일반 Padding */
+        padding : {
+            lg: string
+            sm : string
+            md : string
+        }
+    }
+
+    font : {
+        /** 사이즈 관련 프로퍼티 */
+        size : {
+            /** 엘리먼트 속 폰트 */
+            element_font : {
+                lg : string
+                sm : string
+                md : string
+            }
+            /** 일반 폰트 크기 */
+            font : {
+                lg: string
+                sm : string
+                md : string
+            }
+            /** 폰트 굵기 */
+            weight: {
+                regular: string,
+                bold: string,
+                extrabold: string,
+                black: string,
+            }
+        }
+
+    }
+
+    /** 테마 컬러 프로퍼티 */
+    theme_color : {
+
+        primary : {
+            normal:string
+            active:string
+            hover:string
+            disable:string
+        }
+
+        danger : {
+            normal:string
+            active:string
+            hover:string
+            disable:string
+        }
+
+        warning: {
+            normal:string
+            active:string
+            hover:string
+            disable:string
+        }
+    }
+
+    color : {
+        background: string
+        dark : {
+                gray : {
+                    lighter: string
+                    light: string
+                    normal: string
+                    dark : string
+                },
+                text : {
+                    light : string
+                    normal: string
+                    darker : string
+                    dark : string
+                }
+            }
+    }
+
+        // background: string
+        // danger : string
+        // warning: string
+        // background: string
+
+        // /** 다크 테마 */
+        // dark : {
+        //     gray : {
+        //         lighter: string
+        //         light: string
+        //         normal: string
+        //         dark : string
+        //     },
+        //     text : {
+        //         light : string
+        //         normal: string
+        //         darker : string
+        //         dark : string
+        //     }
+        // }
+}
+
+
+
+export const theme : themeType = {
+
+    element : {
+        height : {
+            lg : '3rem',
+            md : '2.5rem',
+            sm : '1.75rem',
+        },
+        padding : {
+            lg : '0 1.5rem',
+            md : '0 1rem',
+            sm : '0 0.875rem'
+        }   
+    },
+
+    font : {
+        size : {
+            element_font : {
+                lg : '1.125rem',
+                md : '1rem',
+                sm : '0.75rem',
+            },
+            font : {
+                lg: '32',
+                md : '24',
+                sm : '12',
+            },
+            weight: {
+                regular: '400',
+                bold: '700',
+                extrabold: '800',
+                black: '900',
+            }
+        }
+    },
+    theme_color : {
+        primary: {
+            normal: "#5383e8",
+            hover: "#5c90ff",
+            active: "#446abd",
+            disable:"#adc8ff"
+        },
+        danger: {
+            normal: "#e84057",
+            hover: "#ff546c",
+            active: "#bd4052",
+            disable: "#9e5f68",
+        },
+        warning: {
+            normal: "#eb9c00",
+            hover: "#ffb41f",
+            active: "#ba7c00",
+            disable: "#c4ae82"
+        }
+        // danger:"#e84057",
+        // warning:"#eb9c00",
+        // 
+    },
+    color:{
+        background: "#1c1c1f",
+        dark : {
+            gray : {
+                lighter: "#505163",
+                light: "#424254",
+                normal: "#31313c",
+                dark : "#282830",
+            },
+            text : {
+                light : "#ffffff",
+                normal: '#ebeef1',
+                darker : '#ebeef1',
+                dark : '#9e9eb1'
+            }
+        }
+    }
+}
+
+
+/*
 const theme = {
 
+    theme_color : {
+        primary: "#5383e8",
+        danger:"#e84057",
+        warning:"#eb9c00",
+        background: "#1c1c1f",
+        light_gray:"#424254",
+        lighter_gary:"#505163",
+        gray:"#31313c",
+        dark_gray:"#282830",
+        light_text:"#ffffff",
+        textColor:"#ebeef1",
+        darker_text:'#7B7A8E',
+        dark_text:'#9e9eb1'
+    },
     typography : {
         type: {
           primary: '"Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif',
@@ -141,26 +356,8 @@ const theme = {
         bronze_900: "#a88a67",
     },
 
-    theme_color : {
-        primary: "#5383e8",
-        danger:"#e84057",
-        warning:"#eb9c00",
-        background: "#1c1c1f",
-        dark_theme :{
-            gray : {
-                light:"#424254",
-                lighter: "#505163",
-                normal : "#31313c",
-                dark:"#282830",
-            },
-            text : {
-                light: "#ffffff",
-                normal: "#ebeef1",
-                darker:'#7B7A8E',
-                dark:'#9e9eb1',
-            }
-        }
-    },
+   
 }
+*/
 
-export default theme;
+  

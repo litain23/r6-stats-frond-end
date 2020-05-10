@@ -4,13 +4,13 @@ export interface SizeRequired {
 }
 
 export interface RANKAPI {
-    maxMMR: string;
+    maxMmr: number;
     death: number;
     rank: number;
     maxRank:number;
     kills:number;
-    updateTime: Date;
-    abandons:string;
+    updateTime: string|Date;
+    abandons: number|string;
     mmr:number;
     wins:number;
     region:string;

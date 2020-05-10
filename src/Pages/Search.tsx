@@ -3,7 +3,6 @@ import '../App.css'
 
 import API from '../util/API'
 import {RANKAPI, GENERALAPI} from '../util/type'
-import ReactMinimalPieChart from 'react-minimal-pie-chart';
 
 
 import {
@@ -17,14 +16,20 @@ import {
 import R6Spinner from '../Components/R6Spinner'
 import R6TypoComponent from '../Components/R6TypoComponent';
 import R6Br from '../Components/R6Br';
-import R6Card from '../Components/R6Card';
+import R6ToggleButtonGroup from '../Components/R6ToggleButtonGroup';
+import R6ToggleButton from '../Components/R6ToggleButton';
+
 import styled from 'styled-components';
-import theme from '../util/theme'
+import {theme} from '../util/theme'
+
+import SearchOverviewTab from './SearchOverviewTab';
+
 
 interface State {
     rankData : RANKAPI
     generalData : GENERALAPI
     loading: boolean
+    currentTab: number
 }
 
 interface Props {
@@ -38,7 +43,7 @@ const Margin = styled.section`
 const Header = styled.section`
     width:100%;
     height:150px;
-    background:${theme.theme_color.dark_theme.gray.light}
+    background:${theme.color.dark.gray.light};
 `;
 
 export default class Search extends React.Component<Props, State> {
@@ -49,9 +54,30 @@ export default class Search extends React.Component<Props, State> {
             rankData: {} as RANKAPI,
             generalData: {} as GENERALAPI,
             loading:true,
+            currentTab:1,
         }
+
+        this.tabHanndler = this.tabHanndler.bind(this);
     }
 
+    tabHanndler(tabNumber : number) {
+        this.setState({currentTab:tabNumber})
+    }
+
+    tabContentsHandler(tabNumber: number): React.ReactNode {
+
+        switch(tabNumber){
+            case 1:
+                return(<SearchOverviewTab generalData={this.state.generalData} rankData={this.state.rankData}/>);
+            case 2:
+                return(<></>);
+            case 3:
+                return(<></>);
+            case 4:
+                return(<></>);
+        } 
+
+    }
     
     componentDidMount(){
         this.setState({generalData : {
@@ -67,7 +93,22 @@ export default class Search extends React.Component<Props, State> {
             "totalRevive": 121,
             "totalBulletHit": 47596,
             "totalTimePlayed": 1287
-          },loading:false
+          },
+          rankData:{
+            "maxMmr": 2581,
+            "death": 878,
+            "rank": 15,
+            "maxRank": 15,
+            "kills": 1004,
+            "updateTime": "2020-04-30T12:44:23.147000+00:00",
+            "abandons": 1,
+            "mmr": 2509,
+            "wins": 114,
+            "region": "apac",
+            "season": 17,
+            "losses": 99
+          }
+          ,loading:false
         })
         //viewUpdate();
         /*
@@ -79,44 +120,13 @@ export default class Search extends React.Component<Props, State> {
         }*/
     }
 
+  
+
     render(){
-        
-        let totalTimePlayed = this.state.generalData.totalTimePlayed
-        let totalTimePlayedInHour = Math.round(this.state.generalData.totalTimePlayed)
 
-        let totalMatches = this.state.generalData.totalMatchPlayed
+        let tabContents = <SearchOverviewTab generalData={this.state.generalData} rankData={this.state.rankData}/>
 
-        let win = this.state.generalData.totalMatchWon
-        let lose = totalMatches - win
-
-        let winPercentage = Math.round((win/totalMatches)*100) 
-        let losePerecentage = Math.round((lose/totalMatches)*100)
-        
-        let totalKills = this.state.generalData.totalKills;
-        let totalDeath = this.state.generalData.totalDeath;
-        let killassist = this.state.generalData.totalKillAssists
-
-        let killdeathPercentage = Math.round((totalKills/this.state.generalData.totalDeath)*100)
-        let killDeathAssistPercentage = Math.round((totalKills+killassist)/totalDeath*100);
-
-        let penetrationkill = this.state.generalData.totalPenetrationKills
-        let meleekill = this.state.generalData.totalMeleeKills
-        let headshotkill = this.state.generalData.totalHeadShot
-        let revive = this.state.generalData.totalRevive
-
-        let bullithit = this.state.generalData.totalBulletHit
-    
-        //advnnced
-
-        
-        //매치당 킬.
-        let killperMatches = Math.round(totalKills/totalMatches*100)
-        //분당 킬.
-        let killperMin = Math.round(totalKills/totalTimePlayed*100)
-        //헤드샷 률.
-        let headshotPerecntage = Math.round(headshotkill/totalKills*100)
-
-
+       
 
         if (this.state.loading) {
             return <R6Spinner presentationStyle="full"></R6Spinner>
@@ -146,78 +156,15 @@ export default class Search extends React.Component<Props, State> {
                     </Container>
                 </Header>
                 <R6Br size="lg"/>
-                <R6Card title={""} isHeaderVisible={false}>
-                <Container fluid>
-                    <Row> 
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"총 플레이 시간"} body={totalTimePlayedInHour?.toString()} footer={""}/>
 
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"총 매치 횟수"} body={totalMatches?.toString()} footer={""}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"승리 횟수"} body={win?.toString()} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"패배 횟수"} body={lose?.toString()} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
-
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"승률"} body={winPercentage?.toString()+"%"} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"총 킬 수"} body={totalKills?.toString()} footer={""}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"총 데스 수"} body={totalDeath?.toString()} footer={""}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"KDA"} body={killDeathAssistPercentage?.toString()+"%"} footer={"킬+어시스트 : 데스"}/>
-
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"KD"} body={killdeathPercentage?.toString()+"%"} footer={"킬 : 데스"}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"헤드샷 수"} body={headshotkill?.toString()} footer={"킬 : 데스"}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"헤드샷 률"} body={headshotPerecntage?.toString()+"%"} footer={"총 킬 " + totalKills?.toString() + " 중"}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"근접킬 수"} body={meleekill?.toString()} footer={""}/>
-
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"관통킬 수"} body={penetrationkill?.toString()} footer={""}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"매치당 킬"} body={killperMatches?.toString()} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"분당 킬"} body={killperMin?.toString()} footer={"총 플레이 " + totalTimePlayed?.toString() + " 중"}/>
-                        </Col>
-                    </Row>
-
-                </Container>
-            </R6Card>
+                <R6ToggleButtonGroup currentValue={this.state.currentTab} onChange={this.tabHanndler}>
+                    <R6ToggleButton value={1}> overview </R6ToggleButton>
+                    <R6ToggleButton value={2}> 랭크 </R6ToggleButton>
+                    <R6ToggleButton value={3}> 플레이분석 </R6ToggleButton>
+                    <R6ToggleButton value={4}> 오퍼레이터 </R6ToggleButton>
+                </R6ToggleButtonGroup>
+                <R6Br size="lg"/>
+                {this.tabContentsHandler(this.state.currentTab)}
             </Margin>
             </>
 
@@ -279,67 +226,6 @@ export default class Search extends React.Component<Props, State> {
 
     //이긴쪽이 더 크게.
     // + KD 설명
-    killDeath(){
-        return(
-            <Container fluid>
-                <Row className="wrapper">
-                    <Col xs={3}>
-                        <Container>
-                            <Row className="wrapper">
-                                <h1> Kills </h1>
-                            </Row>
-                            <Row className="wrapper">
-                                <h5> {this.state.generalData.totalKills}</h5>
-                            </Row>
-                        </Container>
-                    </Col>
-                        <Col xs={6}>
-                            <ReactMinimalPieChart
-                            animate={true}
-                            animationDuration={400}
-                            animationEasing="ease-out"
-                            cx={50}
-                            cy={50}
-                            data={[
-                                {
-                                color: '#e84057',
-                                title: 'Win',
-                                value: this.state.generalData.totalKills
-                                },
-                                {
-                                color: '#5383e8',
-                                title: 'Lose',
-                                value: this.state.generalData.totalDeath
-                                }
-                            ]}
-                            label={false}
-                            labelPosition={50}
-                            lengthAngle={360}
-                            lineWidth={30}
-                            paddingAngle={0} 
-                            radius={50}
-                            // rounded
-                            startAngle={90}
-                            viewBoxSize={[
-                                100,
-                                100
-                            ]}
-                            />
-                    </Col>
-                    <Col xs={3}>
-                        <Container>
-                            <Row className="wrapper">
-                                <h1> Lost </h1>
-                            </Row>
-                            <Row className="wrapper">
-                                <h5> {this.state.generalData.totalDeath}</h5>
-                            </Row>
-                            </Container>
-                        </Col>
-                </Row>
-            </Container>
-        )
-    }
 }
 
 // <div>
