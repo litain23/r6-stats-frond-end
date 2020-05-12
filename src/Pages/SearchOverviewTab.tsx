@@ -52,34 +52,29 @@ export default class SearchOverviewTab extends React.Component<Props> {
         let killperMin = Math.round(totalKills/totalTimePlayed*100)
         //헤드샷 률.
         let headshotPerecntage = Math.round(headshotkill/totalKills*100)
-
+        
 
 
         return(
-            <R6Card title={""} isHeaderVisible={false}>
-                <Container fluid>
+            <R6Card title={"시즌 17"} visible={false}>
+                {[<Container fluid>
                     <Row> 
                         <Col xs={6} sm={6} md={3}  lg={3}>
                         <R6TypoComponent header={"총 플레이 시간"} body={totalTimePlayedInHour?.toString()} footer={""}/>
-
                         </Col>
                         <Col xs={6} sm={6} md={3}  lg={3}>
                         <R6TypoComponent header={"총 매치 횟수"} body={totalMatches?.toString()} footer={""}/>
-
                         </Col>
                         <Col xs={6} sm={6} md={3}  lg={3}>
                         <R6TypoComponent header={"승리 횟수"} body={win?.toString()} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
-
                         </Col>
                         <Col xs={6} sm={6} md={3}  lg={3}>
                         <R6TypoComponent header={"패배 횟수"} body={lose?.toString()} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
-
                         </Col>
                     </Row>
                     <Row>
                         <Col xs={6} sm={6} md={3}  lg={3}>
                         <R6TypoComponent header={"승률"} body={winPercentage?.toString()+"%"} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
-
                         </Col>
                         <Col xs={6} sm={6} md={3}  lg={3}>
                         <R6TypoComponent header={"총 킬 수"} body={totalKills?.toString()} footer={""}/>
@@ -126,7 +121,8 @@ export default class SearchOverviewTab extends React.Component<Props> {
                         </Col>
                     </Row>
 
-                </Container>
+                </Container>,
+            ]}
             </R6Card>
         )
     }
