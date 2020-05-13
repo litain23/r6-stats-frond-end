@@ -2,131 +2,207 @@ import React from 'react';
 import '../App.css'
 import {RANKAPI, GENERALAPI} from '../util/type'
 import R6TypoComponent from '../Components/R6TypoComponent';
-import R6Card from '../Components/R6Card';
+// import R6Card from '../Components/R6Card';
+import R6CardComp from '../Components/R6CardComp';
+import {ProgressBar} from 'react-bootstrap'
+import {theme} from '../util/theme'
+
+
 import {
     Container,
     Col,
     Row
 } from 'react-bootstrap'
 
+import styled from 'styled-components'
+import R6Br from '../Components/R6Br';
+
 interface Props {
-    rankData : RANKAPI
+    rankData : RANKAPI 
+    allRankData : RANKAPI[]
     generalData : GENERALAPI
 }
 
+
+
+const DIV1 = styled.section`
+    display:flex;
+    flex:1;
+    flex-direction:row;
+    align-items:stretch;
+`;
+const LEFT = styled.section`
+    display:flex;
+    background:${theme.theme_color.warning.normal};
+    flex-grow:0;
+    text-align:center;
+    justify-content:center;
+    algin-items:center;
+    align-content:center;
+    width:300px;
+`;
+
+const LEFT1 = styled.section`
+    flex:1;
+    align-self:center;
+`;
+
+const RIGHT = styled.section`
+    flex-grow : 1;
+    align-items:center;
+    justify-content:center;
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-left:10px;
+`;
+
+
 export default class SearchRankTab extends React.Component<Props> {
-    
+
+
+    compareFunction(a:string, b:string){
+        if (+a < +b){
+            return 0
+        } else {
+            return -1
+        }
+    }
+
     render(){
-        let totalTimePlayed = this.props.generalData.totalTimePlayed
-        let totalTimePlayedInHour = Math.round(this.props.generalData.totalTimePlayed)
 
-        let totalMatches = this.props.generalData.totalMatchPlayed
+        //reduce로 만들어주거나해야함.
+        //시즌별로묶어주기<div className=""></div>
 
-        let win = this.props.generalData.totalMatchWon
-        let lose = totalMatches - win
+        let allRankData = this.props.allRankData.reduce((previous,rankdata,index,total) => {
 
-        let winPercentage = Math.round((win/totalMatches)*100) 
-        let losePerecentage = Math.round((lose/totalMatches)*100)
+            //랭크별로분류하기.
+            //시즌별로 분류한뒤에 넣기.
+            // { 12 : [ <R6Card>abc</R6Card> , <R6Card>abc</R6Card> ] }
+            
+            if (previous[rankdata.season] == undefined) {
+                previous[rankdata.season] = []
+            } 
+
+            let totalKills = rankdata.kills;
+            let totalDeath = rankdata.death;
+            let killdeathPercentage = Math.round((totalKills/totalDeath)*100)
+            let totalWins = rankdata.wins
+            let totalLoses = rankdata.losses
+            let abaondons = rankdata.abandons
+            let totalMatches = totalWins + totalLoses + abaondons
+            let killperMatches = Math.round(totalKills/totalMatches*100)
+            let winbyMatches = Math.round(totalWins/totalMatches*100)
+            let season = rankdata.season
+            let maxRank = rankdata.maxRank
+            let maxMmr = rankdata.maxMmr
+            let rank = rankdata.rank
+            let mmr = rankdata.mmr
+            let region = rankdata.region
+
+            previous[rankdata.season].push(
+                (
+                        <DIV1>
+                        <LEFT>
+                            <LEFT1>
+                            {region}
+                            <R6Br/>
+                            {rank}
+                            <R6Br/>
+                            <ProgressBar now={60} />
+                            
+                            현재 MMR : {mmr}
+                            <R6Br/>
+                            현재 MMR / MAX MMR : {mmr + ':' + maxMmr}
+                            </LEFT1>
+                        </LEFT>
+                        <RIGHT>
+                        <Container fluid>
+                            <Row> 
+                                <Col xs={6} sm={6} md={6}  lg={3}>
+                                <R6TypoComponent header={"K/D"} body={killdeathPercentage.toString() + "%"} footer={""}/>
+                                </Col>
+                                <Col xs={6} sm={6} md={6}  lg={3}>
+                                <R6TypoComponent header={"Kill/Matches"} body={killperMatches} footer={""}/>
+                                </Col>
+                                <Col xs={6} sm={6} md={6}  lg={3}>
+                                <R6TypoComponent header={"Kills"} body={totalKills} footer={""}/>
+                                </Col>
+                                <Col xs={6} sm={6} md={6}  lg={3}>
+                                <R6TypoComponent header={"Deaths"} body={totalDeath} footer={""}/>
+                                </Col>
+                            </Row>
+
+                            <Row> 
+                                <Col xs={6} sm={6} md={6}  lg={3}>
+                                <R6TypoComponent header={"Win %"} body={winbyMatches.toString()+"%"} footer={""}/>
+                                </Col>
+                                <Col xs={6} sm={6} md={6}  lg={3}>
+                                <R6TypoComponent header={"Wins"} body={totalWins} footer={""}/>
+                                </Col>
+                                <Col xs={6} sm={6} md={6}  lg={3}>
+                                <R6TypoComponent header={"Losses"} body={totalLoses} footer={""}/>
+                                </Col>
+                                <Col xs={6} sm={6} md={6}  lg={3}>
+                                <R6TypoComponent header={"Abandons"} body={abaondons} footer={""}/>
+                                </Col>
+                            </Row>
+
+                            <Row> 
+                                <Col xs={6} sm={6} md={6}  lg={3}>
+                                <R6TypoComponent header={"Rank"} body={rank} footer={""}/>
+                                </Col>
+                                <Col xs={6} sm={6} md={6}  lg={3}>
+                                <R6TypoComponent header={"Max Rank"} body={maxRank} footer={""}/>
+                                </Col>
+                                <Col xs={6} sm={6} md={6}  lg={3}>
+                                <R6TypoComponent header={"MMR"} body={mmr} footer={""}/>
+                                </Col>
+                                <Col xs={6} sm={6} md={6}  lg={3}>
+                                <R6TypoComponent header={"MAX MMR"} body={maxMmr} footer={""}/>
+                                </Col>
+                            </Row>
+
+                        </Container>
+                        </RIGHT>
+                        {/* <Container>
+                        <Row noGutters={true}> 
+                            <Col xs={2}>
+                                <div style={{backgroundColor:'red', padding:0, height:'100px', width:'100%'}}>asdfasdfasdfas </div>
+                            </Col>
+
+                            <Col xs={10}>
+                                <div style={{backgroundColor:'red'}}> adsfasdfasdf </div>
+                            </Col>
+                        </Row>
+                    </Container> */}
+                    </DIV1>         
+        )
+            )
+            return previous;
+        }, {} as any)
+
         
-        let totalKills = this.props.generalData.totalKills;
-        let totalDeath = this.props.generalData.totalDeath;
-        let killassist = this.props.generalData.totalKillAssists
-
-        let killdeathPercentage = Math.round((totalKills/this.props.generalData.totalDeath)*100)
-        let killDeathAssistPercentage = Math.round((totalKills+killassist)/totalDeath*100);
-
-        let penetrationkill = this.props.generalData.totalPenetrationKills
-        let meleekill = this.props.generalData.totalMeleeKills
-        let headshotkill = this.props.generalData.totalHeadShot
-        let revive = this.props.generalData.totalRevive
-
-        let bullithit = this.props.generalData.totalBulletHit
-    
-        //advnnced
-
         
-        //매치당 킬.
-        let killperMatches = Math.round(totalKills/totalMatches*100)
-        //분당 킬.
-        let killperMin = Math.round(totalKills/totalTimePlayed*100)
-        //헤드샷 률.
-        let headshotPerecntage = Math.round(headshotkill/totalKills*100)
-
+        let cards = Object.keys(allRankData).sort(this.compareFunction).map((value) => {
+            return (
+                // <R6Card title={"Season " + value} visible={true}>
+                //     {allRankData[value]}
+                // </R6Card>
+                <>
+                <R6CardComp title={"Season " + value}>
+                    {allRankData[value]}
+                </R6CardComp>
+                <R6Br size="lg" />
+                </>
+            )
+        })
+        /* max와의 비교 */
 
 
         return(
-            <R6Card title={""} isHeaderVisible={false}>
-                <Container fluid>
-                    <Row> 
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"총 플레이 시간"} body={totalTimePlayedInHour?.toString()} footer={""}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"총 매치 횟수"} body={totalMatches?.toString()} footer={""}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"승리 횟수"} body={win?.toString()} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"패배 횟수"} body={lose?.toString()} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
-
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"승률"} body={winPercentage?.toString()+"%"} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"총 킬 수"} body={totalKills?.toString()} footer={""}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"총 데스 수"} body={totalDeath?.toString()} footer={""}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"KDA"} body={killDeathAssistPercentage?.toString()+"%"} footer={"킬+어시스트 : 데스"}/>
-
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"KD"} body={killdeathPercentage?.toString()+"%"} footer={"킬 : 데스"}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"헤드샷 수"} body={headshotkill?.toString()} footer={"킬 : 데스"}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"헤드샷 률"} body={headshotPerecntage?.toString()+"%"} footer={"총 킬 " + totalKills?.toString() + " 중"}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"근접킬 수"} body={meleekill?.toString()} footer={""}/>
-
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"관통킬 수"} body={penetrationkill?.toString()} footer={""}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"매치당 킬"} body={killperMatches?.toString()} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"분당 킬"} body={killperMin?.toString()} footer={"총 플레이 " + totalTimePlayed?.toString() + " 중"}/>
-                        </Col>
-                    </Row>
-
-                </Container>
-            </R6Card>
+          <>
+          {cards}
+          </>
         )
     }
 }

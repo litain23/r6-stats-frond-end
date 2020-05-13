@@ -3,6 +3,7 @@ import '../App.css'
 
 import API from '../util/API'
 import {RANKAPI, GENERALAPI} from '../util/type'
+import { ReactComponent as Logo } from './yo.svg';
 
 
 import {
@@ -10,12 +11,15 @@ import {
     Button,
     Container,
     Col,
-    Row
+    Row,
+    Image
 } from 'react-bootstrap'
 
 import R6Spinner from '../Components/R6Spinner'
 import R6TypoComponent from '../Components/R6TypoComponent';
 import R6Br from '../Components/R6Br';
+import R6Button from '../Components/R6Button';
+
 import R6ToggleButtonGroup from '../Components/R6ToggleButtonGroup';
 import R6ToggleButton from '../Components/R6ToggleButton';
 
@@ -23,10 +27,12 @@ import styled from 'styled-components';
 import {theme} from '../util/theme'
 
 import SearchOverviewTab from './SearchOverviewTab';
+import SearchRankTab from './SearchRankTab';
 
 
 interface State {
     rankData : RANKAPI
+    allRankData : RANKAPI[]
     generalData : GENERALAPI
     loading: boolean
     currentTab: number
@@ -36,16 +42,72 @@ interface Props {
 }
 
 const Margin = styled.section`
-    margin-left:20px;
-    margin-right:20px;
+    margin-left:35px;
+    margin-right:35px;
 `;
 
 const Header = styled.section`
     width:100%;
-    height:150px;
     background:${theme.color.dark.gray.light};
 `;
 
+const CONTAINER = styled.section`
+    display:flex;
+    flex-direction:row;
+    height:150px;
+`;
+
+const PROFILE_PIC = styled.section`
+    display:flex;
+    background:pink;
+    width:150px;
+    height:150px;
+`;
+
+const PROFILE_PIC_X = styled.section`
+    background:green;
+    justify-content:center;
+    align-items:stretch;
+    flex:1;
+    margin:15px;
+    margin-left:0px;
+    margin-right:30px;
+`;
+
+const PROFILE_ID = styled.section`
+    display:flex;
+    flex:1;
+    flex-direction:column;
+    background:blue;
+    justify-content:center;
+`;
+
+const PROFILE_ID_ID = styled.section`
+    color:white;
+    font-size:40px;
+`;
+
+const PROFILE_ID_BUTTON = styled.section`
+`;
+
+
+
+const Profile = () => {
+    return(
+        <CONTAINER>
+            <PROFILE_PIC>
+                <PROFILE_PIC_X/>
+            </PROFILE_PIC>
+            <PROFILE_ID>
+                <PROFILE_ID_ID>
+                    <div style={{fontWeight:'bolder'}}> hello </div>  </PROFILE_ID_ID>
+                <R6Br size={"lg"}/>
+                <PROFILE_ID_BUTTON> <R6Button size={"lg"}>전적갱신하기</R6Button> </PROFILE_ID_BUTTON>
+            </PROFILE_ID>
+        </CONTAINER>
+    )
+
+}
 export default class Search extends React.Component<Props, State> {
     
     constructor(props: Props){
@@ -53,6 +115,7 @@ export default class Search extends React.Component<Props, State> {
         this.state = {
             rankData: {} as RANKAPI,
             generalData: {} as GENERALAPI,
+            allRankData: [] as RANKAPI[],
             loading:true,
             currentTab:1,
         }
@@ -70,7 +133,7 @@ export default class Search extends React.Component<Props, State> {
             case 1:
                 return(<SearchOverviewTab generalData={this.state.generalData} rankData={this.state.rankData}/>);
             case 2:
-                return(<></>);
+                return(<SearchRankTab allRankData={this.state.allRankData} generalData={this.state.generalData} rankData={this.state.rankData}/>);
             case 3:
                 return(<></>);
             case 4:
@@ -80,7 +143,9 @@ export default class Search extends React.Component<Props, State> {
     }
     
     componentDidMount(){
-        this.setState({generalData : {
+        
+        this.setState({
+            generalData : {
             "totalMatchLost": 1481200,
             "totalMatchWon": 673,
             "totalMatchPlayed": 1287,
@@ -107,7 +172,139 @@ export default class Search extends React.Component<Props, State> {
             "region": "apac",
             "season": 17,
             "losses": 99
-          }
+          },
+          allRankData:[
+            {
+                "maxMmr": 2906,
+                "death": 0,
+                "rank": 10,
+                "maxRank": 15,
+                "kills": 0,
+                "abandons": 1,
+                "mmr": 2283,
+                "wins": 20,
+                "region": "apac",
+                "season": 9,
+                "losses": 23
+            },
+            {
+                "maxMmr": 2906,
+                "death": 0,
+                "rank": 10,
+                "maxRank": 15,
+                "kills": 0,
+                "abandons": 1,
+                "mmr": 2283,
+                "wins": 20,
+                "region": "apac",
+                "season": 9,
+                "losses": 23
+            },
+            {
+                "maxMmr": 2621,
+                "death": 0,
+                "rank": 9,
+                "maxRank": 10,
+                "kills": 0,
+                "abandons": 6,
+                "mmr": 2106,
+                "wins": 132,
+                "region": "apac",
+                "season": 10,
+                "losses": 119
+            },
+            {
+                "maxMmr": 3337,
+                "death": 0,
+                "rank": 15,
+                "maxRank": 17,
+                "kills": 0,
+                "abandons": 4,
+                "mmr": 3008,
+                "wins": 108,
+                "region": "apac",
+                "season": 11,
+                "losses": 97
+            },
+            {
+                "maxMmr": 3121,
+                "death": 0,
+                "rank": 13,
+                "maxRank": 16,
+                "kills": 0,
+                "abandons": 0,
+                "mmr": 2655,
+                "wins": 26,
+                "region": "apac",
+                "season": 12,
+                "losses": 26
+            },
+            {
+                "maxMmr": 3125,
+                "death": 0,
+                "rank": 13,
+                "maxRank": 16,
+                "kills": 0,
+                "abandons": 2,
+                "mmr": 2637,
+                "wins": 65,
+                "region": "apac",
+                "season": 13,
+                "losses": 60
+            },
+            {
+                "maxMmr": 3345,
+                "death": 282,
+                "rank": 12,
+                "maxRank": 17,
+                "kills": 222,
+                "abandons": 4,
+                "mmr": 2459,
+                "wins": 30,
+                "region": "apac",
+                "season": 14,
+                "losses": 30
+            },
+            {
+                "maxMmr": 2568,
+                "death": 811,
+                "rank": 9,
+                "maxRank": 15,
+                "kills": 771,
+                "abandons": 4,
+                "mmr": 1901,
+                "wins": 55,
+                "region": "apac",
+                "season": 15,
+                "losses": 63
+            },
+            {
+                "maxMmr": 2838,
+                "death": 566,
+                "rank": 13,
+                "maxRank": 17,
+                "kills": 570,
+                "abandons": 0,
+                "mmr": 2336,
+                "wins": 70,
+                "region": "apac",
+                "season": 16,
+                "losses": 66
+            },
+            {
+                "maxMmr": 2581,
+                "death": 935,
+                "rank": 14,
+                "maxRank": 15,
+                "kills": 1061,
+                "abandons": 1,
+                "mmr": 2472,
+                "wins": 120,
+                "region": "apac",
+                "season": 17,
+                "losses": 107
+            }
+            ]
           ,loading:false
         })
         //viewUpdate();
@@ -133,28 +330,23 @@ export default class Search extends React.Component<Props, State> {
         } else {
             return(
                 <>
-                <Margin>
+                <Logo/>
                 <Header>
-                    <Container>
-                        <Row>
-                            <Col>
-                                <Row>
-                                    안녕
-                                </Row>
-                                <Row>
-                                    안녕
-                                </Row>
+                    <Margin>
+                    <Container fluid style={{padding:0, backgroundColor:'red'}}>
+                        <Row noGutters={true}>
+                            <Col xs={12} sm={12} md={6}>
+                                <Profile></Profile>
                             </Col>
-                            <Col>
-                                pilot
+                            <Col xs={12} sm={12} md={6}>
+                                asdfasdfa
                             </Col>
-                            <Col>
-                                pilot
-                            </Col>
-
                         </Row>
                     </Container>
+                    </Margin>
                 </Header>
+
+                <Margin>
                 <R6Br size="lg"/>
 
                 <R6ToggleButtonGroup currentValue={this.state.currentTab} onChange={this.tabHanndler}>
