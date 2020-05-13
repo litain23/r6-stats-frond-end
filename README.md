@@ -20,7 +20,8 @@ npm run stroybook
 
 ### Prototype: Adobe XD
 
+### Storybook
+[Storybook](https://jiwoo-choi.github.io/r6-stats-front-end/)
 
 ### Proposal (in-progress)
 [Proposal](https://www.notion.so/R6-Stats-fb0b362be1334d53a49469a3fecbcabc)
-

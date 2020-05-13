@@ -29,7 +29,6 @@
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "deploy-storybook": "storybook-to-ghpages"
-
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -54,7 +53,7 @@
     "@storybook/addons": "^5.3.18",
     "@storybook/preset-create-react-app": "^2.1.1",
     "@storybook/react": "^5.3.18",
-    "@storybook/storybook-deployer": "^2.8.5",
+    "@storybook/storybook-deployer": "^2.8.6",
     "babel-preset-react-app": "^9.1.2",
     "react-docgen-typescript-loader": "^3.7.2"
   }
