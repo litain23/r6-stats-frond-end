@@ -43,7 +43,6 @@ export default class R6TypoComponent extends React.Component<Props> {
     }
 
     render(){
-
         const parsedString: bodyString = this.signParser(this.props.body);
         const header : CSSProperties = { fontSize: '20px', fontWeight:"bold"}
         const figure : CSSProperties = { fontSize: '60px', fontWeight: "bolder", marginTop:'-20px', letterSpacing:'-3px'}

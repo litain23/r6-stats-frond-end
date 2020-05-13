@@ -79,7 +79,6 @@ export default class SearchOverviewTab extends React.Component<Props> {
                     <Row>
                         <Col xs={6} sm={6} md={3}  lg={3}>
                         <R6TypoComponent header={"승률"} body={winPercentage?.toString()+"%"} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
-
                         </Col>
                         <Col xs={6} sm={6} md={3}  lg={3}>
                         <R6TypoComponent header={"총 킬 수"} body={totalKills?.toString()} footer={""}/>
