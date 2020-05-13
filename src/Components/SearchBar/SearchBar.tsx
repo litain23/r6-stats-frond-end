@@ -10,7 +10,8 @@ type Props = {
 
 class SearchBar extends React.Component<Props>{
     
-    render(){
+    //font size
+    render() {
         if (this.props.isLarge){
             return(
                 <div className="search-container">

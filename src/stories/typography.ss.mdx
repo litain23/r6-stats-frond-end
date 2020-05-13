@@ -1,0 +1,90 @@
+import { Meta, Typeset } from '@storybook/addon-docs/blocks';
+import theme from '../util/theme.tsx'
+
+<Meta title="DESIGN SYSTEM|Typography"/>
+
+# Typography
+
+프로젝트에 사용된 타입 정보입니다.
+
+## Font
+
+`Nunito Sans` 를 사용합니다.
+
+## Weights 
+
+`400(regular)`, `700(bold)`, `800(extrabold)`, `900(black)` 로 나뉘어있습니다.
+
+## Size
+
+`s1~s3 (12~16)`, `m1~m3(20~24)`, `l1~l3 (32~48)`
+
+## Examples
+
+### Regular
+
+<Typeset
+  fontSizes={[
+    Number(theme.typography.size.s1),
+    Number(theme.typography.size.s2),
+    Number(theme.typography.size.s3),
+    Number(theme.typography.size.m1),
+    Number(theme.typography.size.m2),
+    Number(theme.typography.size.m3),
+    Number(theme.typography.size.l1),
+    Number(theme.typography.size.l2),
+    Number(theme.typography.size.l3),
+  ]}
+  fontWeight={theme.typography.weight.regular}
+/>
+
+### Bold
+
+<Typeset
+  fontSizes={[
+    Number(theme.typography.size.s1),
+    Number(theme.typography.size.s2),
+    Number(theme.typography.size.s3),
+    Number(theme.typography.size.m1),
+    Number(theme.typography.size.m2),
+    Number(theme.typography.size.m3),
+    Number(theme.typography.size.l1),
+    Number(theme.typography.size.l2),
+    Number(theme.typography.size.l3),
+  ]}
+  fontWeight={theme.typography.weight.bold}
+/>
+
+### Extrabold
+
+<Typeset
+  fontSizes={[
+    Number(theme.typography.size.s1),
+    Number(theme.typography.size.s2),
+    Number(theme.typography.size.s3),
+    Number(theme.typography.size.m1),
+    Number(theme.typography.size.m2),
+    Number(theme.typography.size.m3),
+    Number(theme.typography.size.l1),
+    Number(theme.typography.size.l2),
+    Number(theme.typography.size.l3),
+  ]}
+  fontWeight={theme.typography.weight.extrabold}
+/>
+
+### Black
+
+<Typeset
+  fontSizes={[
+    Number(theme.typography.size.s1),
+    Number(theme.typography.size.s2),
+    Number(theme.typography.size.s3),
+    Number(theme.typography.size.m1),
+    Number(theme.typography.size.m2),
+    Number(theme.typography.size.m3),
+    Number(theme.typography.size.l1),
+    Number(theme.typography.size.l2),
+    Number(theme.typography.size.l3),
+  ]}
+  fontWeight={theme.typography.weight.black}
+/>
