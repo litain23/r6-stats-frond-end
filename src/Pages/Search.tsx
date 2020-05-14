@@ -85,6 +85,7 @@ const PROFILE_ID = styled.section`
 const PROFILE_ID_ID = styled.section`
     color:white;
     font-size:40px;
+    font-weight:900; important!
 `;
 
 const PROFILE_ID_BUTTON = styled.section`
@@ -100,7 +101,8 @@ const Profile = () => {
             </PROFILE_PIC>
             <PROFILE_ID>
                 <PROFILE_ID_ID>
-                    <div style={{fontWeight:'bolder'}}> hello </div>  </PROFILE_ID_ID>
+                    <span style={{fontWeight:1200}}> hello </span> 
+                </PROFILE_ID_ID>
                 <R6Br size={"lg"}/>
                 <PROFILE_ID_BUTTON> <R6Button size={"lg"}>전적갱신하기</R6Button> </PROFILE_ID_BUTTON>
             </PROFILE_ID>
@@ -331,6 +333,9 @@ export default class Search extends React.Component<Props, State> {
             return(
                 <>
                 <Logo/>
+                <span style={{fontSize:'120px', fontWeight:900}}>
+                    123123123123
+                </span>
                 <Header>
                     <Margin>
                     <Container fluid style={{padding:0, backgroundColor:'red'}}>
