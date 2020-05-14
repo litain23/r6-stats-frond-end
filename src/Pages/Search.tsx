@@ -55,16 +55,16 @@ const CONTAINER = styled.section`
     display:flex;
     flex-direction:row;
     height:150px;
+    
 `;
 
 const PROFILE_PIC = styled.section`
     display:flex;
-    background:pink;
     width:150px;
     height:150px;
 `;
 
-const PROFILE_PIC_X = styled.section`
+const PROFILE_PIC_CONTENT = styled.section`
     background:green;
     justify-content:center;
     align-items:stretch;
@@ -76,9 +76,7 @@ const PROFILE_PIC_X = styled.section`
 
 const PROFILE_ID = styled.section`
     display:flex;
-    flex:1;
     flex-direction:column;
-    background:blue;
     justify-content:center;
 `;
 
@@ -88,27 +86,79 @@ const PROFILE_ID_ID = styled.section`
     font-weight:900; important!
 `;
 
-const PROFILE_ID_BUTTON = styled.section`
-`;
-
 
 
 const Profile = () => {
     return(
         <CONTAINER>
             <PROFILE_PIC>
-                <PROFILE_PIC_X/>
+                <PROFILE_PIC_CONTENT/>
             </PROFILE_PIC>
             <PROFILE_ID>
                 <PROFILE_ID_ID>
                     <span style={{fontWeight:1200}}> hello </span> 
                 </PROFILE_ID_ID>
-                <R6Br size={"lg"}/>
-                <PROFILE_ID_BUTTON> <R6Button size={"lg"}>전적갱신하기</R6Button> </PROFILE_ID_BUTTON>
+                <R6Button size={"sm"}>전적갱신하기</R6Button>
             </PROFILE_ID>
         </CONTAINER>
     )
+}
 
+    // @media screen and (max-width:100px){
+    //     div{background-color: blue;} 
+    // }
+    // @media screen and (min-width: 100px) and (max-width:200px){
+    //     div{background-color: red;} 
+    // }
+    // @media screen and (min-width: 200px){
+    //     div{background-color: green;} 
+    // }
+
+const RANK_CONTAINER = styled.section`
+    display:flex;
+    flex:1;
+    justify-content:center;
+
+    @media (min-width: 576px) {   
+        justify-content:center;
+    }
+
+    @media (min-width: 768px) { 
+        justify-content:center;
+
+     }
+
+    @media (min-width: 992px) { 
+        justify-content:flex-end;
+
+     }
+
+    @media (min-width: 1200px) { 
+        justify-content:flex-end;
+     }
+    background:blue;
+`;
+
+const RANK_CONTAINER2 = styled.section`
+    background:red;
+    width:316px;
+    margin-top:20px;
+    margin-bottom:20px;
+`;
+
+
+const Ranks = () => {
+    return(
+        <CONTAINER>
+            <RANK_CONTAINER>
+                <RANK_CONTAINER2>
+
+                </RANK_CONTAINER2>
+
+            </RANK_CONTAINER>
+            
+        </CONTAINER>
+    )
 }
 export default class Search extends React.Component<Props, State> {
     
@@ -333,18 +383,15 @@ export default class Search extends React.Component<Props, State> {
             return(
                 <>
                 <Logo/>
-                <span style={{fontSize:'120px', fontWeight:900}}>
-                    123123123123
-                </span>
                 <Header>
                     <Margin>
-                    <Container fluid style={{padding:0, backgroundColor:'red'}}>
+                    <Container fluid style={{padding:0}}>
                         <Row noGutters={true}>
                             <Col xs={12} sm={12} md={6}>
                                 <Profile></Profile>
                             </Col>
                             <Col xs={12} sm={12} md={6}>
-                                asdfasdfa
+                                <Ranks></Ranks>
                             </Col>
                         </Row>
                     </Container>
