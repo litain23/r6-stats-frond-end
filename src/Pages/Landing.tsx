@@ -1,8 +1,8 @@
 import React from 'react';
 import '../App.css'
-import SearchBar from '../Components/SearchBar/SearchBar'
+import SearchBar from '../R6Components/SearchBar/SearchBar'
 import {Container, Row, Col} from 'react-bootstrap'
-import Space from '../Components/R6Br'
+import Space from '../R6Components/R6Br'
 export default class Landing extends React.Component {
 
 

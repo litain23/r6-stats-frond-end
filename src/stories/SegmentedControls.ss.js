@@ -1,6 +1,6 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
-import SegmentedControls from '../Components/SegmentedControls'
+import SegmentedControls from '../R6Components/SegmentedControls'
 import { withKnobs,text, boolean, number, color, select, radios} from '@storybook/addon-knobs';
 
 export default {

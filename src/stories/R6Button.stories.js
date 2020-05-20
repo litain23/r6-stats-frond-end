@@ -1,5 +1,5 @@
 import React from 'react';
-import R6Button from '../Components/R6Button'
+import R6Button from '../R6Components/R6Button'
 import { withKnobs, number, select, boolean, text} from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 export default {
