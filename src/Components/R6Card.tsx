@@ -1,29 +1,20 @@
 import React from 'react'
-import {Card, ListGroup, ListGroupItem} from 'react-bootstrap'
+import {Card} from 'react-bootstrap'
 import Space from './R6Br'
-import styled from 'styled-components';
-import {theme} from '../util/theme'
+
 
 interface Props {
     /** 카드의 내용 */
-    children: React.ReactNode[];
+    children: React.ReactNode;
     /** 카드의 제목 */
     title:string
     /** 헤더의 노출 여부, false시 타이틀 비 노출 */
     visible?:boolean
     /** 카드의 배경색상 */
-    backgroundColor:string
+    backgroundColor?:string
     /** 카드의 글꼴색상 */
     fontColor?:string
 }
-
-
-const DIV = styled.section<{bgcolor:string}>`
-.list-group-item{
-    background-color: ${props=>props.bgcolor} !important;
-    border-color:'black';
-};
-`;
 
 
 /**
@@ -35,33 +26,16 @@ const DIV = styled.section<{bgcolor:string}>`
 const R6Card = ({children, title, visible, backgroundColor, fontColor }: Props) => {
     
     const header = visible ? (<Card.Header style={{color: fontColor, fontWeight:'bold', borderColor:'#1C1C1F'}}> {title} </Card.Header>) : ""
-
-
+        
     return(     
         <>
         <Card style={{backgroundColor:backgroundColor, border:'none', color:fontColor, width:'100%'}}>
-        { header } 
-        <ListGroup horizontal={true} variant="flush">
-            {/* <DIV bgcolor={'red'}> */}
-                {children.map((child) => {return(<ListGroupItem>{child}</ListGroupItem>)})}
-            {/* </DIV> */}
-        </ListGroup>
-
-        {/* { header } */}
-        {/* <Card.Body> */}
-            {/* <ListGroup>
-                <ListGroupItem>1</ListGroupItem>
-                <ListGroupItem>1</ListGroupItem>
-            </ListGroup> */}
-            {/* <ListGroup style={{background:backgroundColor}}>
-                <DIV bgcolor={backgroundColor}>
-                    {children.map((child) => {return(<ListGroupItem>{child}</ListGroupItem>)})}
-                </DIV>
-            </ListGroup>
+        { header }
+        <Card.Body>
             <Card.Text>
                 {children}
-            </Card.Text> */}
-        {/* </Card.Body> */}
+            </Card.Text>
+        </Card.Body>
         </Card>
         <Space size={10}></Space>
         </>

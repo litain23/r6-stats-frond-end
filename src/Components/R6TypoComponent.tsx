@@ -2,13 +2,14 @@ import React, { CSSProperties } from 'react'
 import {Container,Row,Col} from 'react-bootstrap'
 import Search from '../Pages/Search';
 
+
 interface Props {
     /** Typography 엘리먼트에 들어갈 푸터 부분입니다. */
-    header: string| number,
+    header: string,
     /** Typography 엘리먼트에 중간에 들어가서 강조될 부분입니다. , 를 제외한 특수기호들은 모두 작게 처리되며, 1개의 특수기호만 허용됩니다. */
-    body: string | number,
+    body: string,
     /** Typography 엘리먼트에 들어갈 푸터 부분입니다. */
-    footer: string| number,
+    footer: string,
     fontColor?: string
 }
 
@@ -31,15 +32,7 @@ export default class R6TypoComponent extends React.Component<Props> {
         fontColor : 'white'
     }
 
-    signParser(input : string | number ): bodyString {
-        let string: string;
-
-        if (typeof input == 'number') {
-            string = input.toString();
-        } else {
-            string = input;
-        }
-
+    signParser(string : string): bodyString { 
         let pattern:RegExp = /[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9,./:]/gi;
         const symbols = string.search(pattern);
         if (symbols) {

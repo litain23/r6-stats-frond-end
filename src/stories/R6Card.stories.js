@@ -34,4 +34,3 @@ export const Default = () => {
         카드컨텐츠
     </R6Card>);
   }
-  

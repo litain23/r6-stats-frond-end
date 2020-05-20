@@ -9,8 +9,8 @@ export interface RANKAPI {
     rank: number;
     maxRank:number;
     kills:number;
-    updateTime?: string;
-    abandons: number;
+    updateTime: string|Date;
+    abandons: number|string;
     mmr:number;
     wins:number;
     region:string;

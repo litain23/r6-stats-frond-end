@@ -1,7 +1,10 @@
 
+import React from "react";
+import styled, { ThemeProvider, ThemedStyledProps } from "styled-components";
+
+
 /* 자주쓰는 컬러에 대한 enum */
-export type colorType = keyof typeof theme.theme_color
-// "primary" | "danger" | "warning" 
+export type colorType = "primary" | "danger" | "warning" 
 // | "danger" | "warning" | "background"
 export type fontWeightType = "regular" | "bold" | "extrabold" | "black"
 /* 사이즈 종류에 따른 enum */
