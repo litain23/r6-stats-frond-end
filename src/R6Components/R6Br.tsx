@@ -1,7 +1,7 @@
 import React, { Component, CSSProperties } from 'react';
 import PropTypes from 'prop-types';
 
-type Props = {
+export type R6BrProps = {
     /** "sm" | "lg" | number */
     size?: "lg" | "sm" | number;
 }
@@ -11,7 +11,7 @@ type Props = {
  * 
  * - `size`는 `lg`와 `sm`로 나뉘어지며, 사용자가 커스텀 할 수 있습니다.
  */
-const R6Br = ({size}:Props) => {
+const R6Br = ({size}:R6BrProps) => {
 
     if (size === "lg") {
         size = 12 

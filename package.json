@@ -10,17 +10,18 @@
     "@types/jest": "^24.0.0",
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
-    "@types/react-bootstrap": "^1.0.0",
     "@types/react-dom": "^16.9.0",
     "@types/styled-components": "^5.1.0",
     "antd-demo-ts": "^0.1.0",
     "bootstrap": "^4.4.1",
+    "lottie-react-web": "^2.1.4",
+    "lottie-web": "^5.6.10",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.0",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
-    "styled-components": "^5.1.0",
-    "typescript": "^3.8.3"
+    "styled-components": "^5.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -55,7 +56,10 @@
     "@storybook/preset-create-react-app": "^2.1.1",
     "@storybook/react": "^5.3.18",
     "@storybook/storybook-deployer": "^2.8.6",
+    "@types/react-router-dom": "^5.1.5",
+    "babel-plugin-named-asset-import": "^0.3.6",
     "babel-preset-react-app": "^9.1.2",
-    "react-docgen-typescript-loader": "^3.7.2"
+    "react-docgen-typescript-loader": "^3.7.2",
+    "typescript": "^3.9.3"
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import R6Br from '../Components/R6Br'
+import R6Br from '../R6Components/R6Br'
 import { withKnobs,number } from '@storybook/addon-knobs';
 
 export default {
