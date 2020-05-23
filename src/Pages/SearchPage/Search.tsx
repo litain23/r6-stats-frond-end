@@ -35,6 +35,7 @@ import ProfileRank from './SubComponent/ProfileRank';
 
 import R6RankIcon from '../../R6Components/R6RankIcon';
 import R6RankCard from '../../R6Components/R6RankCard';
+import route, { RouteDecoratorProps } from '../../route';
 
 
 
@@ -59,10 +60,10 @@ const Header = styled.section`
     background:${theme.color.dark.gray.light};
 `;
 
-
-export default class Search extends React.Component<Props, State> {
+@(route('/search/:id') as any)
+export default class Search extends React.Component<Props&RouteDecoratorProps, State> {
     
-    constructor(props: Props){
+    constructor(props: Props&RouteDecoratorProps){
         super(props);
         this.state = {
             rankData: {} as RANKAPI,
@@ -71,6 +72,7 @@ export default class Search extends React.Component<Props, State> {
             loading:true,
             currentTab:1,
         }
+        console.log(this.props.match.params);
 
         this.tabHanndler = this.tabHanndler.bind(this);
     }

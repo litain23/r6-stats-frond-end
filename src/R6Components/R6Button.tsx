@@ -56,12 +56,17 @@ export type R6ButtonProps = {
   disabled?: boolean;
   /** 버튼의 너비를 임의로 설정합니다. */
   width?: string | number;
+  /** 버튼의 꽉참여부를 결정합니다 */
+  fluid?: boolean;
 };
 
 
 /** `R6Button` 컴포넌트는 어떠한 작업을 트리거 할 때 사용합니다.  */
-const R6Button = ({ children, onClick, theme,size,disabled,width }: R6ButtonProps) => {
+const R6Button = ({ children, onClick, theme,size,disabled,width,fluid }: R6ButtonProps) => {
     
+    if (fluid) {
+      width="100%";
+    }
     return (
       <Button 
         theme={themes.theme}
@@ -69,7 +74,8 @@ const R6Button = ({ children, onClick, theme,size,disabled,width }: R6ButtonProp
         size={size}
         onClick={onClick}
         disabled={disabled}
-        width={width}>
+        width={width}
+        >
         {children}
       </Button>
     );

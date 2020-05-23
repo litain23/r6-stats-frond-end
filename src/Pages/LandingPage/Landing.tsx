@@ -1,10 +1,15 @@
 import React from 'react';
-import '../App.css'
-import SearchBar from '../R6Components/SearchBar/SearchBar'
+import '../../App.css'
+import SearchBar from '../../R6Components/SearchBar/SearchBar'
 import {Container, Row, Col} from 'react-bootstrap'
-import Space from '../R6Components/R6Br'
-export default class Landing extends React.Component {
+import Space from '../../R6Components/R6Br'
+import route from '../../route'
+import {RouteDecoratorProps} from '../../route'
+import {RouteComponentProps} from 'react-router-dom'
 
+// @(route('/landing') as any)
+@(route('/landing:id') as any)
+export default class Landing extends React.Component {
 
     render(){
         return(
@@ -55,4 +60,5 @@ export default class Landing extends React.Component {
     }
 
 }
+
 
