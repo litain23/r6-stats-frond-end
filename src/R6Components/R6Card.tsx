@@ -1,5 +1,5 @@
 import React from 'react'
-import {Card} from 'react-bootstrap'
+// import {Card} from 'react-bootstrap'
 import Space from './R6Br'
 
 
@@ -25,11 +25,11 @@ interface Props {
  */
 const R6Card = ({children, title, visible, backgroundColor, fontColor }: Props) => {
     
-    const header = visible ? (<Card.Header style={{color: fontColor, fontWeight:'bold', borderColor:'#1C1C1F'}}> {title} </Card.Header>) : ""
+    // const header = visible ? (<Card.Header style={{color: fontColor, fontWeight:'bold', borderColor:'#1C1C1F'}}> {title} </Card.Header>) : ""
         
     return(     
         <>
-        <Card style={{backgroundColor:backgroundColor, border:'none', color:fontColor, width:'100%'}}>
+        {/* <Card style={{backgroundColor:backgroundColor, border:'none', color:fontColor, width:'100%'}}>
         { header }
         <Card.Body>
             <Card.Text>
@@ -37,7 +37,7 @@ const R6Card = ({children, title, visible, backgroundColor, fontColor }: Props) 
             </Card.Text>
         </Card.Body>
         </Card>
-        <Space size={10}></Space>
+        <Space size={10}></Space> */}
         </>
         )
 

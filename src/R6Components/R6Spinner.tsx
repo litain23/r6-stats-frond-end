@@ -1,5 +1,5 @@
 import React from 'react'
-import {Card, Spinner} from 'react-bootstrap'
+// import {Card, Spinner} from 'react-bootstrap'
 import styled from 'styled-components';
 
 
@@ -62,14 +62,14 @@ const R6Spinner = ({presentationStyle} : R6SpinnerProps ) => {
         case "full":
             return(     
                 <FullStyle>
-                    <Spinner animation="border" variant="dark" />
+                    {/* <Spinner animation="border" variant="dark" /> */}
                     <div style={{marginTop:'10px'}}>Loading...</div>
                 </FullStyle>
             )        
         case "normal":
             return(     
                 <NormalStyle>
-                    <Spinner animation="border" variant="dark" />
+                    {/* <Spinner animation="border" variant="dark" /> */}
                     <div style={{marginTop:'10px'}}>Loading...</div>
                 </NormalStyle>
             )
@@ -77,7 +77,7 @@ const R6Spinner = ({presentationStyle} : R6SpinnerProps ) => {
         case "hover":    
             return(
                 <HoverStyle>
-                    <Spinner animation="border" variant="dark" />
+                    {/* <Spinner animation="border" variant="dark" /> */}
                     <div style={{marginTop:'10px'}}>Loading...</div>
                 </HoverStyle>
             )

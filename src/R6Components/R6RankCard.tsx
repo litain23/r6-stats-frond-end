@@ -2,7 +2,7 @@ import React from 'react';
 import styled , {ThemeProvider} from 'styled-components';
 import { RANKAPI } from '../util/type';
 import R6RankIcon from './R6RankIcon';
-import {ProgressBar, Container, Row, Col } from 'react-bootstrap'
+// import {ProgressBar, Container, Row, Col } from 'react-bootstrap'
 
 export type RankIconProps = {
     /** 랭크 타입 */
@@ -116,7 +116,7 @@ const R6RankCard = ({ api }: RankIconProps) => {
         <Card>
             <Header> {api.season} </Header>
             <Body>
-            <Container fluid={true}>
+            {/* <Container fluid={true}>
                 <Row noGutters={true}> 
                     <Col md={4}>
                         <Left>
@@ -320,7 +320,7 @@ const R6RankCard = ({ api }: RankIconProps) => {
                         </Right>
                     </Col>
             </Row>
-            </Container>
+            </Container> */}
             </Body>
         </Card>
     );

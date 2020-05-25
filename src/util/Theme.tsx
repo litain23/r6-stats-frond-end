@@ -5,7 +5,7 @@ import styled, { ThemeProvider, ThemedStyledProps } from "styled-components";
 
 /* 자주쓰는 컬러에 대한 enum */
 export type colorType = "primary" | "danger" | "warning" 
-export type colorType = keyof typeof theme.theme_color
+// export type colorType = keyof typeof theme.theme_color
 // svg icon theme.themecolor..?
 // function (...arg)
 // "primary" | "danger" | "warning" 

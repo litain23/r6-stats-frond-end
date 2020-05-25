@@ -5,18 +5,33 @@ import {R6Button, R6ButtonGroup, R6Br} from '../../R6Components'
 import { withRouter } from "react-router-dom";
 import {RouteComponentProps} from "react-router";
 
+import { Form, Input, Button, Checkbox, Space } from 'antd';
+import { Statistic } from 'antd';
+import { Row, Col, Divider } from 'antd';
+import { Typography } from 'antd';
+import { Collapse } from 'antd';
+import { CaretRightOutlined } from '@ant-design/icons';
+import R6Icon from '../../R6Components/R6Icon';
+import { Progress } from 'antd';
+import { Menu , Layout} from 'antd';
+import { AppstoreOutlined, TeamOutlined, TrophyOutlined } from '@ant-design/icons';
+import { UserOutlined, IdcardOutlined, UserAddOutlined, LockOutlined } from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 
-import {
-    ProgressBar,
-    Button,
-    Container,
-    Col,
-    Row,
-    Image,
-    Form,
 
-} from 'react-bootstrap'
+// import {
+//     ProgressBar,
+//     Button,
+//     Container,
+//     Col,
+//     Row,
+//     Image,
+//     Form,
+
+// } from 'react-bootstrap'
 import route from '../../route';
+const { Title } = Typography
+
 
 const CONTAINER = styled.section`
     display:flex;
@@ -32,29 +47,30 @@ const WHITEBOX = styled.section`
     display:flex;
     flex-direction:column;
     padding:30px;
-    
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
     @media (min-width: 576px) {   
-        width:400px;
+        width:500px;
         height:auto;
         border-radius:10px;
     }
 
     @media (min-width: 768px) { 
-        width:400px;
+        width:500px;
         height:auto;
         border-radius:10px;
 
     }
 
     @media (min-width: 992px) { 
-        width:400px;
+        width:500px;
         height:auto;
         border-radius:10px;
 
     }
 
     @media (min-width: 1200px) { 
-        width:400px;
+        width:500px;
         height:auto;
         border-radius:10px;
 
@@ -244,44 +260,6 @@ interface ResponsiveProps {
 // const ab = new abc();
 
 
-const RESPONSIVE = styled.section<ResponsiveProps>`
-    ${props => props.default}
-    width:100%;
-    height:100%;
-    background:white;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-
-    @media (min-width: 576px) {   
-        width:400px;
-        height:500px;
-    }
-
-    @media (min-width: 768px) { 
-        width:400px;
-        height:500px;
-    }
-
-    @media (min-width: 992px) { 
-        width:400px;
-        height:500px;
-    }
-
-    @media (min-width: 1200px) { 
-        width:400px;
-        height:500px;
-    }
-`;
-
-RESPONSIVE.defaultProps = {
-    default : "",
-    xs : "",
-    sm : "",
-    md : "",
-    lg : "",
-}
-
 function Responsive() {
     return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
         console.log(target.render);
@@ -313,10 +291,11 @@ function Responsive() {
 
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/24077
 
-@(route('/login') as any)
-export default class Login extends React.Component<RouteComponentProps> {
+// @(route('/login') as any)
+//RouteComponentProps
+export default class Login extends React.Component {
 
-    constructor(props:RouteComponentProps) {
+    constructor(props:{}) {
         super(props);
     }
 
@@ -325,15 +304,47 @@ export default class Login extends React.Component<RouteComponentProps> {
     }
 
     gotoSignUp(){
-        this.props.history.push('/signup');
+        // this.props.history.push('/signup');
     }
 
     render() {
         return(
+            <>
             <CONTAINER>
                 <WHITEBOX>
-                    <h3>로그인하기</h3>
-                    <Form>
+                    <Title> 로그인하기 </Title>
+                    <Form
+                        name="normal_login"
+                        className="login-form"
+                        >
+                        <Form.Item
+                            name="username"
+                            rules={[{ required: true, message: '아이디를 입력해주세요' }]}
+                        >
+                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                        </Form.Item>
+                        <Form.Item
+                            name="password"
+                            rules={[{ required: true, message: '비밀번호를 입력해주세요' }]}
+                        >
+                            <Input
+                            prefix={<LockOutlined className="site-form-item-icon" />}
+                            type="password"
+                            placeholder="Password"
+                            />
+                        </Form.Item>
+                        <Form.Item>
+                            <Space direction="vertical" size={"middle"} style={{width:"100%"}}>
+                                <Button type="primary" htmlType="submit" style={{width:"100%" }}>
+                                로그인하기
+                                </Button>
+                                <Button icon={<UserAddOutlined />} type="default" style={{ width:"100%"}}>
+                                혹은 지금 바로 가입하기
+                                </Button>
+                            </Space>
+                        </Form.Item>
+                        </Form>
+                    {/* <Form>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>아이디</Form.Label>
                             <Form.Control type="text" placeholder="아이디를 입력하세요" />
@@ -355,10 +366,11 @@ export default class Login extends React.Component<RouteComponentProps> {
                         <R6Br size={5}/>
                         <R6Button theme="danger" size={'md'} onClick={this.gotoSignUp.bind(this)} fluid>
                             회원가입하기
-                        </R6Button>
+                        </R6Button> */}
 
                 </WHITEBOX>
             </CONTAINER>
+            </>
         )
     }
 }

@@ -5,13 +5,13 @@ import API from '../../util/API'
 import {RANKAPI, GENERALAPI} from '../../util/type'
 
 
-import {
-    ProgressBar,
-    Button,
-    Container,
-    Col,
-    Row
-} from 'react-bootstrap'
+// import {
+//     ProgressBar,
+//     Button,
+//     Container,
+//     Col,
+//     Row
+// } from 'react-bootstrap'
 
 // import {R6Br} from '../R6component';
 
@@ -24,7 +24,7 @@ import R6ToggleButtonGroup from '../../R6Components/R6ToggleButtonGroup';
 import R6ToggleButton from '../../R6Components/R6ToggleButton';
 
 import styled from 'styled-components';
-import {theme} from '../../util/theme'
+// import {theme} from '../../util/theme'
 
 import SearchOverviewTab from './Overview';
 import SearchRankTab from './Rank';
@@ -35,7 +35,23 @@ import ProfileRank from './SubComponent/ProfileRank';
 import R6RankIcon from '../../R6Components/R6RankIcon';
 import R6RankCard from '../../R6Components/R6RankCard';
 import route, { RouteDecoratorProps } from '../../route';
+import { Statistic } from 'antd';
+import { Row, Col, Divider } from 'antd';
+import { Typography } from 'antd';
+import { Collapse } from 'antd';
+import { CaretRightOutlined } from '@ant-design/icons';
+import R6Icon from '../../R6Components/R6Icon';
+import { Progress } from 'antd';
+import { Menu , Layout} from 'antd';
+import { AppstoreOutlined, TeamOutlined, TrophyOutlined } from '@ant-design/icons';
+import { UserOutlined, IdcardOutlined, AreaChartOutlined } from '@ant-design/icons';
 
+const { SubMenu } = Menu;
+
+const { Header, Content, Footer, Sider } = Layout;
+
+const { Title, Paragraph } = Typography;
+const { Panel } = Collapse;
 
 
 interface State {
@@ -45,7 +61,6 @@ interface State {
     currentTab: number
 }
 
-
 interface Props {
 }
 const Margin = styled.section`
@@ -53,15 +68,18 @@ const Margin = styled.section`
     margin-right:20px;
 `;
 
-const Header = styled.section`
-    width:100%;
-    background:${theme.color.dark.gray.light};
-`;
+// const Header = styled.section`
+//     width:100%;
+//     background:${theme.color.dark.gray.light};
+// `;
 
-@(route('/search/:id') as any)
-export default class Search extends React.Component<Props&RouteDecoratorProps, State> {
+// @(route('/search/:id') as any)
+// export default class Search extends React.Component<Props&RouteDecoratorProps, State> {
+export default class Search extends React.Component<Props, State> {
+
+
     
-    constructor(props: Props&RouteDecoratorProps){
+    constructor(props: Props){
         super(props);
         this.state = {
             rankData: {} as RANKAPI,
@@ -69,7 +87,7 @@ export default class Search extends React.Component<Props&RouteDecoratorProps, S
             loading:true,
             currentTab:1,
         }
-        console.log(this.props.match.params);
+        // console.log(this.props.match.params);
 
         this.tabHanndler = this.tabHanndler.bind(this);
     }
@@ -108,19 +126,7 @@ export default class Search extends React.Component<Props&RouteDecoratorProps, S
             "totalBulletHit": 47596,
             "totalTimePlayed": 1287
           },
-          rankData : {
-            maxMmr: 1,
-            death: 1,
-            rank: 1,
-            maxRank:1,
-            kills:1,
-            abandons: 1,
-            mmr:1,
-            wins:1,
-            region:"123",
-            season:1,
-            losses:1,
-         },
+        
           loading:false
         })
         //viewUpdate();
@@ -137,17 +143,59 @@ export default class Search extends React.Component<Props&RouteDecoratorProps, S
 
     render(){
 
-        let tabContents = <SearchOverviewTab generalData={this.state.generalData} rankData={this.state.rankData}/>
+        // const style = { background: '#0092ff', padding: '8px 0' };
+
+        // let tabContents = <SearchOverviewTab generalData={this.state.generalData} rankData={this.state.rankData}/>
 
         if (this.state.loading) {
             return <R6Spinner presentationStyle="full"></R6Spinner>
         } else {
             return(
                 <>
+                 <Layout className="site-layout-background" style={{ padding: '0px 0' }}>
+                    <Sider onCollapse={()=>alert('abcd')} breakpoint="md" className="site-layout-background" width={200}>
+                    <Menu
+                        mode="inline"
+                        defaultSelectedKeys={['1']}
+                        defaultOpenKeys={['sub1']}
+                        style={{ height: '100%' }}
+                        onClick={ () => alert('abc') }
+                        onSelect={ () => alert('select') }
+                    >
 
-                <Header>
-                    <Margin>
-                    <Container fluid style={{padding:0}}>
+                        <div style={{height:'100px'}}> 
+                        <Statistic title="안녕하세요" value={"이강호님"} />
+                        </div>
+                            <Menu.Item key="1" icon={<IdcardOutlined />}>
+                                종합데이터 요약
+                            </Menu.Item>
+                            <Menu.Item key="2" icon={<TrophyOutlined />}>
+                                랭크
+                            </Menu.Item>
+                            <Menu.Item key="3" icon={<TeamOutlined />}>
+                                오퍼레이터
+                            </Menu.Item>
+                            <Menu.Item key="4" icon={<AreaChartOutlined />}>
+                                전력분석
+                            </Menu.Item>
+
+                    </Menu>
+                    </Sider>
+                    <Content style={{ padding: '14px 24px', minHeight: '100vh' }}>
+                            {/* <Divider><Title> 시즌 12 </Title> </Divider> */}
+                        {/* <SearchOperators></SearchOperators> */}
+                        <SearchRankTab rankData={this.state.rankData} generalData={this.state.generalData}></SearchRankTab>
+                        {/* <SearchOverviewTab rankData={this.state.rankData} generalData={this.state.generalData}></SearchOverviewTab> */}
+                    </Content>
+                </Layout>
+                            
+                
+                
+     
+
+                {/* <Header> */}
+                    {/* <Margin> */}
+                    {/* <Container fluid style={{padding:0}}>
                         <Row noGutters={true}>
                             <Col xs={12} sm={12} md={6}>
                                 <ProfileID id={"hello"}></ProfileID>
@@ -157,10 +205,10 @@ export default class Search extends React.Component<Props&RouteDecoratorProps, S
                             </Col>
 
                         </Row>
-                    </Container>
-                </Header>
-                <R6Br size="lg"/>
-
+                    </Container> */}
+                {/* </Header> */}
+                {/* <R6Br size="lg"/> */}
+{/* 
                 
                 <R6ToggleButtonGroup currentValue={this.state.currentTab} onChange={this.tabHanndler}>
                     <R6ToggleButton value={1}> overview </R6ToggleButton>
@@ -168,9 +216,9 @@ export default class Search extends React.Component<Props&RouteDecoratorProps, S
                     <R6ToggleButton value={3}> 플레이분석 </R6ToggleButton>
                     <R6ToggleButton value={4}> 오퍼레이터 </R6ToggleButton>
                 </R6ToggleButtonGroup>
-                <R6Br size="lg"/>
-                {this.tabContentsHandler(this.state.currentTab)}
-            </Margin>
+                <R6Br size="lg"/> */}
+                {/* {this.tabContentsHandler(this.state.currentTab)} */}
+            {/* </Margin> */}
             </>
 
             )

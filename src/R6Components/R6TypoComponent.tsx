@@ -1,6 +1,4 @@
 import React, { CSSProperties } from 'react'
-import {Container,Row,Col} from 'react-bootstrap'
-import Search from '../Pages/SearchPage/Search';
 
 
 export interface R6TypoComponentProps {
@@ -25,9 +23,8 @@ type bodyString = {
  * - 특수문자를 제외한 숫자, 문자는 정상적으로 강조 표기 됩니다.
  * - `,`(comma) `/` `.` 는 예외적으로 정상 강조 표기 됩니다.
  */
-const R6TypoComponent = ({header,body,footer,fontColor} : R6TypoComponentProps) => {
 
-export default class R6TypoComponent extends React.Component<Props> {
+export default class R6TypoComponent extends React.Component<R6TypoComponentProps> {
 
     static defaultProps = {
         fontColor : 'white'
@@ -52,7 +49,7 @@ export default class R6TypoComponent extends React.Component<Props> {
     }
 
     render(){
-        const parsedString: bodyString = signParser(body);
+        const parsedString: bodyString = this.signParser(this.props.body);
         const headerstyle : CSSProperties = { fontSize: '20px', fontWeight:"bold"}
         const figurestyle : CSSProperties = { fontSize: '60px', fontWeight: "bolder", marginTop:'-20px', letterSpacing:'-3px'}
         const signstyle : CSSProperties = { fontSize: '20px', fontWeight: "bolder", marginLeft:'5px'}
@@ -60,19 +57,20 @@ export default class R6TypoComponent extends React.Component<Props> {
         
         return(
 
-            <div style={{display:"flex", flexDirection:'column', color:fontColor}}>
+            <div style={{display:"flex", flexDirection:'column', color:this.props.fontColor}}>
                 <div style={headerstyle}>
-                    {header}
+                    {this.props.header}
                 </div>
                 <div style={figurestyle}>
                     {parsedString.string}<text style={signstyle}>{parsedString.sign}</text>
                 </div>
                 <div style={bottomstyle}>
-                    {footer}
+                    {this.props.header}
                 </div>
             </div>
         )
     
+    }
 }
 
 // R6TypoComponent: any.defaultProps = {

@@ -1,46 +1,46 @@
 
 import styled from 'styled-components'
 import React from 'react';
-import {theme} from '../util/theme';
+// import {theme} from '../util/theme';
 
 
 
 // type IconType = keyof typeof theme.theme_color | keyof typeof theme.color.dark.gray.dark.
 
 
-const CardContainer = styled.section<{bgcolor:string, bordercolor:string}>`
-    display:flex;
-    flex-direction: column;
-    background-color:${theme.color.dark.gray.dark};
-    width:100%;
-    border-radius:0.25rem;
-    border-color:${theme.color.dark.gray.light};
-    border-width: 1px;
-    border-style: solid;`
-;
+// const CardContainer = styled.section<{bgcolor:string, bordercolor:string}>`
+//     display:flex;
+//     flex-direction: column;
+//     background-color:${theme.color.dark.gray.dark};
+//     width:100%;
+//     border-radius:0.25rem;
+//     border-color:${theme.color.dark.gray.light};
+//     border-width: 1px;
+//     border-style: solid;`
+// ;
 
 //flow-grow, flow-flex;
 //flex:1;
 //equalwidth;
 
-const CardHeader = styled.section`
-    height:45px;
-    width:100%;
-    padding-left:15px;
-    padding-top:10px;
-    padding-bottom:10px;
-    border-radius: 0.20rem 0.20rem 0 0;
-    border-color:${theme.color.dark.gray.light};
-    border-width: 0 0px 1px 0px;
-    border-style: solid;
-`;
+// const CardHeader = styled.section`
+//     height:45px;
+//     width:100%;
+//     padding-left:15px;
+//     padding-top:10px;
+//     padding-bottom:10px;
+//     border-radius: 0.20rem 0.20rem 0 0;
+//     border-color:${theme.color.dark.gray.light};
+//     border-width: 0 0px 1px 0px;
+//     border-style: solid;
+// `;
 
 
-const CardBody = styled.section`
-    border-width: 0 0px 1px 0px;
-    border-style: solid;
-    border-color:${theme.color.dark.gray.light};
-`;
+// const CardBody = styled.section`
+//     border-width: 0 0px 1px 0px;
+//     border-style: solid;
+//     border-color:${theme.color.dark.gray.light};
+// `;
 
 const FONT = styled.section`
     color:white;
@@ -75,17 +75,17 @@ interface Props {
 //여러개가 나올경우.. 여러개마다 각각 밑선줄 제공.
 
 const R6CardComp = ({children, title}:Props) => {
-    return (
-        <CardContainer bgcolor={"black"} bordercolor={"black"}>
-            <CardHeader><FONT> {title} </FONT> </CardHeader>
-                {children.map( (value) => {
-                    return(
-                        <CardBody>
-                            {value}
-                        </CardBody>
-                    )
-                })}
-        </CardContainer>
+    return (<></>
+        // <CardContainer bgcolor={"black"} bordercolor={"black"}>
+        //     <CardHeader><FONT> {title} </FONT> </CardHeader>
+        //         {children.map( (value) => {
+        //             return(
+        //                 <CardBody>
+        //                     {value}
+        //                 </CardBody>
+        //             )
+        //         })}
+        // </CardContainer>
     )
 }
 

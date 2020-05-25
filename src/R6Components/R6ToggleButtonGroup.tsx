@@ -1,7 +1,7 @@
 import React, { useState, DOMAttributes } from 'react';
 import styled , {ThemeProvider} from 'styled-components';
-import * as themes from '../util/theme';
-import {colorType, sizeType} from '../util/theme';
+// import * as themes from '../util/theme';
+// import {colorType, sizeType} from '../util/theme';
 import R6ToggleButton, { R6ToggleButtonProps } from './R6ToggleButton'
 
 

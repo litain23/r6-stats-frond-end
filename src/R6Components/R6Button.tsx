@@ -1,9 +1,26 @@
 import React from 'react';
 import styled , {ThemeProvider} from 'styled-components';
-import * as themes from '../util/theme';
-import {colorType, sizeType} from '../util/theme';
+// import {theme} from '../util/theme';
+// import {colorType, sizeType} from '../util/theme';
 
 
+
+/*
+  // height: ${props => theme.theme.element.height[props.size]};
+  // font-size: ${props => theme.theme.font.size.element_font[props.size]};
+  // padding: ${props => theme.theme.element.padding[props.size]};
+  // background: ${props => theme.theme.theme_color[props.color].normal};
+  &:hover {
+    // background: ${props => themes.theme.theme_color[props.color].hover};
+  }
+  &:active: enabled {
+    // background: ${props => themes.theme.theme_color[props.color].active};
+  }
+  &:disabled {
+    cursor: not-allowed;
+    // background: ${props => themes.theme.theme_color[props.color].disable};
+  }
+*/
 /**
  * Issue ! 
  * 
@@ -14,33 +31,20 @@ import {colorType, sizeType} from '../util/theme';
  * 하지만 실제 구현체는 하드코딩이 아닌 Theme에서 가져온걸 쓴다.
  * 따라서 어느 한개라도 서로 데이터의 차이가 나게되면 타입에러가 나도록 한다.
  */
-const Button = styled.button<{color:colorType , size: sizeType, width?:string | number}>`
-  outline: none;
-  border: none;
-  box-sizing: border-box;
-  height: ${props => themes.theme.element.height[props.size]};
-  font-size: ${props => themes.theme.font.size.element_font[props.size]};
-  padding: ${props => themes.theme.element.padding[props.size]};
-  background: ${props => themes.theme.theme_color[props.color].normal};
-  color: white;
-  border-radius: 0.25rem;
-  line-height: 1;
-  font-weight: 600;
-  &:focus {
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
-  }
-  &:hover {
-    background: ${props => themes.theme.theme_color[props.color].hover};
-  }
-  &:active: enabled {
-    background: ${props => themes.theme.theme_color[props.color].active};
-  }
-  &:disabled {
-    cursor: not-allowed;
-    background: ${props => themes.theme.theme_color[props.color].disable};
-  }
-  width: ${props=>props.width};
-`;
+// const Button = styled.button<{color:colorType , size: sizeType, width?:string | number}>`
+//   outline: none;
+//   border: none;
+//   box-sizing: border-box;
+//   color: white;
+//   border-radius: 0.25rem;
+//   line-height: 1;
+//   font-weight: 600;
+//   &:focus {
+//     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+//   }
+
+//   width: ${props=>props.width};
+// `;
 //React.MouseEvent<HTMLButtonElement>
 
 export type R6ButtonProps = {
@@ -67,17 +71,17 @@ const R6Button = ({ children, onClick, theme,size,disabled,width,fluid }: R6Butt
     if (fluid) {
       width="100%";
     }
-    return (
-      <Button 
-        theme={themes.theme}
-        color={theme}
-        size={size}
-        onClick={onClick}
-        disabled={disabled}
-        width={width}
-        >
-        {children}
-      </Button>
+    return (<></>
+      // <Button 
+      //   theme={themes.theme}
+      //   color={theme}
+      //   size={size}
+      //   onClick={onClick}
+      //   disabled={disabled}
+      //   width={width}
+      //   >
+      //   {children}
+      // </Button>
     );
 };
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import '../../App.css'
 import SearchBar from '../../R6Components/SearchBar/SearchBar'
-import {Container, Row, Col} from 'react-bootstrap'
 import Space from '../../R6Components/R6Br'
 import route from '../../route'
 import {RouteDecoratorProps} from '../../route'
@@ -22,7 +21,7 @@ export default class Landing extends React.Component {
                 <div id="overlay">
                 </div>
                 <Space size={200}></Space>
-                <Container>
+                {/* <Container>
                     <Row>
                         sadfasdf
                     </Row>
@@ -31,7 +30,7 @@ export default class Landing extends React.Component {
                             <SearchBar isLarge={true}/>
                         </Col>
                     </Row>
-                </Container>
+                </Container> */}
                 <div id="main-container">
                     
                 </div>

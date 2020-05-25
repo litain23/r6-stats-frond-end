@@ -1,21 +1,34 @@
 import React from 'react';
 import '../../App.css'
 import {RANKAPI, GENERALAPI} from '../../util/type'
-import R6TypoComponent from '../../R6Components/R6TypoComponent';
-// import R6Card from '../Components/R6Card';
-import R6CardComp from '../../R6Components/R6CardComp';
-import {ProgressBar} from 'react-bootstrap'
-import {theme} from '../../util/theme'
+// import R6TypoComponent from '../../R6Components/R6TypoComponent';
+// import R6Card from '../../R6Components/R6CardComp';
+// import R6CardComp from '../../R6Components/R6CardComp';
 
-
-import {
-    Container,
-    Col,
-    Row
-} from 'react-bootstrap'
+// import {theme} from '../../util/theme'
+import { Statistic, Space } from 'antd';
+import { Row, Col, Divider } from 'antd';
+import { Typography } from 'antd';
+import { Collapse } from 'antd';
+import { CaretRightOutlined } from '@ant-design/icons';
+import R6Icon from '../../R6Components/R6Icon';
+import { Progress } from 'antd';
+import { Menu , Layout} from 'antd';
+import { AppstoreOutlined, TeamOutlined, TrophyOutlined } from '@ant-design/icons';
+import { UserOutlined, IdcardOutlined, AreaChartOutlined } from '@ant-design/icons';
+import R6RankIcon from '../../R6Components/R6RankIcon';
 
 import styled from 'styled-components'
 import R6Br from '../../R6Components/R6Br';
+
+const { SubMenu } = Menu;
+
+const { Header, Content, Footer, Sider } = Layout;
+
+const { Title, Paragraph } = Typography;
+const { Panel } = Collapse;
+
+
 
 interface Props {
     rankData : RANKAPI
@@ -25,6 +38,7 @@ interface Props {
 export default class SearchRankTab extends React.Component<Props> {
     
     render(){
+
         let totalTimePlayed = this.props.generalData.totalTimePlayed
         let totalTimePlayedInHour = Math.round(this.props.generalData.totalTimePlayed)
 
@@ -63,78 +77,109 @@ export default class SearchRankTab extends React.Component<Props> {
 
 
         return(
-            <R6Card title={""} isHeaderVisible={false}>
-                <Container fluid>
-                    <Row> 
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"총 플레이 시간"} body={totalTimePlayedInHour?.toString()} footer={""}/>
+            <>
+                {/* <Divider><Title> 시즌 12 </Title> </Divider> */}
 
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"총 매치 횟수"} body={totalMatches?.toString()} footer={""}/>
+                {/* auto */ 
+                    // <Col flex="200px" xs={24}>    
+                    // <Col flex="auto" xs={24}>
+       
+                
+                }
+                    <Row style={{background:"red"}}>
+                            <Col xs={24} sm={24} md={12} style={{background:'pink'}}>
+                                <Row justify="center" style={{textAlign:'center'}}>
+                                    <Space direction="vertical">
+                                    <Row>
+                                        <Col span={24}> 유돈노미 </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col span={24}> 안녕하세요 </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col span={24} style={{background:'red'}}>
+                                            안녕
+                                            {/* <div style={{display:'flex', flexDirection:'row', width:'200px', alignItems:'center'}}>
+                                                <R6RankIcon size={30} rank={20}></R6RankIcon>
+                                                <Progress percent={30} showInfo={false} strokeLinecap="square" strokeWidth={18} />
+                                                <R6RankIcon size={30} rank={20}></R6RankIcon>
+                                            </div> */}
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col span={24}> 반갑습니다 </Col>
+                                    </Row>
+                                    </Space>
+                                </Row>
+                            </Col>
+                            <Col xs={24} sm={24} md={12}>
+                                <Row>
+                                    <Col span={12}>abcv</Col>
+                                    <Col span={12}>abcd</Col>
+                                </Row>
+                                <Row>
+                                    <Col span={12}>abcv</Col>
+                                    <Col span={12}>abcd</Col>
+                                </Row>
+                            </Col>
+                        </Row>
+                    <Collapse
+                    bordered={false}
+                    expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
+                    >
+                        <Panel header="자세히보기" key="1" style={{border:"0px"}}>
+                        {/* { xs: 8, sm: 16, md: 24, lg: 32 } */}
+                        {/* <Row gutter={[24, 24]} justify="end"> */}
+                        <Row gutter={[24, 24]} style={{textAlign:'center'}} justify="center" align="middle">
+                            <Col className="gutter-row" xs={24} sm={12}  md={6} >
+                                <Statistic title="총 플레이 시간" decimalSeparator={","} value={totalTimePlayed} suffix={"hour"} />
+                            </Col>
+                            <Col className="gutter-row" xs={24}  sm={12} md={6} >
+                                <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
+                            </Col>
+                            <Col className="gutter-row" xs={24}  sm={12}  md={6}>
+                                <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
+                            </Col>
+                            <Col className="gutter-row" xs={24}  sm={12} md={6}>
+                                <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
+                            </Col>
+                        </Row>
+                        <Divider>Text</Divider>
 
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"승리 횟수"} body={win?.toString()} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
+                        <Row gutter={[24, 24]} style={{textAlign:'center'}} justify="center" align="middle">
+                            <Col span={6}>
+                                <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
+                            </Col>
+                            <Col span={6}>
+                                <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
+                            </Col>
+                            <Col span={6}>
+                                <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
+                            </Col>
+                            <Col span={6}>
+                                <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
+                            </Col>
+                        </Row>
+                        <Row gutter={24} style={{textAlign:'center'}} justify="center" align="middle">
+                            <Col span={6}>
+                                <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
+                            </Col>
+                            <Col span={6}>
+                                <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
+                            </Col>
+                            <Col span={6}>
+                                <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
+                            </Col>
+                            <Col span={6}>
+                                <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
+                            </Col>
+                        </Row>
 
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"패배 횟수"} body={lose?.toString()} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
 
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"승률"} body={winPercentage?.toString()+"%"} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
+                            </Panel>
+                    </Collapse>
+                    </>
 
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"총 킬 수"} body={totalKills?.toString()} footer={""}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"총 데스 수"} body={totalDeath?.toString()} footer={""}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"KDA"} body={killDeathAssistPercentage?.toString()+"%"} footer={"킬+어시스트 : 데스"}/>
-
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"KD"} body={killdeathPercentage?.toString()+"%"} footer={"킬 : 데스"}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"헤드샷 수"} body={headshotkill?.toString()} footer={"킬 : 데스"}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"헤드샷 률"} body={headshotPerecntage?.toString()+"%"} footer={"총 킬 " + totalKills?.toString() + " 중"}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"근접킬 수"} body={meleekill?.toString()} footer={""}/>
-
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"관통킬 수"} body={penetrationkill?.toString()} footer={""}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"매치당 킬"} body={killperMatches?.toString()} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
-
-                        </Col>
-                        <Col xs={6} sm={6} md={3}  lg={3}>
-                        <R6TypoComponent header={"분당 킬"} body={killperMin?.toString()} footer={"총 플레이 " + totalTimePlayed?.toString() + " 중"}/>
-                        </Col>
-                    </Row>
-
-                </Container>
-            </R6Card>
         )
     }
 }
