@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import R6ToggleButtonGroup from '../Components/R6ToggleButtonGroup'
-import R6ToggleButton from '../Components/R6ToggleButton'
+import R6ToggleButtonGroup from '../R6Components/R6ToggleButtonGroup'
+import R6ToggleButton from '../R6Components/R6ToggleButton'
 
 import { withKnobs,text, boolean, color } from '@storybook/addon-knobs';
 

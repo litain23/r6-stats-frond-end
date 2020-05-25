@@ -5,17 +5,17 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #1C1C1F;
-  background: linear-gradient(to right,#1C1C1F,#1C1C1F)
+  /* background-color: #1C1C1F;
+  background: linear-gradient(to right,#1C1C1F,#1C1C1F) */
   /* linear-gradient(to right, #0062E6, #33AEFF); */
+  /* overflow: hidden; */
 
 }
-
 html{
-  background: #1C1C1F;
+  /* background: #1C1C1F; */
   /* background-color: #1C1C1F */
+  -webkit-font-smoothing: antialiased;
 }
-
 
 
 code {

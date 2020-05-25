@@ -1,5 +1,5 @@
 import React from 'react';
-import R6TypoComponent from '../Components/R6TypoComponent'
+import R6TypoComponent from '../R6Components/R6TypoComponent'
 import { withKnobs,text, boolean, number, color, select, radios} from '@storybook/addon-knobs';
 
 export default {

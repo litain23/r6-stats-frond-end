@@ -1,5 +1,5 @@
 import React from 'react';
-import R6Card from '../Components/R6Card'
+import R6Card from '../R6Components/R6Card'
 import { withKnobs,text, boolean, color } from '@storybook/addon-knobs';
 
 export default {

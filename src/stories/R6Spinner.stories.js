@@ -1,5 +1,5 @@
 import React from 'react';
-import R6Spinner from '../Components/R6Spinner'
+import R6Spinner from '../R6Components/R6Spinner'
 import { withKnobs, select } from '@storybook/addon-knobs';
 
 export default {
