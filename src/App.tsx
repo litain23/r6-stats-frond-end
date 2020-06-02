@@ -18,6 +18,7 @@ import './App.css';
 //https://stackoverflow.com/questions/54843302/reactjs-bootstrap-navbar-and-routing-not-working-together
 //https://itnext.io/a-react-router-from-scratch-in-typescript-f0eec6ccb293
 import Search from './Pages/SearchPage/Search'
+import Landing from './Pages/LandingPage/Landing'
 
 import { Button } from 'antd';
 import 'antd/dist/antd.css';
@@ -40,13 +41,14 @@ const { Header, Content, Footer } = Layout;
 //   )
 // }
 
+
 // export default abc;
 
 class AppRouter extends React.Component {
   render(){
-    return(
-      <> 
-    <Layout className="layout">
+    return (
+      <>
+    {/* <Layout className="layout">
       <Header>
         <div className="logo" />
         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
@@ -58,13 +60,12 @@ class AppRouter extends React.Component {
       <Content style={{ padding: '0 0px'}}>
         <div style={{minHeight:"100vh"}}>
           <Search></Search>
-          {/* <SignupReseult></SignupReseult> */}
         </div>
       </Content>
     <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
-  </Layout>
-
-           {/* <Landing></Landing> */}
+  </Layout> */}
+  
+           <Landing></Landing>
       {/* <Router> */}
       {/* <Navbar style={{zIndex:8}} bg="primary" variant="dark">
       <Navbar.Brand href="#home">R6</Navbar.Brand>
@@ -92,10 +93,8 @@ class AppRouter extends React.Component {
       </Switch>
   
       </Router> */}
-      </>
-   
-    )
-
+      </>   
+    );
   }
 }
 export default AppRouter;

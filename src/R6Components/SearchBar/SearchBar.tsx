@@ -1,6 +1,6 @@
 import React from 'react';
 // import { Container, Row, Col, Form } from 'react-bootstrap';
-import './SearchBar.css'
+// import './SearchBar.css'
 import GGButton from '../Logos/GGButton'
 
 
