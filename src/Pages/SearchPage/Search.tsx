@@ -3,28 +3,19 @@ import '../../App.css'
 
 import API from '../../util/API'
 import {RANKAPI, GENERALAPI} from '../../util/type'
+import route, { RouteDecoratorProps } from '../../route';
 
-
-// import {
-//     ProgressBar,
-//     Button,
-//     Container,
-//     Col,
-//     Row
-// } from 'react-bootstrap'
-
-// import {R6Br} from '../R6component';
 
 import R6Spinner from '../../R6Components/R6Spinner'
 import R6TypoComponent from '../../R6Components/R6TypoComponent';
 import R6Br from '../../R6Components/R6Br';
 import R6Button from '../../R6Components/R6Button';
-
 import R6ToggleButtonGroup from '../../R6Components/R6ToggleButtonGroup';
 import R6ToggleButton from '../../R6Components/R6ToggleButton';
+import R6RankIcon from '../../R6Components/R6RankIcon';
+import R6RankCard from '../../R6Components/R6RankCard';
 
 import styled from 'styled-components';
-// import {theme} from '../../util/theme'
 
 import SearchOverviewTab from './Overview';
 import SearchRankTab from './Rank';
@@ -32,9 +23,6 @@ import SearchOperators from './Operators';
 import ProfileID from './SubComponent/ProfileID';
 import ProfileRank from './SubComponent/ProfileRank';
 
-import R6RankIcon from '../../R6Components/R6RankIcon';
-import R6RankCard from '../../R6Components/R6RankCard';
-import route, { RouteDecoratorProps } from '../../route';
 import { Statistic } from 'antd';
 import { Row, Col, Divider } from 'antd';
 import { Typography } from 'antd';
