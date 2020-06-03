@@ -18,6 +18,10 @@ const StyledSearch = styled(Search)`
         background: #515163;
         border-color: #515163;
     }
+
+    .ant-input-group-addon {
+        background: #515163;
+    }
 `;
 
 const LandingRoot = styled.div`
@@ -113,9 +117,6 @@ export default class Landing extends React.Component {
                             placeholder="아이디를 입력해주세요"
                             enterButton="Go"
                             size="large"
-                            style={{
-                                background: "#1c1c1f"
-                            }}
                         />
                     </HomeSearch>
                </Container>

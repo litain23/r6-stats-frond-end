@@ -48,7 +48,7 @@ class AppRouter extends React.Component {
   render(){
     return (
       <>
-    {/* <Layout className="layout">
+    <Layout className="layout">
       <Header>
         <div className="logo" />
         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
@@ -63,11 +63,11 @@ class AppRouter extends React.Component {
         </div>
       </Content>
     <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
-  </Layout> */}
+  </Layout>
   
-           <Landing></Landing>
-      {/* <Router> */}
-      {/* <Navbar style={{zIndex:8}} bg="primary" variant="dark">
+           {/* <Landing></Landing> */}
+      {/* <Router>
+      <Navbar style={{zIndex:8}} bg="primary" variant="dark">
       <Navbar.Brand href="#home">R6</Navbar.Brand>
       <Nav className="mr-auto">
         <Nav.Link as={NavLink} to="/landing"> 홈 </Nav.Link>
@@ -78,9 +78,9 @@ class AppRouter extends React.Component {
         <FormControl type="text" placeholder="Search" />
         <R6Button>Search</R6Button>
       </Form>
-      </Navbar> */}
+      </Navbar>
   
-      {/* <Switch>
+      <Switch>
         <Route exact path="/search" component={Search} />
         <Route exact path="/landing" component={Landing} />
         <Route exact path="/login" component={Login} />
