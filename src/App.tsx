@@ -19,6 +19,7 @@ import './App.css';
 //https://itnext.io/a-react-router-from-scratch-in-typescript-f0eec6ccb293
 import Search from './Pages/SearchPage/Search'
 import Landing from './Pages/LandingPage/Landing'
+import Profile from './Pages/SearchPage/Profile'
 
 import { Button } from 'antd';
 import 'antd/dist/antd.css';
@@ -44,11 +45,11 @@ const { Header, Content, Footer } = Layout;
 
 // export default abc;
 
-class AppRouter extends React.Component {
+class App extends React.Component {
   render(){
     return (
       <>
-    <Layout className="layout">
+    {/* <Layout className="layout">
       <Header>
         <div className="logo" />
         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
@@ -63,41 +64,13 @@ class AppRouter extends React.Component {
         </div>
       </Content>
     <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
-  </Layout>
-  
-           {/* <Landing></Landing> */}
-      {/* <Router>
-      <Navbar style={{zIndex:8}} bg="primary" variant="dark">
-      <Navbar.Brand href="#home">R6</Navbar.Brand>
-      <Nav className="mr-auto">
-        <Nav.Link as={NavLink} to="/landing"> 홈 </Nav.Link>
-        <Nav.Link as={NavLink} to="/login"> 검색 </Nav.Link>
-        <Nav.Link as={NavLink} to="/search">Pricing</Nav.Link>
-      </Nav>
-      <Form>
-        <FormControl type="text" placeholder="Search" />
-        <R6Button>Search</R6Button>
-      </Form>
-      </Navbar>
-  
-      <Switch>
-        <Route exact path="/search" component={Search} />
-        <Route exact path="/landing" component={Landing} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/vali" component={validation} />
-  
-        <Route component={Landing} />
-        //<Route component={}>
-        //<Redirect to ={}>
-      </Switch>
-  
-      </Router> */}
+  </Layout> */}
+           <Profile></Profile>
       </>   
     );
   }
 }
-export default AppRouter;
+export default App;
 
 
 // async function AppRouter() {
