@@ -65,7 +65,8 @@ class App extends React.Component {
       </Content>
     <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
   </Layout> */}
-           <Profile></Profile>
+     <Landing></Landing>
+           {/* <Profile></Profile> */}
       </>   
     );
   }
