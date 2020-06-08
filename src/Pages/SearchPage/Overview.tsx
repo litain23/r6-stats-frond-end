@@ -5,7 +5,7 @@ import R6TypoComponent from '../../R6Components/R6TypoComponent';
 import R6Card from '../../R6Components/R6Card';
 import { Table, Space, Divider, Row } from 'antd';
 import { ColumnType } from 'antd/lib/table/interface'
-import API from '../../util/API';
+import {API} from '../../util/API';
 import { Statistic , Typography} from 'antd';
 import R6Icon from '../../R6Components/R6Icon';
 import { Progress, Col } from 'antd';

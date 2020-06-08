@@ -3,17 +3,18 @@ import {RouteComponentProps} from "react-router";
 import React, {Component, ComponentClass, ComponentType} from "react";
 
 
-
 export interface RouteDecoratorProps extends RouteComponentProps {
     path: string
 }
 
-export default function route(path : string) {
-    console.log(path);
 
-    // return function Highlighted<T extends {new(...args: any[]): {}} & RouteDecoratorProps>(InputTemplate: ComponentClass<RouteDecoratorProps>) {
+/**
+ * 
+ * @param path 
+ */
+export default function route(path : string) {
+
     return function Wrapper(InputTemplate: ComponentClass<RouteDecoratorProps>) {
-        console.log(path);
 
         class Template extends Component<RouteDecoratorProps> {
             

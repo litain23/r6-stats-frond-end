@@ -1,0 +1,59 @@
+.card-header{
+    height:45px;
+    background: rgb(148, 106, 151);
+    padding:.8rem 1.6rem;
+    display:flex;
+    align-items: center;
+    text-transform: uppercase;
+    font-weight:bold;
+}
+
+.card-content {
+    display:flex;
+    flex-direction: row;
+    border-bottom: 1px solid #1F1F1F;
+}
+
+.card {
+    color:white;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+.card-content-ranks {
+    flex:0.3;
+    background-color: #363636;
+    color:white;
+}
+
+.card-content-stats {
+    flex:0.7;
+    background-color: #363636;
+    color:white;
+}
+
+.card-content-ranks-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height:100%;
+}
+
+.card-content-ranks-content .rank-bar{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width:80%;
+}
+
+
+.card-content-ranks-content .rank-bar .progress-bar{
+    flex-grow:1;
+    height:30px;
+    background-color: rgb(148, 106, 151);;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

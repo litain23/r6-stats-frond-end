@@ -11,20 +11,29 @@ export interface SizeRequired {
 type regionType = "APAC" | "NANC" | "ABCD"
 
 
-export interface RANKAPI {
+export interface RANKALLAPI {
+    abc : Array<{region:string, rankStat:RANKAPI[]}>
+}
 
+export interface RANKTEMPAPI {
+    region:string, rankStat:RANKAPI
+}
+export interface RANKAPI {
     maxMmr: number;
     death: number;
     rank: number;
     maxRank:number;
     kills:number;
-    updateTime: string|Date;
+    updateTime?: string|Date;
     abandons: number|string;
     mmr:number;
     wins:number;
     region:string;
     season:number;
     losses:number;
+    createdTime: string;
+    maxRankString: string;
+    rankString: string;
 }
 
 
