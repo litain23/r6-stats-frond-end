@@ -1,5 +1,7 @@
 import React from 'react';
 import '../../App.css'
+import './Landing.css'
+
 
 import { Input } from 'antd';
 
@@ -28,10 +30,30 @@ const LandingRoot = styled.div`
     z-index: 10;
 `;
 
-const Video = styled.video`
-    width: 100%;
-    height: 100%;
-`;
+/**
+ *     // position:absolute;
+    // top : 50%;
+    // left: 50%;
+    // width:1591;
+    // height:900;
+    // width: 100%;
+    // height: 100%;
+
+ */
+
+// const VideoContainer = styled.div`
+//     position: absolute; 
+//     width:100%;
+//     height:100%;
+//     top:0;
+//     left:0;
+//     zIndex: 12;
+//     opacity: 0.3;
+//     background:red;
+// `
+// const Video = styled.video`
+//     scale:0.5;
+// `;
 
 const Container = styled.div`
     @media (min-width: 576px) {
@@ -84,6 +106,8 @@ const HomeSearch = styled.div`
     position: relative;
     margin-left: auto;
     margin-right: auto;
+    
+    max-width:800px;
 
     padding: 0 100px;
     @media (max-width: 768px) {
@@ -92,37 +116,66 @@ const HomeSearch = styled.div`
 `;
 
 export default class Landing extends React.Component {
+    
+    componentDidMount(){
+        // this.setLayout();
+        window.addEventListener('resize', this.setLayout);
+        window.addEventListener('load', this.setLayout);
+    }
+
+    componentWillUnmount(){
+        window.removeEventListener('resize', this.setLayout);
+        window.addEventListener('load', this.setLayout);
+    }
+
+    setLayout(){
+
+        /** scale to fit */
+        const videoElement = document.querySelector(".background-video") as HTMLElement;
+        const videoContent = document.querySelector("#background-video-content") as HTMLElement
+
+        const heightRatio = window.innerHeight / 900;
+        const widthRatio = window.innerWidth / 1560;
+
+        let ratio;
+        if (widthRatio <= heightRatio) {
+            ratio = heightRatio;
+        } else {
+            ratio = widthRatio;
+        }
+
+        if (videoElement && videoContent) {
+            videoContent.style.transform = `translate3d(-50%,-50%,0) scale(${ratio})`;
+        }
+    }
+
     render() {
         return (
-            <LandingRoot>
-                <HomeBackground> </HomeBackground>
-                <div className="background-video" style={{position: "absolute", width: "100%", zIndex: 10, opacity: "0.3"}}>
-                    <Video id="background-video-content" muted={true} autoPlay={true} loop={true} preload="auto" src="background_void_edge.mp4">
-                    </Video>
+               
+            <div>
+
+               <div className="background-video" style={{}}>
+                    <video id="background-video-content" style={{}} muted={true} autoPlay={true} loop={true} preload="auto" src="background_void_edge.mp4">
+                    </video>
                 </div>
 
-                <Container>
-                    <HomeLogo>
-                        <span style={{
-                            fontSize: "40px",
-                        }}>
-                            Rain Box Six Seige : 
-                        </span>
-                    </HomeLogo>
-                </Container>
+                <div className="black-layer"></div>
 
-                <Container>
-                    <HomeSearch>
+                <div className="search-container">
+                <div className="search-items">
+
+                    <div className="logo">
+                                Rain Box Six Seige
+                        </div>
                         <StyledSearch
                             placeholder="아이디를 입력해주세요"
                             enterButton="Go"
                             size="large"
                         />
-                    </HomeSearch>
-               </Container>
-            </LandingRoot>
-        )
+
+                    </div>
+                </div>
+            </div>
+            )
+        }
     }
-}
-
-

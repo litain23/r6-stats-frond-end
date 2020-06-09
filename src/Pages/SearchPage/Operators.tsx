@@ -7,7 +7,7 @@ import { OPERATORAPI } from '../../util/type';
 import { Table, Space, Divider, Row } from 'antd';
 import { ColumnType } from 'antd/lib/table/interface'
 import { Typography } from 'antd';
-import API from '../../util/API';
+import {API} from '../../util/API';
 const { Title , Paragraph } = Typography
 const { Text } = Typography;
 
@@ -268,8 +268,6 @@ export default class SearchOperators extends React.Component<Props, State> {
 
 
     return( <>
-
-        <Title> 오퍼레이터 정보 </Title>
 
          <Table
             columns={columns}

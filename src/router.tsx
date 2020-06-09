@@ -8,8 +8,6 @@ import Landing from './Pages/LandingPage/Landing';
 // }
 
 
-// function router<T extends {new(...args: any[]): {}}>(InputTemplate: ComponentClass<T>) {
-// function router<T extends {test:number}&{ new(...args: any[]): {} }>(ComponentFunction: T) {  
 function router(Template: ComponentClass) {
 
     const req = require.context( './Pages/', true, /\.(js|tsx)$/i);   
