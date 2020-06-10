@@ -1,6 +1,6 @@
 import { RANKAPI } from "./type";
 
-const baseURL = "http://ec2-52-78-165-226.ap-northeast-2.compute.amazonaws.com:8080/api/v1/"
+const baseURL = "http://ec2-52-78-165-226.ap-northeast-2.compute.amazonaws.com:8080/"
 type platform = "uplay" | "psn" | "xbl"
 
 enum queryType {
@@ -13,7 +13,6 @@ enum queryType {
 
 export async function API<T>(url: string ,init?: RequestInit): Promise<T>{
     try {
-
         const response = await fetch(url, init);
 
         if (!response.ok) {
@@ -22,8 +21,8 @@ export async function API<T>(url: string ,init?: RequestInit): Promise<T>{
 
         const wrapped = await response.json() as Promise<T>
         return wrapped;
-
     } catch (e) {
+        
         throw new Error(e);
     }
 }

@@ -23,7 +23,7 @@ const { Title , Paragraph , Text} = Typography
 // } from 'react-bootstrap'
 
 interface Props {
-    rankData : RANKAPI
+    rankData : RANKAPI[]
     generalData : GENERALAPI
 }
 
@@ -31,40 +31,40 @@ interface Props {
 export default class SearchOverviewTab extends React.Component<Props> {
     
     render(){
-        let totalTimePlayed = this.props.generalData.totalTimePlayed
-        let totalTimePlayedInHour = Math.round(this.props.generalData.totalTimePlayed)
+        let timePlayed = this.props.generalData.timePlayed
+        let tmePlayedInHour = Math.round(this.props.generalData.timePlayed)
 
-        let totalMatches = this.props.generalData.totalMatchPlayed
+        let matches = this.props.generalData.matchPlayed
 
-        let win = this.props.generalData.totalMatchWon
-        let lose = totalMatches - win
+        let win = this.props.generalData.matchWon
+        let lose = matches - win
 
-        let winPercentage = Math.round((win/totalMatches)*100) 
-        let losePerecentage = Math.round((lose/totalMatches)*100)
+        let winPercentage = Math.round((win/matches)*100) 
+        let losePerecentage = Math.round((lose/matches)*100)
         
-        let totalKills = this.props.generalData.totalKills;
-        let totalDeath = this.props.generalData.totalDeath;
-        let killassist = this.props.generalData.totalKillAssists
+        let kills = this.props.generalData.kills;
+        let death = this.props.generalData.death;
+        let killassist = this.props.generalData.killAssists
 
-        let killdeathPercentage = Math.round((totalKills/this.props.generalData.totalDeath)*100)
-        let killDeathAssistPercentage = Math.round((totalKills+killassist)/totalDeath*100);
+        let killdeathPercentage = Math.round((kills/this.props.generalData.death)*100)
+        let killDeathAssistPercentage = Math.round((kills+killassist)/death*100);
 
-        let penetrationkill = this.props.generalData.totalPenetrationKills
-        let meleekill = this.props.generalData.totalMeleeKills
-        let headshotkill = this.props.generalData.totalHeadShot
-        let revive = this.props.generalData.totalRevive
+        let penetrationkill = this.props.generalData.penetrationKills
+        let meleekill = this.props.generalData.meleeKills
+        let headshotkill = this.props.generalData.headShot
+        let revive = this.props.generalData.revive
 
-        let bullithit = this.props.generalData.totalBulletHit
+        let bullithit = this.props.generalData.bulletHit
     
         //advnnced
 
         
         //매치당 킬.
-        let killperMatches = Math.round(totalKills/totalMatches*100)
+        let killperMatches = Math.round(kills/matches*100)
         //분당 킬.
-        let killperMin = Math.round(totalKills/totalTimePlayed*100)
+        let killperMin = Math.round(kills/timePlayed*100)
         //헤드샷 률.
-        let headshotPerecntage = Math.round(headshotkill/totalKills*100)
+        let headshotPerecntage = Math.round(headshotkill/kills*100)
 
 
 
@@ -74,27 +74,27 @@ export default class SearchOverviewTab extends React.Component<Props> {
             <Title> 전체 데이터 </Title>
             <Row gutter={[24, 24]} style={{textAlign:'center'}} justify={"space-between"} align="middle">
                 <Col span={6}>
-                    <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
+                    <Statistic title="Account Balance (CNY)" value={timePlayed} precision={2} />
                 </Col>
                 <Col span={6}>
-                    <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
+                    <Statistic title="Account Balance (CNY)" value={tmePlayedInHour} precision={2} />
                 </Col>
                 <Col span={6}>
-                    <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
+                    <Statistic title="Account Balance (CNY)" value={matches} precision={2} />
                 </Col>
                 <Col span={6}>
-                    <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
+                    <Statistic title="Account Balance (CNY)" value={win} precision={2} />
                 </Col>
             </Row>
             <Row gutter={[24, 24]} style={{textAlign:'center'}} justify={"end"} align="middle">
                 <Col span={6}>
-                    <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
+                    <Statistic title="Account Balance (CNY)" value={lose} precision={2} />
                 </Col>
                 <Col span={6}>
-                    <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
+                    <Statistic title="Account Balance (CNY)" value={kills} precision={2} />
                 </Col>
                 <Col span={6}>
-                    <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
+                    <Statistic title="Account Balance (CNY)" value={death} precision={2} />
                 </Col>
                 <Col span={6}>
                     <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
@@ -122,75 +122,3 @@ export default class SearchOverviewTab extends React.Component<Props> {
 }
 
 
-// {/* 
-//                     <R6Card title={""} isHeaderVisible={false}>
-//                     <Container fluid>
-//                     <Row> 
-//                         <Col xs={6} sm={6} md={3}  lg={3}>
-//                         <R6TypoComponent header={"총 플레이 시간"} body={totalTimePlayedInHour?.toString()} footer={""}/>
-
-//                         </Col>
-//                         <Col xs={6} sm={6} md={3}  lg={3}>
-//                         <R6TypoComponent header={"총 매치 횟수"} body={totalMatches?.toString()} footer={""}/>
-
-//                         </Col>
-//                         <Col xs={6} sm={6} md={3}  lg={3}>
-//                         <R6TypoComponent header={"승리 횟수"} body={win?.toString()} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
-
-//                         </Col>
-//                         <Col xs={6} sm={6} md={3}  lg={3}>
-//                         <R6TypoComponent header={"패배 횟수"} body={lose?.toString()} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
-
-//                         </Col>
-//                     </Row>
-//                     <Row>
-//                         <Col xs={6} sm={6} md={3}  lg={3}>
-//                         <R6TypoComponent header={"승률"} body={winPercentage?.toString()+"%"} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
-//                         </Col>
-//                         <Col xs={6} sm={6} md={3}  lg={3}>
-//                         <R6TypoComponent header={"총 킬 수"} body={totalKills?.toString()} footer={""}/>
-
-//                         </Col>
-//                         <Col xs={6} sm={6} md={3}  lg={3}>
-//                         <R6TypoComponent header={"총 데스 수"} body={totalDeath?.toString()} footer={""}/>
-
-//                         </Col>
-//                         <Col xs={6} sm={6} md={3}  lg={3}>
-//                         <R6TypoComponent header={"KDA"} body={killDeathAssistPercentage?.toString()+"%"} footer={"킬+어시스트 : 데스"}/>
-
-//                         </Col>
-//                     </Row>
-//                     <Row>
-//                         <Col xs={6} sm={6} md={3}  lg={3}>
-//                         <R6TypoComponent header={"KD"} body={killdeathPercentage?.toString()+"%"} footer={"킬 : 데스"}/>
-
-//                         </Col>
-//                         <Col xs={6} sm={6} md={3}  lg={3}>
-//                         <R6TypoComponent header={"헤드샷 수"} body={headshotkill?.toString()} footer={"킬 : 데스"}/>
-
-//                         </Col>
-//                         <Col xs={6} sm={6} md={3}  lg={3}>
-//                         <R6TypoComponent header={"헤드샷 률"} body={headshotPerecntage?.toString()+"%"} footer={"총 킬 " + totalKills?.toString() + " 중"}/>
-
-//                         </Col>
-//                         <Col xs={6} sm={6} md={3}  lg={3}>
-//                         <R6TypoComponent header={"근접킬 수"} body={meleekill?.toString()} footer={""}/>
-
-//                         </Col>
-//                     </Row>
-//                     <Row>
-//                         <Col xs={6} sm={6} md={3}  lg={3}>
-//                         <R6TypoComponent header={"관통킬 수"} body={penetrationkill?.toString()} footer={""}/>
-
-//                         </Col>
-//                         <Col xs={6} sm={6} md={3}  lg={3}>
-//                         <R6TypoComponent header={"매치당 킬"} body={killperMatches?.toString()} footer={"총 매치횟수 " + totalMatches?.toString() + " 중"}/>
-
-//                         </Col>
-//                         <Col xs={6} sm={6} md={3}  lg={3}>
-//                         <R6TypoComponent header={"분당 킬"} body={killperMin?.toString()} footer={"총 플레이 " + totalTimePlayed?.toString() + " 중"}/>
-//                         </Col>
-//                     </Row>
-
-//                 </Container> 
-//             // </R6Card>*/}

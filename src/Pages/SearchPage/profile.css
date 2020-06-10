@@ -4,7 +4,7 @@
 
 .profile-items {
     height:100%;
-    max-width:1400px;
+    max-width:1140px;
     margin:0 auto;
 
     display:flex;
@@ -13,16 +13,13 @@
 }
 
 .profile-items img{
-
     width:85px;
     height:85px;
     background-color: black;
     border-radius: 10px;
-
 }
 
 .profile {
-
     display:flex;
     flex-direction: row;
     align-items: center;
@@ -34,15 +31,13 @@
 }
 
 .profile-id h1{
-
     margin-bottom:0;
     margin-top:0;
     margin-left:0.5em;
     color:white;
-
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
 
     .container1{
         height:120px;
