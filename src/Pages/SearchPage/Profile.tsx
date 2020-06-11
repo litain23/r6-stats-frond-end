@@ -2,11 +2,11 @@ import React from 'react';
 import '../../App.css'
 import './profile.css'
 
-import { RANKAPI } from './../../util/type'
+import { RANKAPI, RANKREGIONSTATAPI } from './../../util/type'
 import ProfileRank from './SubComponent/ProfileRank'
 
 interface Props {
-    rankData: RANKAPI[]
+    currentRankData: RANKREGIONSTATAPI[]
 }
 
 export default class Profile extends React.Component<Props> {
@@ -25,7 +25,7 @@ export default class Profile extends React.Component<Props> {
                         </div>
                     </div>
                     <div className="rank">
-                        <ProfileRank rankData={this.props.rankData} ></ProfileRank>
+                        <ProfileRank currentRankData={this.props.currentRankData} ></ProfileRank>
                     </div>
                 </div>
             </div>

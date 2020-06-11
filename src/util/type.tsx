@@ -5,19 +5,19 @@ export interface SizeRequired {
     width : number
 }
 
-//locale?
-//APAC | 
-//바로 컨버팅?
+
+/** TO-DO : 바로컨버팅 하는 기능? */
 type regionType = "APAC" | "NANC" | "ABCD"
 
 
-export interface RANKALLAPI {
+export interface RANKREGIONSTATAPI {
     region:string, 
     rankStat:RANKAPI[]
 }
 
 export interface RANKTEMPAPI {
-    region:string, rankStat:RANKAPI
+    region:string;
+    rankStat:RANKAPI
 }
 
 export interface RANKAPI {
@@ -63,7 +63,7 @@ export interface PVPAPI {
 }
 
 // 명시적으로 타입을 만들어줌.
-type operators = keyof typeof badges;
+export type operators = keyof typeof badges;
 
 export interface OPERATORAPI {
     name:operators

@@ -31,9 +31,11 @@ const Container = styled.div`
     }
 `;
 
+
 class App extends React.Component {
   render(){
     return (
+      
       <Container>
         <Search></Search>
       </Container>

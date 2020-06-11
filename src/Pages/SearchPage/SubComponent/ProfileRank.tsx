@@ -1,7 +1,7 @@
 
 import styled from 'styled-components';
 import React from 'react';
-import { RANKAPI } from '../../../util/type';
+import { RANKAPI, RANKREGIONSTATAPI } from '../../../util/type';
 import { R6RankIcon } from '../../../R6Components'
 
 const RANK_CONTAINER = styled.section`
@@ -31,29 +31,28 @@ const RANK_CONTAINER2 = styled.section`
 `;
 
 interface ProfileRankProps {
-    rankData: RANKAPI[]
+    currentRankData: RANKREGIONSTATAPI[]
 }
 
 class ProfileRank extends React.Component<ProfileRankProps> {
     render() {
-        const {rankData} = this.props;
-        console.log(rankData);
+        const {currentRankData} = this.props;
         return(
             <RANK_CONTAINER>
                 <RANK_CONTAINER2>
-                    <div id="name">아시아</div> 
-                    <R6RankIcon rank={rankData[0].rank} size={50}></R6RankIcon>
-                    <div id="content">{rankData[0].rankString}</div> 
+                    <div id="name">{currentRankData[0].region}</div> 
+                    <R6RankIcon rank={currentRankData[0].rankStat[0].rank} size={50}></R6RankIcon>
+                    <div id="content">{currentRankData[0].rankStat[0].rankString}</div> 
                 </RANK_CONTAINER2>
                 <RANK_CONTAINER2>
-                    <div id="name">아시아</div> 
-                    <R6RankIcon rank={rankData[1].rank} size={50}></R6RankIcon>
-                    <div id="content">{rankData[1].rankString}</div> 
+                    <div id="name">{currentRankData[1].region}</div> 
+                    <R6RankIcon rank={currentRankData[1].rankStat[0].rank} size={50}></R6RankIcon>
+                    <div id="content">{currentRankData[1].rankStat[0].rankString}</div> 
                 </RANK_CONTAINER2>
                 <RANK_CONTAINER2>
-                    <div id="name">아시아</div> 
-                    <R6RankIcon rank={rankData[2].rank} size={50}></R6RankIcon>
-                    <div id="content">{rankData[2].rankString}</div> 
+                    <div id="name">{currentRankData[2].region}</div> 
+                    <R6RankIcon rank={currentRankData[2].rankStat[0].rank} size={50}></R6RankIcon>
+                    <div id="content">{currentRankData[2].rankStat[0].rankString}</div> 
                 </RANK_CONTAINER2>
             </RANK_CONTAINER>
         )

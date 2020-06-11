@@ -23,7 +23,6 @@ const { Title , Paragraph , Text} = Typography
 // } from 'react-bootstrap'
 
 interface Props {
-    rankData : RANKAPI[]
     generalData : GENERALAPI
 }
 

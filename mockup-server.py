@@ -1,20 +1,481 @@
 from flask import Flask, request, jsonify
 from flask import Response
 import json
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+CORS(app)
 
-# RANK
+
+#CASUALPVP
+@app.route('/api/v1/casualpvp/uplay/piliot')
+def casualpvp():
+    return jsonify(
+        {
+            "death": 533,
+            "kills": 521,
+            "matchLost": 84,
+            "matchWon": 102,
+            "matchPlayed": 186,
+            "timePlayed": 160986,
+            "createdTime": "2020-05-19T10:53:14.4074346"
+        }
+    )
+
+#CASUALPVPALL
+@app.route('/api/v1/casualpvp/uplay/piliot/all')
+def casualpvpall():
+    list = [{
+	"death": 537,
+	"kills": 524,
+	"matchLost": 85,
+	"matchWon": 102,
+	"matchPlayed": 187,
+	"timePlayed": 161785,
+	"createdTime": "2020-06-11T20:00:52.073054"
+    }, {
+	"death": 537,
+	"kills": 524,
+	"matchLost": 85,
+	"matchWon": 102,
+	"matchPlayed": 187,
+	"timePlayed": 161785,
+	"createdTime": "2020-06-11T00:00:02"
+    }, {
+	"death": 537,
+	"kills": 524,
+	"matchLost": 85,
+	"matchWon": 102,
+	"matchPlayed": 187,
+	"timePlayed": 161785,
+	"createdTime": "2020-06-10T00:00:01"
+    }, {
+	"death": 537,
+	"kills": 524,
+	"matchLost": 85,
+	"matchWon": 102,
+	"matchPlayed": 187,
+	"timePlayed": 161785,
+	"createdTime": "2020-06-09T00:00:05"
+    }, {
+	"death": 537,
+	"kills": 524,
+	"matchLost": 85,
+	"matchWon": 102,
+	"matchPlayed": 187,
+	"timePlayed": 161785,
+	"createdTime": "2020-06-08T00:00:01"
+    }, {
+	"death": 537,
+	"kills": 524,
+	"matchLost": 85,
+	"matchWon": 102,
+	"matchPlayed": 187,
+	"timePlayed": 161785,
+	"createdTime": "2020-06-07T00:00:03"
+    }, {
+	"death": 537,
+	"kills": 524,
+	"matchLost": 85,
+	"matchWon": 102,
+	"matchPlayed": 187,
+	"timePlayed": 161785,
+	"createdTime": "2020-06-06T00:00:03"
+    }, {
+	"death": 537,
+	"kills": 524,
+	"matchLost": 85,
+	"matchWon": 102,
+	"matchPlayed": 187,
+	"timePlayed": 161785,
+	"createdTime": "2020-06-05T00:00:03"
+    }, {
+	"death": 537,
+	"kills": 524,
+	"matchLost": 85,
+	"matchWon": 102,
+	"matchPlayed": 187,
+	"timePlayed": 161785,
+	"createdTime": "2020-06-04T00:00:01"
+    }, {
+	"death": 537,
+	"kills": 524,
+	"matchLost": 85,
+	"matchWon": 102,
+	"matchPlayed": 187,
+	"timePlayed": 161785,
+	"createdTime": "2020-06-03T00:00:01"
+    }, {
+	"death": 537,
+	"kills": 524,
+	"matchLost": 85,
+	"matchWon": 102,
+	"matchPlayed": 187,
+	"timePlayed": 161785,
+	"createdTime": "2020-06-02T00:00:02"
+    }]
+    return Response(json.dumps(list),  mimetype='application/json')
+
+#RANKPVPALL
+@app.route('/api/v1/rankpvp/uplay/piliot/all')
+def rankpvpall():
+    list = [{
+        "death": 4765,
+        "kills": 4784,
+        "matchLost": 546,
+        "matchWon": 586,
+        "matchPlayed": 1132,
+        "timePlayed": 1356790,
+        "createdTime": "2020-06-11T20:03:08.048041"
+        }, {
+        "death": 4765,
+        "kills": 4784,
+        "matchLost": 546,
+        "matchWon": 586,
+        "matchPlayed": 1132,
+        "timePlayed": 1356790,
+        "createdTime": "2020-06-11T00:00:03"
+        }, {
+        "death": 4765,
+        "kills": 4784,
+        "matchLost": 546,
+        "matchWon": 586,
+        "matchPlayed": 1132,
+        "timePlayed": 1356790,
+        "createdTime": "2020-06-10T00:00:05"
+        }, {
+        "death": 4765,
+        "kills": 4784,
+        "matchLost": 546,
+        "matchWon": 586,
+        "matchPlayed": 1132,
+        "timePlayed": 1356790,
+        "createdTime": "2020-06-09T00:00:01"
+        }, {
+        "death": 4765,
+        "kills": 4784,
+        "matchLost": 546,
+        "matchWon": 586,
+        "matchPlayed": 1132,
+        "timePlayed": 1356790,
+        "createdTime": "2020-06-08T00:00:02"
+        }, {
+        "death": 4756,
+        "kills": 4780,
+        "matchLost": 545,
+        "matchWon": 585,
+        "matchPlayed": 1130,
+        "timePlayed": 1354783,
+        "createdTime": "2020-06-07T00:00:03"
+        }, {
+        "death": 4745,
+        "kills": 4763,
+        "matchLost": 545,
+        "matchWon": 582,
+        "matchPlayed": 1127,
+        "timePlayed": 1351178,
+        "createdTime": "2020-06-06T00:00:03"
+        }, {
+        "death": 4745,
+        "kills": 4763,
+        "matchLost": 545,
+        "matchWon": 582,
+        "matchPlayed": 1127,
+        "timePlayed": 1351178,
+        "createdTime": "2020-06-05T00:00:01"
+        }, {
+        "death": 4745,
+        "kills": 4763,
+        "matchLost": 545,
+        "matchWon": 582,
+        "matchPlayed": 1127,
+        "timePlayed": 1351178,
+        "createdTime": "2020-06-04T00:00:03"
+        }, {
+        "death": 4745,
+        "kills": 4763,
+        "matchLost": 545,
+        "matchWon": 582,
+        "matchPlayed": 1127,
+        "timePlayed": 1351178,
+        "createdTime": "2020-06-03T00:00:02"
+        }, {
+        "death": 4745,
+        "kills": 4763,
+        "matchLost": 545,
+        "matchWon": 582,
+        "matchPlayed": 1127,
+        "timePlayed": 1351178,
+        "createdTime": "2020-06-02T00:00:03"
+    }]
+    
+    return Response(json.dumps(list),  mimetype='application/json')
+
+#RANKPVP
+@app.route('/api/v1/rankpvp/uplay/piliot')
+def rankpvp():
+    return jsonify(
+        {
+            "death": 4724,
+            "kills": 4746,
+            "matchLost": 544,
+            "matchWon": 579,
+            "matchPlayed": 1123,
+            "timePlayed": 1345360,
+            "createdTime": "2020-05-19T11:04:04.5581463"
+        }       
+    )
+
+#RANK
 @app.route('/api/v1/rank/uplay/piliot')
 def rank():
-    return jsonify({"maxMmr":2581,"death":0,"rank":14,"maxRank":15,"kills":965,"updateTime":"2020-04-27T05:12:07.114000+00:00","abandons":1,"mmr":2439,"wins":109,"region":"apac","season":17,"losses":97})
+    list = [{
+		"region": "ncsa",
+		"rankStat": [{
+			"maxMmr": 0,
+			"death": 0,
+			"rank": 0,
+			"maxRank": 0,
+			"kills": 0,
+			"abandons": 0,
+			"mmr": 2500,
+			"wins": 0,
+			"region": "ncsa",
+			"season": 17,
+			"losses": 0,
+			"createdTime": "2020-05-19T18:19:30.0502837",
+			"maxRankString": "UNRANK",
+			"rankString": "UNRANK"
+		}]
+	},
+	{
+		"region": "emea",
+		"rankStat": [{
+			"maxMmr": 0,
+			"death": 0,
+			"rank": 0,
+			"maxRank": 0,
+			"kills": 0,
+			"abandons": 0,
+			"mmr": 2500,
+			"wins": 0,
+			"region": "emea",
+			"season": 17,
+			"losses": 0,
+			"createdTime": "2020-05-19T18:19:29.5632611",
+			"maxRankString": "UNRANK",
+			"rankString": "UNRANK"
+		}]
+	},
+	{
+		"region": "apac",
+		"rankStat": [{
+			"maxMmr": 2581,
+			"death": 984,
+			"rank": 14,
+			"maxRank": 15,
+			"kills": 1102,
+			"abandons": 1,
+			"mmr": 2428,
+			"wins": 126,
+			"region": "apac",
+			"season": 17,
+			"losses": 115,
+			"createdTime": "2020-05-19T18:19:29.073145",
+			"maxRankString": "SILVER 1",
+			"rankString": "SILVER 2"
+		}]
+	}
+]
+    return Response(json.dumps(list),  mimetype='application/json')
 
-# GENERAL
-@app.route('/api/v1/general/uplay/piliot')
+#RANKALL
+@app.route('/api/v1/rank/uplay/piliot/all')
+def rankall():
+    list = [{
+	"region": "ncsa",
+	"rankStat": [{
+		"maxMmr": 0,
+		"death": 0,
+		"rank": 0,
+		"maxRank": 0,
+		"kills": 0,
+		"abandons": 0,
+		"mmr": 2500,
+		"wins": 0,
+		"region": "ncsa",
+		"season": 17,
+		"losses": 0,
+		"createdTime": "2020-06-01T19:59:51",
+		"maxRankString": "UNRANK",
+		"rankString": "UNRANK"
+	}]
+    }, {
+	"region": "emea",
+	"rankStat": [{
+		"maxMmr": 0,
+		"death": 0,
+		"rank": 0,
+		"maxRank": 0,
+		"kills": 0,
+		"abandons": 0,
+		"mmr": 2500,
+		"wins": 0,
+		"region": "emea",
+		"season": 17,
+		"losses": 0,
+		"createdTime": "2020-06-01T19:59:42",
+		"maxRankString": "UNRANK",
+		"rankString": "UNRANK"
+	}]
+    }, {
+	"region": "apac",
+	"rankStat": [{
+		"maxMmr": 2906,
+		"death": 0,
+		"rank": 10,
+		"maxRank": 15,
+		"kills": 0,
+		"abandons": 1,
+		"mmr": 2283,
+		"wins": 20,
+		"region": "apac",
+		"season": 9,
+		"losses": 23,
+		"createdTime": "2020-06-01T19:59:31",
+		"maxRankString": "SILVER 1",
+		"rankString": "BRONZE 1"
+	}, {
+		"maxMmr": 2621,
+		"death": 0,
+		"rank": 9,
+		"maxRank": 10,
+		"kills": 0,
+		"abandons": 6,
+		"mmr": 2106,
+		"wins": 132,
+		"region": "apac",
+		"season": 10,
+		"losses": 119,
+		"createdTime": "2020-06-01T19:59:31",
+		"maxRankString": "BRONZE 1",
+		"rankString": "BRONZE 2"
+	}, {
+		"maxMmr": 3337,
+		"death": 0,
+		"rank": 15,
+		"maxRank": 17,
+		"kills": 0,
+		"abandons": 4,
+		"mmr": 3008,
+		"wins": 108,
+		"region": "apac",
+		"season": 11,
+		"losses": 97,
+		"createdTime": "2020-06-01T19:59:32",
+		"maxRankString": "GOLD 2",
+		"rankString": "SILVER 1"
+	}, {
+		"maxMmr": 3121,
+		"death": 0,
+		"rank": 13,
+		"maxRank": 16,
+		"kills": 0,
+		"abandons": 0,
+		"mmr": 2655,
+		"wins": 26,
+		"region": "apac",
+		"season": 12,
+		"losses": 26,
+		"createdTime": "2020-06-01T19:59:32",
+		"maxRankString": "GOLD 3",
+		"rankString": "SILVER 3"
+	}, {
+		"maxMmr": 3125,
+		"death": 0,
+		"rank": 13,
+		"maxRank": 16,
+		"kills": 0,
+		"abandons": 2,
+		"mmr": 2637,
+		"wins": 65,
+		"region": "apac",
+		"season": 13,
+		"losses": 60,
+		"createdTime": "2020-06-01T19:59:33",
+		"maxRankString": "GOLD 3",
+		"rankString": "SILVER 3"
+	}, {
+		"maxMmr": 3345,
+		"death": 282,
+		"rank": 12,
+		"maxRank": 17,
+		"kills": 222,
+		"abandons": 4,
+		"mmr": 2459,
+		"wins": 30,
+		"region": "apac",
+		"season": 14,
+		"losses": 30,
+		"createdTime": "2020-06-01T19:59:33",
+		"maxRankString": "GOLD 2",
+		"rankString": "SILVER 4"
+	}, {
+		"maxMmr": 2568,
+		"death": 811,
+		"rank": 9,
+		"maxRank": 15,
+		"kills": 771,
+		"abandons": 4,
+		"mmr": 1901,
+		"wins": 55,
+		"region": "apac",
+		"season": 15,
+		"losses": 63,
+		"createdTime": "2020-06-01T19:59:34",
+		"maxRankString": "SILVER 1",
+		"rankString": "BRONZE 2"
+	}, {
+		"maxMmr": 2838,
+		"death": 566,
+		"rank": 13,
+		"maxRank": 17,
+		"kills": 570,
+		"abandons": 0,
+		"mmr": 2336,
+		"wins": 70,
+		"region": "apac",
+		"season": 16,
+		"losses": 66,
+		"createdTime": "2020-06-01T19:59:34",
+		"maxRankString": "GOLD 2",
+		"rankString": "SILVER 3"
+	}, {
+		"maxMmr": 2581,
+		"death": 1025,
+		"rank": 15,
+		"maxRank": 15,
+		"kills": 1140,
+		"abandons": 2,
+		"mmr": 2515,
+		"wins": 133,
+		"region": "apac",
+		"season": 17,
+		"losses": 117,
+		"createdTime": "2020-06-01T19:59:34",
+		"maxRankString": "SILVER 1",
+		"rankString": "SILVER 1"
+	}]
+}]
+    return Response(json.dumps(list),  mimetype='application/json')
+
+#GENERALPVP
+@app.route('/api/v1/generalpvp/uplay/piliot')
 def general():
     return jsonify({"totalMatchLost":1471784,"totalMatchWon":668,"totalMatchPlayed":1280,"totalKills":5145,"totalDeath":5140,"totalPenetrationKills":270,"totalMeleeKills":43,"totalKillAssists":1856,"totalHeadShot":1851,"totalRevive":121,"totalBulletHit":47325,"totalTimePlayed":1280})
 
-@app.route('/api/v1/operator/uplay/piliot')
+#OPERATORS
+@app.route('/api/v1/operator/uplay/piliot/')
 def operators():
     list = [{"name": "smoke", "operatorIndex": "2:1", "uniqueStatisticName": "operatorpvp_smoke_poisongaskill:2:1",
       "uniqueStatisticOasisId": 194660, "kills": 98, "death": 109, "headShot": 43, "meleeKills": 4, "totalXp": 289550,
@@ -187,12 +648,11 @@ def operators():
      {"name": "bandit", "operatorIndex": "5:5", "uniqueStatisticName": "operatorpvp_bandit_batterykill:5:5",
       "uniqueStatisticOasisId": 194671, "kills": 50, "death": 55, "headShot": 17, "meleeKills": 2, "totalXp": 159053,
       "timePlayed": 14996, "roundWon": 36, "roundLost": 40}]
-
     return Response(json.dumps(list),  mimetype='application/json')
 
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
 
 
