@@ -1,8 +1,8 @@
 import React, {Component, ComponentClass} from 'react';
 import { BrowserRouter as Router, Route, Link, Switch, NavLink, RouteComponentProps } from "react-router-dom";
 import { RouteDecoratorProps } from './route';
-import Landing from './Pages/LandingPage/Landing';
-
+import ErrorPage, {createErrorPage} from './Pages/ErrorPage/ErrorPage'
+import AntDesignErrorPage from './Pages/ErrorPage/AntDesignErrorPage'
 // export interface RouterProps {
 //     history: boolean
 // }
@@ -17,10 +17,17 @@ import Landing from './Pages/LandingPage/Landing';
  * 5. 에러페이지처리. 404 페이지로 넘어가게 없는페이지 접속할시에.
  * 6. route 만약에 
  * @param Template 
+ * 
+ * route는 불안정하니
+ * requestable을 만들어서
+ * 컴파일 속도가 무진장 오래걸림 => 지양하자. 
+ * @asyncrequest( () => {
+ * })
  */
 
 function router(Template: ComponentClass) {
 
+    //
     const req = require.context( './Pages/', true, /\.(js|tsx)$/i);   
     const pending : Promise<any>[] = [];
     for(const key of req.keys()) {
@@ -41,12 +48,12 @@ function router(Template: ComponentClass) {
         componentDidMount(){
 
             // this.setState({name:[<Route exact path={'/landing'} component={Landing}></Route>,<Route exact path={'/login'} component={Landing}></Route>]})
-
+            
+            
            Promise.all(pending).then( (modules) => {
 
             const a = modules.map( (module) => {
                     const descriptors = Object.getOwnPropertyDescriptors(module.default)
-                    console.log(descriptors);
                     if(descriptors.WrappedComponent && descriptors.WrappedComponent.value) {
                         if(descriptors.WrappedComponent.value.defaultProps){
                             if (Object.keys(descriptors.WrappedComponent.value.defaultProps).includes("path")) {
@@ -56,33 +63,10 @@ function router(Template: ComponentClass) {
                         }
                     }
             })
-
-
+            a.push(<Route component={createErrorPage("antd","404")}></Route>)
             const b = a.filter(value => value !== undefined)
             this.setState({name: b});
             })
-
-
-            // Promise.all(pending).then( (modules) => {
-            //     modules.map( (module) => {
-
-            //         const descriptors = Object.getOwnPropertyDescriptors(module.default)
-
-            //         if(descriptors.WrappedComponent && descriptors.WrappedComponent.value) {
-            //             if(descriptors.WrappedComponent.value.defaultProps){
-            //                 if (Object.keys(descriptors.WrappedComponent.value.defaultProps).includes("path")) {
-            //                     const path = descriptors.WrappedComponent.value.defaultProps["path"]
-            //                     return <Route exact path={'/landing'} component={Landing}></Route>
-            //                 }
-            //             }
-            //         }
-
-            //     })
-            // })
-
-            
-
-
         }
 
     

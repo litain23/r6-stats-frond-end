@@ -29,7 +29,7 @@ export default function route(path : string) {
             getPath(){
                 return path;
             }
-
+            
             render(){
                 return(
                     <> 

@@ -3,11 +3,17 @@ import './App.css';
 
 import Search from './Pages/SearchPage/Search'
 import Landing from './Pages/LandingPage/Landing'
+import NavBar from './NavigationBar'
 
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
+
 import './index.css';
 
 import styled from 'styled-components'
+
+
+import { BrowserRouter as Router, Route, Link, Switch, NavLink, RouteComponentProps } from "react-router-dom";
+import { createErrorPage } from './Pages/ErrorPage/ErrorPage';
 
 const Container = styled.div`
     width: 100%;
@@ -31,14 +37,21 @@ const Container = styled.div`
     }
 `;
 
-
 class App extends React.Component {
   render(){
     return (
-      
-      <Container>
+      <>
+      <Router>
+      <NavBar></NavBar>
+      {/* <Container> */}
         <Search></Search>
-      </Container>
+      {/* </Container> */}
+      
+        <Switch>
+          <Route component={createErrorPage("antd", "404")}></Route>
+        </Switch>
+      </Router>
+      </>
     );
   }
 }
