@@ -4,7 +4,7 @@ import './search.css'
 
 import { API } from '../../util/API'
 import R6Spinner from '../../R6Components/R6Spinner'
-import {RANKAPI, GENERALAPI, RANKREGIONSTATAPI, OPERATORAPI,} from '../../util/type'
+import {PVPAPI, GENERALAPI, RANKREGIONSTATAPI, OPERATORAPI} from '../../util/type'
 import Profile from './Profile';
 import SearchOverviewTab from './Overview';
 import SearchSeasonsTab from './Seasons';
@@ -16,10 +16,14 @@ interface State {
     currentRankData : RANKREGIONSTATAPI[]
     allRankData: RANKREGIONSTATAPI[]
     generalData : GENERALAPI
+    operators: OPERATORAPI[]
+    casualPvpData: PVPAPI
+    rankPvpData: PVPAPI
+
+
     loading: boolean
     currentTab: number
 	current:string
-	operators: OPERATORAPI[]
 }
 
 interface Props {
@@ -32,7 +36,9 @@ export default class Search extends React.Component<Props, State> {
             currentRankData: [] as RANKREGIONSTATAPI[],
 			generalData: {} as GENERALAPI,
 			allRankData: [] as unknown as RANKREGIONSTATAPI[],
-			operators: [] as OPERATORAPI[],
+            operators: [] as OPERATORAPI[],
+            casualPvpData: {} as PVPAPI,
+            rankPvpData: {} as PVPAPI,
             loading:true,
             currentTab:1,
             current: 'overview',
@@ -51,7 +57,13 @@ export default class Search extends React.Component<Props, State> {
     tabContentsHandler(key: string): React.ReactNode {
         switch(key){
             case 'overview':
-                return(<SearchOverviewTab generalData={this.state.generalData}/>);
+                return(
+                    <SearchOverviewTab 
+                        generalData={this.state.generalData}
+                        allRankStat={this.state.allRankData}
+                        casualPvpData={this.state.casualPvpData}
+                        rankPvpData={this.state.rankPvpData}
+                    />);
             case 'seasons':
                 return(<SearchSeasonsTab seasons={this.state.allRankData}></SearchSeasonsTab>);
             case 'operators':
