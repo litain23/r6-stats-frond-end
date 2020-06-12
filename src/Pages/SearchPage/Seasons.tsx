@@ -1,20 +1,20 @@
 import React from 'react';
 import '../../App.css'
 import './seasons.css'
-import { RANKALLAPI, RANKTEMPAPI} from '../../util/type'
+import { RANKREGIONSTATAPI, RANKTEMPAPI} from '../../util/type'
 import { Statistic } from 'antd';
 import { Row, Col } from 'antd';
 
 import { R6RankIcon } from '../../R6Components';
 
-
 interface Props {
-    seasons: RANKALLAPI[]
+    seasons: RANKREGIONSTATAPI[]
 }
 
 export default class SearchSeasonsTab extends React.Component<Props> {
     
-    cardContentGenerator(items: RANKTEMPAPI[]) {
+    /** TO-DO : public, private, properies. */
+    private cardContentGenerator(items: RANKTEMPAPI[]) {
         return items.forEach( (item) => {
             return (
                 <div>
@@ -23,9 +23,9 @@ export default class SearchSeasonsTab extends React.Component<Props> {
             )
         })
     }
+    
 
-    cardGenerator(title: string, items : RANKTEMPAPI[]) {
-
+    private cardGenerator(title: string, items : RANKTEMPAPI[]) {
         let result = [];
         for( let i = 0; i < items.length ; i++) {
             const item = items[i];
@@ -106,6 +106,7 @@ export default class SearchSeasonsTab extends React.Component<Props> {
         /** 
          * 현재 season에 관련된것을 바꿔주기.
          */
+
         const all = this.props.seasons;
 
         const ncsa = all[0].rankStat;

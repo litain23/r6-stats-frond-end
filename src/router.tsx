@@ -7,6 +7,17 @@ import Landing from './Pages/LandingPage/Landing';
 //     history: boolean
 // }
 
+/**
+ * 라우터에서 해줘야할것.
+ * 1 로딩기능 추가 ( 자동으로 로딩만들어주기. 데이터 다 받아올때까지)
+ * 2 관련해서 전달할 프롭들 기본? ( 자동)
+ * 3. @testable? 
+ * 3. 테스팅?? 
+ * 4. 클래스의경우 private public..
+ * 5. 에러페이지처리. 404 페이지로 넘어가게 없는페이지 접속할시에.
+ * 6. route 만약에 
+ * @param Template 
+ */
 
 function router(Template: ComponentClass) {
 

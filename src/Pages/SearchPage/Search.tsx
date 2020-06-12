@@ -4,7 +4,7 @@ import './search.css'
 
 import { API } from '../../util/API'
 import R6Spinner from '../../R6Components/R6Spinner'
-import {RANKAPI, GENERALAPI, RANKALLAPI, OPERATORAPI} from '../../util/type'
+import {RANKAPI, GENERALAPI, RANKREGIONSTATAPI, OPERATORAPI,} from '../../util/type'
 import Profile from './Profile';
 import SearchOverviewTab from './Overview';
 import SearchSeasonsTab from './Seasons';
@@ -13,11 +13,11 @@ import SearchOperators from './Operators';
 import { Menu } from 'antd';
 
 interface State {
-    rankData : RANKAPI[]
+    currentRankData : RANKREGIONSTATAPI[]
+    allRankData: RANKREGIONSTATAPI[]
     generalData : GENERALAPI
     loading: boolean
     currentTab: number
-    allRankData: RANKALLAPI[]
 	current:string
 	operators: OPERATORAPI[]
 }
@@ -29,9 +29,9 @@ export default class Search extends React.Component<Props, State> {
       constructor(props: Props){
         super(props);
         this.state = {
-            rankData: {} as RANKAPI[],
+            currentRankData: [] as RANKREGIONSTATAPI[],
 			generalData: {} as GENERALAPI,
-			allRankData: [] as unknown as RANKALLAPI[],
+			allRankData: [] as unknown as RANKREGIONSTATAPI[],
 			operators: [] as OPERATORAPI[],
             loading:true,
             currentTab:1,
@@ -51,7 +51,7 @@ export default class Search extends React.Component<Props, State> {
     tabContentsHandler(key: string): React.ReactNode {
         switch(key){
             case 'overview':
-                return(<SearchOverviewTab generalData={this.state.generalData} rankData={this.state.rankData}/>);
+                return(<SearchOverviewTab generalData={this.state.generalData}/>);
             case 'seasons':
                 return(<SearchSeasonsTab seasons={this.state.allRankData}></SearchSeasonsTab>);
             case 'operators':
@@ -61,12 +61,13 @@ export default class Search extends React.Component<Props, State> {
     }
     
     async componentDidMount(){
-		const generalAPIs = await API<GENERALAPI>("http://localhost:8080/api/v1/generalpvp/uplay/piliot");
-		const rankAPIs = await API<RANKAPI[]>("http://localhost:8080/api/v1/rank/uplay/piliot");
-		const allRankAPIs = await API<RANKALLAPI[]>("http://localhost:8080/api/v1/rank/uplay/piliot/all");
-		const operatorAPIs = await API<OPERATORAPI[]>("http://localhost:8080/api/v1/operator/uplay/piliot/");
+
+        const generalAPIs = await API<GENERALAPI>("generalpvp/uplay/piliot");
+		const rankAPIs = await API<RANKREGIONSTATAPI[]>("rank/uplay/piliot");
+		const allRankAPIs = await API<RANKREGIONSTATAPI[]>("rank/uplay/piliot/all");
+		const operatorAPIs = await API<OPERATORAPI[]>("operator/uplay/piliot/");
 		this.setState({generalData: generalAPIs});
-		this.setState({rankData: rankAPIs});
+		this.setState({currentRankData: rankAPIs});
 		this.setState({allRankData: allRankAPIs});
 		this.setState({operators: operatorAPIs});
         this.setState({loading: false});
@@ -78,7 +79,7 @@ export default class Search extends React.Component<Props, State> {
             const tabContent = this.tabContentsHandler(this.state.current);
             return(
                 <div className="container">
-                    <Profile rankData={this.state.rankData}></Profile>
+                    <Profile currentRankData={this.state.currentRankData}></Profile>
                     <Menu mode="horizontal" selectedKeys={[this.state.current]} onClick={this.handleClick}>
                     <Menu.Item key="overview">
                     Overview
