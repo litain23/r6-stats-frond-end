@@ -1,4 +1,5 @@
 import React from 'react';
+import AntDesignErrorPage from './AntDesignErrorPage';
 
 /**
  * 이 프로젝트에서 대응하고 있는 에러메세지 코드의 종류입니다.
@@ -65,3 +66,26 @@ class ErrorPage extends React.Component<ErrorPageProps> implements ErrorPagePres
 }
 
 export default ErrorPage;
+
+
+type designType = "antd" | null
+
+export function createErrorPage(type: designType, errorCode: errorCodePresentType):React.ComponentClass{ 
+
+    console.log("abc");
+    let customView: ErrorPagePresentable | undefined;
+
+    switch(type) {
+        case "antd":
+            customView = new AntDesignErrorPage();
+        default:
+            customView = new AntDesignErrorPage();
+    }
+    
+
+    return class extends React.Component {
+        render(){
+            return (<ErrorPage errorCode={errorCode} customView={customView}></ErrorPage>)
+        }
+    }
+}
