@@ -12,6 +12,7 @@ export type R6IconProps = {
   /** 아이콘 크기 */
   size?: string | number;
   className?: string;
+  onClick?: (e?: React.MouseEvent<SVGSVGElement>) => void;
 };
   
 /** 아이콘을 보여주고 싶을 땐 `Icon` 컴포넌트를 사용하세요.
@@ -20,12 +21,13 @@ export type R6IconProps = {
  *
  * 스타일로 모양새를 설정 할 때에는 `color`로 색상을 설정하고 `width`로 크기를 설정하세요.
  */
-const R6Icon = ({ icon, color, size, className }: R6IconProps) => {
+const R6Icon = ({ icon, color, size, className, onClick}: R6IconProps) => {
     const SVGIcon = icons[icon];
     return (
       <SVGIcon
-        css={{ fill: color || 'currentColor', width: size, height: 'auto' }}
+        style={{ fill: color || 'currentColor', width: size, height: 'auto' }}
         className={className}
+        onClick={onClick}
       />
     );
   };

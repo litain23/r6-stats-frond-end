@@ -16,12 +16,6 @@ import R6RankIcon from '../../R6Components/R6RankIcon';
 
 const { Title , Paragraph , Text} = Typography
 
-// import {
-//     Container,
-//     Col,
-//     Row
-// } from 'react-bootstrap'
-
 interface Props {
     generalData : GENERALAPI
 }

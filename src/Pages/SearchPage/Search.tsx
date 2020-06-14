@@ -78,7 +78,7 @@ export default class Search extends React.Component<Props, State> {
         } else {
             const tabContent = this.tabContentsHandler(this.state.current);
             return(
-                <div className="container">
+                <div className="search-page-container">
                     <Profile currentRankData={this.state.currentRankData}></Profile>
                     <Menu mode="horizontal" selectedKeys={[this.state.current]} onClick={this.handleClick}>
                     <Menu.Item key="overview">

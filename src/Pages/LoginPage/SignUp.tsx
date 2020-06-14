@@ -1,7 +1,5 @@
-import React, { CSSProperties, FormEvent, FormEventHandler, createRef } from 'react';
-import '../../App.css'
-import styled, { StyledComponent } from 'styled-components';
-import {R6Button} from '../../R6Components'
+import React from 'react';
+import styled from 'styled-components';
 import {
     Form,
     Input,
@@ -31,7 +29,7 @@ const CONTAINER = styled.section`
 const WHITEBOX = styled.section`
     width:100%;
     height:100%;
-    background:white;
+    background:black;
     display:flex;
     flex-direction:column;
     padding:30px;
@@ -93,16 +91,12 @@ export default class SignUp extends React.Component<{},State> {
 
 
     submithandler(e: React.FormEvent<HTMLFormElement>) {
-        // console.log(e.currentTarget.checkValidity());
-        // e.preventDefault();
-        // e.stopPropagation();
 
         const form = e.currentTarget;
         if (form.checkValidity() === false) {
             e.preventDefault();
             e.stopPropagation();
         } else {
-            //alert('');
         }
         this.setState({totalvalidate:true})
 
@@ -126,6 +120,7 @@ export default class SignUp extends React.Component<{},State> {
     }
     
     render() {
+
         const formItemLayout = {
             labelCol: {
               xs: { span: 24 },
@@ -258,48 +253,6 @@ export default class SignUp extends React.Component<{},State> {
 
 
     </Form>
-                    {/* <Form noValidate validated={false} onSubmit={this.submithandler.bind(this)}>
-                        <Form.Group controlId="id">
-                            <Form.Label>이메일 입력</Form.Label>
-                            <Form.Control required type="text" placeholder="아이디 입력"/>
-                            <Form.Text className="text-muted">
-                            아이디를 입력해주세요.
-                            </Form.Text>
-                            <Form.Control.Feedback type="invalid">
-                            이메일 형식을 정확하게 입력해주세요.
-                            </Form.Control.Feedback>
-
-                        </Form.Group>
-
-                        <Form.Group controlId="pwd">
-                            <Form.Label>비밀번호 입력</Form.Label>
-                            <Form.Control required type="password" placeholder="비밀번호 입력" isInvalid={this.state.pwdvalidate} onChange={this.handler.bind(this)}/>
-                            <Form.Text className="text-muted">
-                            비밀번호는 4자이상 입력해주세요.
-                            </Form.Text>
-                            <Form.Control.Feedback type="invalid">
-                            4자이상이 아닙니다.
-                            </Form.Control.Feedback>
-
-                        </Form.Group>
-
-                        <Form.Group controlId="pwdcheck">
-                            <Form.Label>비밀번호 재확인</Form.Label>
-                            <Form.Control required type="password" placeholder="비밀번호 확인" isInvalid={this.state.pwdcheckvalidate} onChange={this.handler.bind(this)}/>
-                            <Form.Text className="text-muted">
-                            위의 패스워드와 동일하게 입력해주세요.
-                            </Form.Text>
-                            <Form.Control.Feedback type="invalid">
-                            패스워드가 동일하지 않습니다.
-                            </Form.Control.Feedback>
-
-                        </Form.Group>
-
-                        <R6Button size={'md'} fluid>
-                            작성을 완료해주세요
-                        </R6Button>
-
-                        </Form> */}
                 </WHITEBOX>
             </CONTAINER>
         )

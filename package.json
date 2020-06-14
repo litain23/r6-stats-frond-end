@@ -29,6 +29,7 @@
 	},
 	"scripts": {
 		"start": "react-app-rewired start",
+		"devstart" : "react-app-rewired start && python3 mockup-server.py",
 		"build": "react-app-rewired build",
 		"test": "react-app-rewired test",
 		"eject": "react-app-rewired eject",
