@@ -73,15 +73,18 @@ export default class Search extends React.Component<Props, State> {
     }
     
     async componentDidMount(){
-
         const generalAPIs = await API<GENERALAPI>("generalpvp/uplay/piliot");
 		const rankAPIs = await API<RANKREGIONSTATAPI[]>("rank/uplay/piliot");
 		const allRankAPIs = await API<RANKREGIONSTATAPI[]>("rank/uplay/piliot/all");
-		const operatorAPIs = await API<OPERATORAPI[]>("operator/uplay/piliot/");
+        const operatorAPIs = await API<OPERATORAPI[]>("operator/uplay/piliot/");
+		const rankPvpAPIs = await API<PVPAPI>("rankpvp/uplay/piliot");
+		const casualPvpAPIs = await API<PVPAPI>("casualpvp/uplay/piliot");
 		this.setState({generalData: generalAPIs});
 		this.setState({currentRankData: rankAPIs});
 		this.setState({allRankData: allRankAPIs});
-		this.setState({operators: operatorAPIs});
+        this.setState({operators: operatorAPIs});
+        this.setState({rankPvpData: rankPvpAPIs});
+        this.setState({casualPvpData: casualPvpAPIs});
         this.setState({loading: false});
     }
     render(){
