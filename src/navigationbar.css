@@ -1,0 +1,99 @@
+body {
+    font-size:14px;
+}
+
+.global-navbar {
+    position: relative;
+    top:0;
+    background-color: black;
+    z-index:30;
+    height:55px;
+    font-size:1rem;
+
+}
+
+.desktop-search-bar {
+    display:none;
+    height:100%;
+}
+
+.mobile-search-navbar {
+    position: -webkit-sticky;
+    position:sticky;
+    top:0px;
+    height: 55px;
+    background-color: black;
+    padding: 8px 1rem;
+    z-index:40;
+    display:block;
+    border-bottom: 1px solid #303030;
+}
+
+.mobile-search-bar {
+    height:100%;
+    width:100%;
+}
+
+.global-nav-links {
+	display: flex;
+	align-items: center;
+	height: 100%;
+    margin: 0 auto;
+    max-width:1140px;
+    padding: 8px 1rem;
+    justify-content: space-between;
+}
+
+.global-nav-links a{
+	color: white;
+	text-decoration: none;
+}
+
+.brand-logo {
+    font-weight: bolder;
+    font-size:1.2rem;
+    margin-right:auto;
+}
+
+
+@media (min-width: 540px) {
+    .global-navbar{
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0px;
+        border-bottom: 1px solid #303030;
+    }
+
+    .mobile-search-navbar {
+        display:none;
+    }
+
+
+    .desktop-search-bar {
+        display:block;
+        flex-grow:1
+    }
+}
+
+@media (min-width: 1024px) {
+
+    .global-navbar {
+        font-size:1rem;
+    }
+
+
+    .brand-logo {
+        font-size:1.5rem;
+    }
+}
+
+@media (min-width: 768px) {
+    
+    .global-navbar {
+        font-size:1rem;
+    }
+
+    .brand-logo {
+        font-size:1.5rem;
+    }
+}

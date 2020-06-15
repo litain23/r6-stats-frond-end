@@ -12,21 +12,25 @@ const RANK_CONTAINER = styled.section`
     background:#282830;
     border-radius:10px;
     justify-content:space-around;
+    padding:5px;
 `;
 
 const RANK_CONTAINER2 = styled.section`
     display:flex;
     flex-direction:column;
     justify-content:center;
+    align-items:center;
     text-align:center;
     #name {
         color:white;
-        font-size:10px;
+        font-size:0.8rem;
+        font-weight:bold;
+        margin-bottom:0.2rem;
     }
     #content{
         color:white;
-        font-size:12px;
-        font-weight:bold;
+        font-size:0.9rem;
+        font-weight:bolder;
     }
 `;
 
