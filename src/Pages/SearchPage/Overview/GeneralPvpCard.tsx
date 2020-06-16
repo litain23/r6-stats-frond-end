@@ -5,9 +5,6 @@ import { GENERALAPI}  from '../../../util/type'
 import { InnerCard } from './InnerCard'
 import { CardHeader, CardContent } from './StyledCss'
 
-import styled from 'styled-components'
-import { Col, Row, Card, Statistic } from 'antd'
-
 interface Props {
     generalData : GENERALAPI
 }

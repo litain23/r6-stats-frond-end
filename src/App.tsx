@@ -47,9 +47,9 @@ class App extends React.Component {
         <Search></Search>
       {/* </Container> */}
       
-        <Switch>
+        {/* <Switch>
           <Route component={createErrorPage("antd", "404")}></Route>
-        </Switch>
+        </Switch> */}
       </Router>
       </>
     );

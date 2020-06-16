@@ -5,8 +5,6 @@ import { PVPAPI }  from '../../../util/type'
 import { InnerCard } from './InnerCard';
 import { CardHeader, CardContent } from './StyledCss'
 
-import styled from 'styled-components'
-
 interface Props {
     title: String,
     pvpData: PVPAPI
@@ -14,13 +12,12 @@ interface Props {
 
 
 export class OverviewPvpCard extends React.Component<Props> {
-    constructor(props: Props){
+    constructor(props: Props) {
         super(props);
     }
 
     render() {
-        let parsedData = {} as any;
-        console.log(this.props.pvpData)
+        let parsedData : { [key: string]: number}  = {};
         parsedData["Kills"] = this.props.pvpData.kills;
         parsedData["Death"] = this.props.pvpData.death;
         parsedData["K/D"] = parsedData.Kills / parsedData.Death;
@@ -32,9 +29,9 @@ export class OverviewPvpCard extends React.Component<Props> {
 
         let result = [];
         for(let [key, value] of Object.entries(parsedData)) {
-            result.push(<InnerCard title={key} data={value}></InnerCard>)
+            value = Math.round(value * 1000) / 1000;
+            result.push(<InnerCard title={key} data={value}></InnerCard>);
         }
-
 
         return (
             <>

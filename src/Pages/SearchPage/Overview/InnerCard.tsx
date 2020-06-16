@@ -1,8 +1,6 @@
 import React from 'react'
 import '../../../App.css'
 
-import { Card } from 'antd'
-
 import styled from 'styled-components'
 
 interface Props {
@@ -10,13 +8,32 @@ interface Props {
     data: any
 }
 
-const CustomCard = styled(Card)`
-    flex: 1 0 21%;
-    margin: 5px;
+const Card = styled.div`
+    flex: 1 0 40%;
+
+    margin: 12px;
+    @media(min-width: 954px) {
+        flex: 1 0 21%
+    }
 `;
 
+const CardTitle = styled.div`
+    text-transform: uppercase;
+    font-family: Roboto, sans-serif;
+    font-weight: 600;
+    color: grey;
+`;
+
+const CardData = styled.div`
+    font-size: 24px;
+    font-weight: 800;
+    color: white;
+`;
+
+
 export const InnerCard = (props: Props) => (
-    <CustomCard title={props.title}>
-        <p>{props.data}</p>
-    </CustomCard>
+    <Card>
+        <CardTitle>{props.title}</CardTitle>
+        <CardData>{props.data}</CardData>
+    </Card>
 )

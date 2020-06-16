@@ -24,22 +24,25 @@ interface Props {
 const StatContainer = styled.div`
     display: flex;
     flex-direction: column;
-    background: red;
+    // background: red;
     height: 1080px;
 
-    @media(min-width: 1140px) {
+    @media(min-width: 954px) {
         display: grid;
     }
+
+    margin-top: 2rem;
 `;
 
 const A = styled.div`
     grid-column: 1;
-    background: green;
+    margin-right: 1rem;
+    // background: green;
 `;
 
 const B = styled.div`
     grid-column: 2;
-    background: blue;
+    // background: blue;
 `;
 
 
@@ -52,12 +55,12 @@ export default class SearchOverviewTab extends React.Component<Props> {
         return(
             <StatContainer>
                 <A>
+                    <AllSeasonHighMmr allRankData={this.props.allRankStat}></AllSeasonHighMmr>
+                </A>
+                <B>
                     <OverviewGeneralCard generalData={this.props.generalData}></OverviewGeneralCard>
                     <OverviewPvpCard title="Rank" pvpData={this.props.rankPvpData}></OverviewPvpCard>
                     <OverviewPvpCard title="Casual" pvpData={this.props.casualPvpData}></OverviewPvpCard>
-                </A>
-                <B>
-                    <AllSeasonHighMmr allRankData={this.props.allRankStat}></AllSeasonHighMmr>
                 </B>
             </StatContainer>
         )
