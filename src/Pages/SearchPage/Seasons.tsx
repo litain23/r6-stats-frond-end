@@ -1,106 +1,149 @@
 import React from 'react';
 import '../../App.css'
 import './seasons.css'
-import { RANKREGIONSTATAPI, RANKTEMPAPI} from '../../util/type'
-import { Statistic } from 'antd';
-import { Row, Col } from 'antd';
+import { RANKREGIONSTATAPI, RANKTEMPAPI, RANKTEMPAPI2, getRegion} from '../../util/type'
+
 
 import { R6RankIcon } from '../../R6Components';
+import styled from 'styled-components';
+import { SeasonInfo } from '../../util/theme';
+import { SeasonName } from '../../R6Components/R6RankSeasonName';
 
 interface Props {
     seasons: RANKREGIONSTATAPI[]
 }
 
-export default class SearchSeasonsTab extends React.Component<Props> {
-    
-    /** TO-DO : public, private, properies. */
-    private cardContentGenerator(items: RANKTEMPAPI[]) {
-        return items.forEach( (item) => {
-            return (
-                <div>
-                    {item.rankStat.rank}
-                </div>
-            )
-        })
-    }
-    
+const SEASONBACKGROUND = styled.div<SeasonInfo>`
+    background-color:${props=> props.theme.seasonColors(props.season)};
+    ${props => (props.fill)? 'width:' + props.fill.toString() + '%;' : ""  }
+`
 
-    private cardGenerator(title: string, items : RANKTEMPAPI[]) {
-        let result = [];
-        for( let i = 0; i < items.length ; i++) {
-            const item = items[i];
-            result.push(
-                <div className="card-content">
-                    <div className="card-content-ranks">
-                        <div className="card-content-ranks-content">
-                        <p className="region">
-                            {item.region}
-                        </p>
-                        <span className="rank">
-                            {item.rankStat.rankString}
-                        </span>
-                        <div className="rank-bar">
-                            <R6RankIcon rank={item.rankStat.rank} size={45}></R6RankIcon>
-                            <div className="progress-bar">
-                                <span> {item.rankStat.mmr} </span>
-                            </div>
-                            <R6RankIcon rank={item.rankStat.rank+1} size={45}></R6RankIcon>
+const RankCard = (temp1:{dataTemp : RANKTEMPAPI2}) => {
+
+    const season = temp1.dataTemp.season;
+    const items = temp1.dataTemp.data;
+
+    let temp = [];
+    let temp2 = [];
+
+    for (const item of items) {
+    
+        temp2.push(
+            <div className="rankcard-content">
+                <div className="rankcard-content-info">
+                    <div className="rankcard-content-info-area">
+                        {getRegion(item.region)}
+                    </div>
+                    <div className="rankcard-content-info-tier">
+                        {item.rankStat.rankString.toUpperCase()}
+                    </div>
+                    <div className="rankcard-content-info-progress">
+                        <R6RankIcon rank={item.rankStat.rank} size={40}></R6RankIcon>
+                        <div className="rankcard-content-info-progress-progressbar">
+                            <SEASONBACKGROUND season={item.rankStat.season} fill={(item.rankStat.mmr/5000 * 100).toFixed()} className="rankcard-content-info-progress-progressbar-fill">
+                                {`${item.rankStat.mmr}` + "/" + `${5000}`}
+                            </SEASONBACKGROUND>
                         </div>
+                        <R6RankIcon rank={item.rankStat.rank+1} size={40}></R6RankIcon>
                     </div>
                 </div>
-                <div className="card-content-stats">
-                <Row gutter={[24, 24]} style={{textAlign:'center'}} justify="center" align="middle">
-                    <Col className="gutter-row" xs={24} sm={12}  md={6} >
-                        <Statistic title="kill" decimalSeparator={","} value={item.rankStat.kills} />
-                    </Col>
-                    <Col className="gutter-row" xs={24}  sm={12} md={6} >
-                        <Statistic title="death" decimalSeparator={","}  value={item.rankStat.death}/>
-                    </Col>
-                    <Col className="gutter-row" xs={24}  sm={12}  md={6}>
-                        <Statistic title="wins" decimalSeparator={","}  value={item.rankStat.wins} />
-                    </Col>
-                    <Col className="gutter-row" xs={24}  sm={12} md={6}>
-                        <Statistic title="losses" decimalSeparator={","}  value={item.rankStat.losses}  />
-                    </Col>
-                </Row>
-                <Row gutter={[24, 24]} style={{textAlign:'center'}} justify="center" align="middle">
-                    <Col className="gutter-row" xs={24} sm={12}  md={6} >
-                        <Statistic title="ABANDONS" decimalSeparator={","} value={item.rankStat.abandons} />
-                    </Col>
-                    <Col className="gutter-row" xs={24} sm={12}  md={6} >
-                        <Statistic title="Rank" decimalSeparator={","} value={item.rankStat.rankString} />
-                    </Col>
-                    <Col className="gutter-row" xs={24} sm={12}  md={6} >
-                        <Statistic title="MaxRank" decimalSeparator={","} value={item.rankStat.maxRankString} />
-                    </Col>
-                    <Col className="gutter-row" xs={24} sm={12}  md={6} >
-                        <Statistic title="MMR" decimalSeparator={","} value={item.rankStat.mmr} />
-                    </Col>
-
-                </Row>                <Row gutter={[24, 24]} style={{textAlign:'center'}} justify="center" align="middle">
-                    <Col className="gutter-row" xs={24} sm={12}  md={6} >
-                    <Statistic title="MMR" decimalSeparator={","} value={item.rankStat.maxMmr} />
-                    </Col>
-                </Row>
+                <div className="rankcard-content-stats">
+                    <div className="item"> 
+                        <div className="item-header">
+                            Kills
+                        </div>
+                        <div className="item-data">
+                            {item.rankStat.kills}
+                        </div>
+                    </div>
+                    <div className="item"> 
+                        <div className="item-header">
+                            Death
+                        </div>
+                        <div className="item-data">
+                            {item.rankStat.death}
+                        </div>
+                    </div>
+                    <div className="item"> 
+                        <div className="item-header">
+                            Wins
+                        </div>
+                        <div className="item-data">
+                            {item.rankStat.wins}
+                        </div>
+                    </div>
+                    <div className="item"> 
+                        <div className="item-header">
+                            Losses
+                        </div>
+                        <div className="item-data">
+                            {item.rankStat.losses}
+                        </div>
+                    </div>
+                    <div className="item"> 
+                        <div className="item-header">
+                            Abandons
+                        </div>
+                        <div className="item-data">
+                            {item.rankStat.abandons}
+                        </div>
+                    </div>
+                    <div className="item"> 
+                        <div className="item-header">
+                            Rank
+                        </div>
+                        <div className="item-data">
+                            {item.rankStat.rank}
+                        </div>
+                    </div>
+                    <div className="item"> 
+                        <div className="item-header">
+                            Max Rank
+                        </div>
+                        <div className="item-data">
+                            {item.rankStat.maxRankString}
+                        </div>
+                    </div>
+                    <div className="item"> 
+                        <div className="item-header">
+                            MMR
+                        </div>
+                        <div className="item-data">
+                            {item.rankStat.mmr}
+                        </div>
+                    </div>
+                    <div className="item"> 
+                        <div className="item-header">
+                            Max MMR
+                        </div>
+                        <div className="item-data">
+                            {item.rankStat.maxMmr}
+                        </div>
+                    </div>
 
                 </div>
             </div>  
-            )
-        }
-        
-        return(
-            <>
-            <div className="card">
-            <div className="card-header"> 
-            <span> {title} </span>
-            </div>
-            {
-              result
-            }
-            </div>
-            </>
         )
+
     }
+
+    return(
+        <>
+            <div className="rankcard">
+                <SEASONBACKGROUND season={season} className="rankcard-header">
+                    <span> {SeasonName[season]} </span>
+                </SEASONBACKGROUND>
+                {temp2}
+            </div>
+        </>
+    )
+}
+
+
+
+export default class SearchSeasonsTab extends React.Component<Props> {
+
+    /** TO-DO : public, private, properies. */
 
     render(){
         /** 
@@ -108,47 +151,48 @@ export default class SearchSeasonsTab extends React.Component<Props> {
          */
 
         const all = this.props.seasons;
-
         const ncsa = all[0].rankStat;
         const emea = all[1].rankStat;
         const apac = all[2].rankStat;
-
         const allUnFilered = ncsa.concat(emea, apac);
 
-        const wholeData = allUnFilered.reduce( (prev, current, _index, _array) => {
-            const seasons = current.season;
-            const id = `season${seasons}`;
-            if(!prev[id]){
-                prev[id] = [];
-                 const region = current.region;
-                 prev[id].push(
-                     {"region" : region,
-                     "rankStat" : current}
-                 )
-            } else {
-                const region = current.region;
-                prev[id].push(
-                    {"region" : region,
-                    "rankStat" : current}
-                )
-            }
+        const wholeData = allUnFilered.reduce( (prev, curr, index, array) => {
+            
+            const season = curr.season;
+            const region = curr.region;
 
+            if (!prev[season]) {
+                prev[season.toString()] = { season : season, data : [{region: region, rankStat: curr}] } as RANKTEMPAPI2
+            } else {
+                prev[season.toString()].data.push({region: region, rankStat: curr})
+            }
             return prev;
         }, {} as any)
 
-
-        const keys = Object.keys(wholeData)
-        let result = [];
-
-        for (let i = 0; i < keys.length ; i++) {
-            result.push(this.cardGenerator(keys[i],wholeData[keys[i]]))
+        let temp = [];
+        for (let [key,value] of Object.entries(wholeData)) {
+            temp.push(value);
         }
 
+        const actualData = temp.sort((a : any ,b : any ) => { 
+
+            if (a.season > b.season) {
+                return -1;
+            } else {
+                return 1;
+            }
+        }) as RANKTEMPAPI2[];
+                
+
+        let temp3 = [];
+        for(let actualDatum of actualData) {
+            temp3.push(<RankCard dataTemp={actualDatum}></RankCard>)
+        }
         return(
             <>
-            {
-                result
-            }
+                {
+                    temp3
+                }
             </>
         )
     }
