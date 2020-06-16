@@ -1,0 +1,20 @@
+export const SeasonName: string[] = [
+    "DUST LINE",
+    "DUST LINE",
+    "DUST LINE",
+    "SKULL RAIN",
+    "RED CROW",
+    "VELVET SHELL",
+    "HEALTH",
+    "BLOOD ORCHID", 
+    "WHITE NOISE",
+    "CHIMERA", 
+    "PARA BELLUM",
+    "GRIM SKY",
+    "WIND BASTION",
+    "BURNT HORIZON",
+    "PHANTOM SIGHT",
+    "EMBER RISE",
+    "SHIFTING TIDES",
+    "VOID EDGE"
+];

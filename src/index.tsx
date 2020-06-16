@@ -17,24 +17,26 @@ import { createErrorPage } from './Pages/ErrorPage/ErrorPage';
 import Login from './Pages/LoginPage/Login';
 import SignUp from './Pages/LoginPage/SignUp';
 import SignupReseult from './Pages/LoginPage/SignupResult';
-
-
+import { theme } from './util/theme'
+import styled, { ThemeProvider } from 'styled-components';
 ReactDOM.render(
   
   <React.StrictMode>
     <Router>
-      <AppContainer>
-        <Switch>
-          <Route path="/" exact component={Landing}/>
-          <Route path="/login" exact component={Login}/>
-          <Route path="/signup" exact component={SignUp}/>
-          <Route path="/signup/result" exact component={SignupReseult}/>
-
-          <Route path="/search/:id" component={Search}/>
-          <Route component={createErrorPage("antd", "404")}></Route>
-        </Switch>
-      </AppContainer>
+      <ThemeProvider theme={theme}>
+        <AppContainer>
+          <Switch>
+            <Route path="/" exact component={Landing}/>
+            <Route path="/login" exact component={Login}/>
+            <Route path="/signup" exact component={SignUp}/>
+            <Route path="/signup/result" exact component={SignupReseult}/>
+            <Route path="/search/:id" component={Search}/>
+            <Route component={createErrorPage("antd", "404")}></Route>
+          </Switch>
+        </AppContainer>
+      </ThemeProvider>
     </Router>
+
       {/* <App /> */}
   </React.StrictMode>,
   document.getElementById('root')

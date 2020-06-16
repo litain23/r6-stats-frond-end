@@ -15,15 +15,22 @@ export type R6RankIconProps = {
 //export => import string.
 
 const R6RankIcon = ({ rank, size }: R6RankIconProps) => {
-
+    
     if (typeof rank == 'number') {
         rank = ("rank" + rank.toString()) as RankType
     } 
-    const src = rankicons[rank];
-    return (
-      <img src={src} style={{width:size, height:'auto'}}/>
-    );
-};
+
+    if (rank) {
+        const src = rankicons[rank];
+        return (
+          <img src={src} style={{width:size, height:'auto'}}/>
+        );
+    } else {
+        return (
+            <div style={{width:size, height:size}}></div>
+            )
+        }
+}
 
 R6RankIcon.defaultProps = {
     size : 20

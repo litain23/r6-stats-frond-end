@@ -472,7 +472,22 @@ def rankall():
 #GENERALPVP
 @app.route('/api/v1/generalpvp/uplay/piliot')
 def general():
-    return jsonify({"totalMatchLost":1471784,"totalMatchWon":668,"totalMatchPlayed":1280,"totalKills":5145,"totalDeath":5140,"totalPenetrationKills":270,"totalMeleeKills":43,"totalKillAssists":1856,"totalHeadShot":1851,"totalRevive":121,"totalBulletHit":47325,"totalTimePlayed":1280})
+    return jsonify(
+        {
+            "matchLost": 633,
+            "matchWon": 693,
+            "matchPlayed": 1326,
+            "kills": 5330,
+            "death": 5327,
+            "penetrationKills": 279,
+            "meleeKills": 47,
+            "killAssists": 1908,
+            "headShot": 1913,
+            "revive": 126,
+            "bulletHit": 48833,
+            "timePlayed": 1524749,
+        }
+    )
 
 #OPERATORS
 @app.route('/api/v1/operator/uplay/piliot/')
