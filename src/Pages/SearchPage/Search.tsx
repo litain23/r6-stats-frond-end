@@ -93,21 +93,25 @@ export default class Search extends React.Component<Props, State> {
         } else {
             const tabContent = this.tabContentsHandler(this.state.current);
             return(
-                <div className="container">
-                    <Profile currentRankData={this.state.currentRankData}></Profile>
-                    <Menu mode="horizontal" selectedKeys={[this.state.current]} onClick={this.handleClick}>
-                    <Menu.Item key="overview">
-                    Overview
-                    </Menu.Item>
-                    <Menu.Item key="seasons">
-                    Seasons
-                    </Menu.Item>
-                    <Menu.Item key="operators">
-                    Operators
-                    </Menu.Item>
-                </Menu>
-                {tabContent}
+                <>
+                <div className="search-page-container">
+                    <div className="menu">
+                        <Profile currentRankData={this.state.currentRankData}></Profile>
+                        <Menu mode="horizontal" selectedKeys={[this.state.current]} onClick={this.handleClick}>
+                            <Menu.Item key="overview">
+                            Overview
+                            </Menu.Item>
+                            <Menu.Item key="seasons">
+                            Seasons
+                            </Menu.Item>
+                            <Menu.Item key="operators">
+                            Operators
+                            </Menu.Item>
+                        </Menu>
+                    </div>
+                    {tabContent}
                 </div>
+                </>
             )
 		}
     }

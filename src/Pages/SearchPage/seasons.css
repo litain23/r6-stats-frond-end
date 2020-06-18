@@ -1,59 +1,115 @@
-.card-header{
-    height:45px;
-    background: rgb(148, 106, 151);
-    padding:.8rem 1.6rem;
+.rankcard {
     display:flex;
-    align-items: center;
+    flex-direction: column;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 1px 1px rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12);
+    background: #292929;
+    margin-bottom: 2.4rem;
+    display: block;
+}
+
+.rankcard-header {
+    border-left: 4px;
     text-transform: uppercase;
+    font-size: 1.1rem;
+    font-weight: 900;
+    padding: .8rem 1.6rem;
+    margin: 0;
+    color: black;
+}
+
+.rankcard-content {
+    flex:1;
+    display:flex;
+    flex-direction: row;
+    border-bottom: 1px solid black;
+}
+
+.rankcard-content-info {
+    width: 35%;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    padding:1.6rem;
+    background-color: #363636;
+}
+
+.rankcard-content-info-area {
+    color:white;
+    font-weight:bolder;
+    font-size:1.2rem;
+}
+
+.rankcard-content-info-tier {
+    font-size:1.1rem;
+    color:white;
+    font-weight:lighter;
+    text-transform: uppercase;
+
+}
+
+.rankcard-content-info-progress {
+    display:flex;
+    width:100%;
+    align-items: center;
+}
+
+.rankcard-content-info-progress-progressbar {
+    background-color: black;
+    width: 100%;
+    height: 25px;
+    border-radius: 2px;
+    overflow: hidden;
+    margin: 0 .8rem;
+    text-align: center;
+    line-height: 25px;
+}
+
+.rankcard-content-info-progress-progressbar-fill {
+    width:70%;
+    background-color:red
+}
+
+.rankcard-content-stats {
+    flex:1;
+    padding:1.6rem;
+    display:grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-gap:1rem;
+    grid-auto-rows: minmax(2rem,auto);
+    align-items:center;
+    justify-items:start;
+}
+
+.rankcard-content-stats .item {
+    display:flex;
+    flex-direction: column;
+}
+
+.item .item-header{
+    font-size:0.9rem;
+    color:#9A9A9A;
     font-weight:bold;
 }
 
-.card-content {
-    display:flex;
-    flex-direction: row;
-    border-bottom: 1px solid #1F1F1F;
-}
 
-.card {
+.item .item-data{
+    font-size:1.3rem;
     color:white;
-    margin-top:10px;
-    margin-bottom:10px;
-}
-
-.card-content-ranks {
-    flex:0.3;
-    background-color: #363636;
-    color:white;
-}
-
-.card-content-stats {
-    flex:0.7;
-    background-color: #363636;
-    color:white;
-}
-
-.card-content-ranks-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height:100%;
-}
-
-.card-content-ranks-content .rank-bar{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width:80%;
+    font-weight:bolder;
 }
 
 
-.card-content-ranks-content .rank-bar .progress-bar{
-    flex-grow:1;
-    height:30px;
-    background-color: rgb(148, 106, 151);;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+
+@media (max-width: 780px){
+    .rankcard-content {
+        flex-direction:column;
+    }
+    .rankcard-content-info {
+        width: 100%;
+    }
+    .rankcard-content-stats {
+        grid-template-columns: repeat(3,1fr);
+    }
 }

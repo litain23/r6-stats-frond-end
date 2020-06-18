@@ -7,18 +7,49 @@ export interface SizeRequired {
 
 
 /** TO-DO : 바로컨버팅 하는 기능? */
-type regionType = "APAC" | "NANC" | "ABCD"
+type regionType = "ncsa" | "apac" | "emea"
+type playformType = "uplay" | "psn" | "xbl"
+
+
+export const getRegion = (region : regionType) => {
+    switch(region) {
+        case "ncsa":
+            return "America";
+        case "apac":
+            return "Asia";
+        case "emea":
+            return "Europe";
+    }
+}
+
+export const getPlatform = (platform : playformType) => {
+    switch(platform) {
+        case "psn":
+            return "PS4";
+        case "uplay":
+            return "PC";
+        case "xbl":
+            return "XBOX";
+    }
+
+}
 
 
 export interface RANKREGIONSTATAPI {
-    region:string, 
+    region:regionType, 
     rankStat:RANKAPI[]
 }
 
 export interface RANKTEMPAPI {
-    region:string;
-    rankStat:RANKAPI
+    region:regionType;
+    rankStat:RANKAPI;
 }
+
+export interface RANKTEMPAPI2 {
+    season : number,
+    data : RANKTEMPAPI[]
+}
+
 
 export interface RANKAPI {
     maxMmr: number;
@@ -30,7 +61,7 @@ export interface RANKAPI {
     abandons: number|string;
     mmr:number;
     wins:number;
-    region:string;
+    region:regionType;
     season:number;
     losses:number;
     createdTime: string;

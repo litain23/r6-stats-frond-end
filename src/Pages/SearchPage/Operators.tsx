@@ -54,9 +54,7 @@ export default class SearchOperators extends React.Component<Props, State> {
             ellipsis: false,
             showSorterTooltip:false,
             onCell: (record, index) => {
-                console.log(record)
                 return {
-                    
                 }
             },
             render: (value, record, index) => {

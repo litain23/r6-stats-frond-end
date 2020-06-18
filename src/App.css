@@ -1,2 +1,7 @@
 
 * {-webkit-font-smoothing: antialiased;}
+
+.scrollrable {
+    overflow:hidden;
+}
+
