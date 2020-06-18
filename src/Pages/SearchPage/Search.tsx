@@ -4,38 +4,42 @@ import './search.css'
 
 import { API } from '../../util/API'
 import R6Spinner from '../../R6Components/R6Spinner'
-import {PVPAPI, GENERALAPI, RANKREGIONSTATAPI, OPERATORAPI} from '../../util/type'
+import {PVPAPI, GENERALAPI, RANKAPI, OPERATORAPI, SEASONAPI, RANKBYREGION} from '../../util/type'
 import Profile from './Profile';
 import SearchOverviewTab from './Overview';
 import SearchSeasonsTab from './Seasons';
 import SearchOperators from './Operators';
 
-import { Menu } from 'antd';
+import { Menu, Skeleton } from 'antd';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 interface State {
-    currentRankData : RANKREGIONSTATAPI[]
-    allRankData: RANKREGIONSTATAPI[]
-    generalData : GENERALAPI
-    operators: OPERATORAPI[]
-    casualPvpData: PVPAPI
-    rankPvpData: PVPAPI
-
-
-    loading: boolean
-    currentTab: number
-	current:string
+    currentRankData : RANKBYREGION[],
+    allRankData: SEASONAPI[],
+    generalData : GENERALAPI,
+    operators: OPERATORAPI[],
+    casualPvpData: PVPAPI,
+    rankPvpData: PVPAPI,
+    loading: boolean,
+    currentTab: number,
+	current:string,
 }
 
-interface Props {
+interface Props extends RouteComponentProps {
 }
 
-export default class Search extends React.Component<Props, State> {
+/**
+ * TO-DO : loading View.
+ * TO-DO : if it is not filled => show that? => loading? how? 
+ */
+
+class Search extends React.Component<Props, State> {
       constructor(props: Props){
         super(props);
         this.state = {
-            currentRankData: [] as RANKREGIONSTATAPI[],
+            currentRankData: [] as RANKBYREGION[],
 			generalData: {} as GENERALAPI,
-			allRankData: [] as unknown as RANKREGIONSTATAPI[],
+			allRankData: [] as SEASONAPI[],
             operators: [] as OPERATORAPI[],
             casualPvpData: {} as PVPAPI,
             rankPvpData: {} as PVPAPI,
@@ -44,8 +48,7 @@ export default class Search extends React.Component<Props, State> {
             current: 'overview',
         }
 
-        this.handleClick = this.handleClick.bind(this);
-        
+        this.handleClick = this.handleClick.bind(this)
     }
 
     handleClick(e:any) {
@@ -74,8 +77,8 @@ export default class Search extends React.Component<Props, State> {
     
     async componentDidMount(){
         const generalAPIs = await API<GENERALAPI>("generalpvp/uplay/piliot");
-		const rankAPIs = await API<RANKREGIONSTATAPI[]>("rank/uplay/piliot");
-		const allRankAPIs = await API<RANKREGIONSTATAPI[]>("rank/uplay/piliot/all");
+		const rankAPIs = await API<RANKBYREGION[]>("rank/uplay/piliot");
+		const allRankAPIs = await API<SEASONAPI[]>("rank/uplay/piliot/all");
         const operatorAPIs = await API<OPERATORAPI[]>("operator/uplay/piliot/");
 		const rankPvpAPIs = await API<PVPAPI>("rankpvp/uplay/piliot");
 		const casualPvpAPIs = await API<PVPAPI>("casualpvp/uplay/piliot");
@@ -86,8 +89,12 @@ export default class Search extends React.Component<Props, State> {
         this.setState({rankPvpData: rankPvpAPIs});
         this.setState({casualPvpData: casualPvpAPIs});
         this.setState({loading: false});
+
+        console.log(this.state.currentRankData);
     }
+
     render(){
+        
         if (this.state.loading) {
             return <R6Spinner presentationStyle="full"></R6Spinner>
         } else {
@@ -96,6 +103,7 @@ export default class Search extends React.Component<Props, State> {
                 <>
                 <div className="search-page-container">
                     <div className="menu">
+
                         <Profile currentRankData={this.state.currentRankData}></Profile>
                         <Menu mode="horizontal" selectedKeys={[this.state.current]} onClick={this.handleClick}>
                             <Menu.Item key="overview">
@@ -117,3 +125,5 @@ export default class Search extends React.Component<Props, State> {
     }
 }
 
+
+export default withRouter(Search);

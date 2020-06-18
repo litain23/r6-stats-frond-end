@@ -4,14 +4,17 @@ import re;
 '''
 download all svg files.
 '''
-x = requests.get('https://r6unhash.tk/');
-json = x.json();
-url = json["unlocalized"]["data"]["ranks"]["url"];
+# x = requests.get('https://r6unhash.tk/');
+# json = x.json();
+# url = json["unlocalized"]["data"]["ranks"]["url"];
+url = "https://game-rainbow6.ubi.com/assets/data/ranks.754ab452.json"
 x = requests.get(url);
 json = x.json();
 data = json["seasons"]
 seasons = data[len(data)-1];
 ranks = seasons["ranks"]
+
+
 
 contents = ""
 exportlist = []

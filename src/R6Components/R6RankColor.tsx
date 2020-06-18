@@ -16,5 +16,5 @@ export const SeasonColor : string[] = [
     "#304395", 
     "#156309", 
     "#089eb3", 
-    "#946a97"
+    "#946a97",
 ];

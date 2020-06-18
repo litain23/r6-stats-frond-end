@@ -229,8 +229,7 @@ def rankpvp():
 #RANK
 @app.route('/api/v1/rank/uplay/piliot')
 def rank():
-    list = 
-    [
+    list = [
         {
             "region": "ncsa",
             "rankStat": {
@@ -294,8 +293,7 @@ def rank():
 #RANKALL
 @app.route('/api/v1/rank/uplay/piliot/all')
 def rankall():
-    list = 
-    [{
+    list = [{
         "season": 17,
         "seasonData": [
         {

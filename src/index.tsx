@@ -18,7 +18,7 @@ import Login from './Pages/LoginPage/Login';
 import SignUp from './Pages/LoginPage/SignUp';
 import SignupReseult from './Pages/LoginPage/SignupResult';
 import { theme } from './util/theme'
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 ReactDOM.render(
   
   <React.StrictMode>
