@@ -229,244 +229,287 @@ def rankpvp():
 #RANK
 @app.route('/api/v1/rank/uplay/piliot')
 def rank():
-    list = [{
-		"region": "ncsa",
-		"rankStat": [{
-			"maxMmr": 0,
-			"death": 0,
-			"rank": 0,
-			"maxRank": 0,
-			"kills": 0,
-			"abandons": 0,
-			"mmr": 2500,
-			"wins": 0,
-			"region": "ncsa",
-			"season": 17,
-			"losses": 0,
-			"createdTime": "2020-05-19T18:19:30.0502837",
-			"maxRankString": "UNRANK",
-			"rankString": "UNRANK"
-		}]
-	},
-	{
-		"region": "emea",
-		"rankStat": [{
-			"maxMmr": 0,
-			"death": 0,
-			"rank": 0,
-			"maxRank": 0,
-			"kills": 0,
-			"abandons": 0,
-			"mmr": 2500,
-			"wins": 0,
-			"region": "emea",
-			"season": 17,
-			"losses": 0,
-			"createdTime": "2020-05-19T18:19:29.5632611",
-			"maxRankString": "UNRANK",
-			"rankString": "UNRANK"
-		}]
-	},
-	{
-		"region": "apac",
-		"rankStat": [{
-			"maxMmr": 2581,
-			"death": 984,
-			"rank": 14,
-			"maxRank": 15,
-			"kills": 1102,
-			"abandons": 1,
-			"mmr": 2428,
-			"wins": 126,
-			"region": "apac",
-			"season": 17,
-			"losses": 115,
-			"createdTime": "2020-05-19T18:19:29.073145",
-			"maxRankString": "SILVER 1",
-			"rankString": "SILVER 2"
-		}]
-	}
-]
+    list = 
+    [
+        {
+            "region": "ncsa",
+            "rankStat": {
+            "maxMmr": 0,
+            "death": 0,
+            "rank": 0,
+            "maxRank": 0,
+            "kills": 0,
+            "abandons": 0,
+            "mmr": 2500,
+            "wins": 0,
+            "region": "ncsa",
+            "season": 17,
+            "losses": 0,
+            "createdTime": "2020-06-18T10:45:56.6972031",
+            "maxRankString": "UNRANK",
+            "rankString": "UNRANK"
+            }
+        },
+        {
+            "region": "emea",
+            "rankStat": {
+            "maxMmr": 0,
+            "death": 0,
+            "rank": 0,
+            "maxRank": 0,
+            "kills": 0,
+            "abandons": 0,
+            "mmr": 2500,
+            "wins": 0,
+            "region": "emea",
+            "season": 17,
+            "losses": 0,
+            "createdTime": "2020-06-18T10:45:56.2218817",
+            "maxRankString": "UNRANK",
+            "rankString": "UNRANK"
+            }
+        },
+        {
+            "region": "apac",
+            "rankStat": {
+            "maxMmr": 2581,
+            "death": 1029,
+            "rank": 15,
+            "maxRank": 15,
+            "kills": 1145,
+            "abandons": 2,
+            "mmr": 2501,
+            "wins": 133,
+            "region": "apac",
+            "season": 17,
+            "losses": 118,
+            "createdTime": "2020-06-18T10:45:55.7489639",
+            "maxRankString": "SILVER 1",
+            "rankString": "SILVER 1"
+            }
+        }
+    ]
     return Response(json.dumps(list),  mimetype='application/json')
 
 #RANKALL
 @app.route('/api/v1/rank/uplay/piliot/all')
 def rankall():
-    list = [{
-	"region": "ncsa",
-	"rankStat": [{
-		"maxMmr": 0,
-		"death": 0,
-		"rank": 0,
-		"maxRank": 0,
-		"kills": 0,
-		"abandons": 0,
-		"mmr": 2500,
-		"wins": 0,
-		"region": "ncsa",
-		"season": 17,
-		"losses": 0,
-		"createdTime": "2020-06-01T19:59:51",
-		"maxRankString": "UNRANK",
-		"rankString": "UNRANK"
-	}]
-    }, {
-	"region": "emea",
-	"rankStat": [{
-		"maxMmr": 0,
-		"death": 0,
-		"rank": 0,
-		"maxRank": 0,
-		"kills": 0,
-		"abandons": 0,
-		"mmr": 2500,
-		"wins": 0,
-		"region": "emea",
-		"season": 17,
-		"losses": 0,
-		"createdTime": "2020-06-01T19:59:42",
-		"maxRankString": "UNRANK",
-		"rankString": "UNRANK"
-	}]
-    }, {
-	"region": "apac",
-	"rankStat": [{
-		"maxMmr": 2906,
-		"death": 0,
-		"rank": 10,
-		"maxRank": 15,
-		"kills": 0,
-		"abandons": 1,
-		"mmr": 2283,
-		"wins": 20,
-		"region": "apac",
-		"season": 9,
-		"losses": 23,
-		"createdTime": "2020-06-01T19:59:31",
-		"maxRankString": "SILVER 1",
-		"rankString": "BRONZE 1"
-	}, {
-		"maxMmr": 2621,
-		"death": 0,
-		"rank": 9,
-		"maxRank": 10,
-		"kills": 0,
-		"abandons": 6,
-		"mmr": 2106,
-		"wins": 132,
-		"region": "apac",
-		"season": 10,
-		"losses": 119,
-		"createdTime": "2020-06-01T19:59:31",
-		"maxRankString": "BRONZE 1",
-		"rankString": "BRONZE 2"
-	}, {
-		"maxMmr": 3337,
-		"death": 0,
-		"rank": 15,
-		"maxRank": 17,
-		"kills": 0,
-		"abandons": 4,
-		"mmr": 3008,
-		"wins": 108,
-		"region": "apac",
-		"season": 11,
-		"losses": 97,
-		"createdTime": "2020-06-01T19:59:32",
-		"maxRankString": "GOLD 2",
-		"rankString": "SILVER 1"
-	}, {
-		"maxMmr": 3121,
-		"death": 0,
-		"rank": 13,
-		"maxRank": 16,
-		"kills": 0,
-		"abandons": 0,
-		"mmr": 2655,
-		"wins": 26,
-		"region": "apac",
-		"season": 12,
-		"losses": 26,
-		"createdTime": "2020-06-01T19:59:32",
-		"maxRankString": "GOLD 3",
-		"rankString": "SILVER 3"
-	}, {
-		"maxMmr": 3125,
-		"death": 0,
-		"rank": 13,
-		"maxRank": 16,
-		"kills": 0,
-		"abandons": 2,
-		"mmr": 2637,
-		"wins": 65,
-		"region": "apac",
-		"season": 13,
-		"losses": 60,
-		"createdTime": "2020-06-01T19:59:33",
-		"maxRankString": "GOLD 3",
-		"rankString": "SILVER 3"
-	}, {
-		"maxMmr": 3345,
-		"death": 282,
-		"rank": 12,
-		"maxRank": 17,
-		"kills": 222,
-		"abandons": 4,
-		"mmr": 2459,
-		"wins": 30,
-		"region": "apac",
-		"season": 14,
-		"losses": 30,
-		"createdTime": "2020-06-01T19:59:33",
-		"maxRankString": "GOLD 2",
-		"rankString": "SILVER 4"
-	}, {
-		"maxMmr": 2568,
-		"death": 811,
-		"rank": 9,
-		"maxRank": 15,
-		"kills": 771,
-		"abandons": 4,
-		"mmr": 1901,
-		"wins": 55,
-		"region": "apac",
-		"season": 15,
-		"losses": 63,
-		"createdTime": "2020-06-01T19:59:34",
-		"maxRankString": "SILVER 1",
-		"rankString": "BRONZE 2"
-	}, {
-		"maxMmr": 2838,
-		"death": 566,
-		"rank": 13,
-		"maxRank": 17,
-		"kills": 570,
-		"abandons": 0,
-		"mmr": 2336,
-		"wins": 70,
-		"region": "apac",
-		"season": 16,
-		"losses": 66,
-		"createdTime": "2020-06-01T19:59:34",
-		"maxRankString": "GOLD 2",
-		"rankString": "SILVER 3"
-	}, {
-		"maxMmr": 2581,
-		"death": 1025,
-		"rank": 15,
-		"maxRank": 15,
-		"kills": 1140,
-		"abandons": 2,
-		"mmr": 2515,
-		"wins": 133,
-		"region": "apac",
-		"season": 17,
-		"losses": 117,
-		"createdTime": "2020-06-01T19:59:34",
-		"maxRankString": "SILVER 1",
-		"rankString": "SILVER 1"
-	}]
-}]
+    list = 
+    [{
+        "season": 17,
+        "seasonData": [
+        {
+            "region": "apac",
+            "rankStat": {
+            "maxMmr": 2581,
+            "death": 1029,
+            "rank": 15,
+            "maxRank": 15,
+            "kills": 1145,
+            "abandons": 2,
+            "mmr": 2501,
+            "wins": 133,
+            "region": "apac",
+            "season": 17,
+            "losses": 118,
+            "createdTime": "2020-06-18T10:43:17.8370249",
+            "maxRankString": "SILVER 1",
+            "rankString": "SILVER 1"
+            }
+        }
+        ]
+    },
+    {
+        "season": 16,
+        "seasonData": [
+        {
+            "region": "apac",
+            "rankStat": {
+            "maxMmr": 2838,
+            "death": 566,
+            "rank": 13,
+            "maxRank": 17,
+            "kills": 570,
+            "abandons": 0,
+            "mmr": 2336,
+            "wins": 70,
+            "region": "apac",
+            "season": 16,
+            "losses": 66,
+            "createdTime": "2020-06-18T10:43:17.836028",
+            "maxRankString": "GOLD 2",
+            "rankString": "SILVER 3"
+            }
+        }
+        ]
+    },
+    {
+        "season": 15,
+        "seasonData": [
+        {
+            "region": "apac",
+            "rankStat": {
+            "maxMmr": 2568,
+            "death": 811,
+            "rank": 9,
+            "maxRank": 15,
+            "kills": 771,
+            "abandons": 4,
+            "mmr": 1902,
+            "wins": 55,
+            "region": "apac",
+            "season": 15,
+            "losses": 63,
+            "createdTime": "2020-06-18T10:43:17.836028",
+            "maxRankString": "SILVER 1",
+            "rankString": "BRONZE 2"
+            }
+        }
+        ]
+    },
+    {
+        "season": 14,
+        "seasonData": [
+        {
+            "region": "apac",
+            "rankStat": {
+            "maxMmr": 3345,
+            "death": 282,
+            "rank": 12,
+            "maxRank": 17,
+            "kills": 222,
+            "abandons": 4,
+            "mmr": 2459,
+            "wins": 30,
+            "region": "apac",
+            "season": 14,
+            "losses": 30,
+            "createdTime": "2020-06-18T10:43:17.8350308",
+            "maxRankString": "GOLD 2",
+            "rankString": "SILVER 4"
+            }
+        }
+        ]
+    },
+    {
+        "season": 13,
+        "seasonData": [
+        {
+            "region": "apac",
+            "rankStat": {
+            "maxMmr": 3125,
+            "death": 0,
+            "rank": 13,
+            "maxRank": 16,
+            "kills": 0,
+            "abandons": 2,
+            "mmr": 2637,
+            "wins": 65,
+            "region": "apac",
+            "season": 13,
+            "losses": 60,
+            "createdTime": "2020-06-18T10:43:17.8340659",
+            "maxRankString": "GOLD 3",
+            "rankString": "SILVER 3"
+            }
+        }
+        ]
+    },
+    {
+        "season": 12,
+        "seasonData": [
+        {
+            "region": "apac",
+            "rankStat": {
+            "maxMmr": 3121,
+            "death": 0,
+            "rank": 13,
+            "maxRank": 16,
+            "kills": 0,
+            "abandons": 0,
+            "mmr": 2655,
+            "wins": 26,
+            "region": "apac",
+            "season": 12,
+            "losses": 26,
+            "createdTime": "2020-06-18T10:43:17.8340659",
+            "maxRankString": "GOLD 3",
+            "rankString": "SILVER 3"
+            }
+        }
+        ]
+    },
+    {
+        "season": 11,
+        "seasonData": [
+        {
+            "region": "apac",
+            "rankStat": {
+            "maxMmr": 3337,
+            "death": 0,
+            "rank": 15,
+            "maxRank": 17,
+            "kills": 0,
+            "abandons": 4,
+            "mmr": 3008,
+            "wins": 108,
+            "region": "apac",
+            "season": 11,
+            "losses": 97,
+            "createdTime": "2020-06-18T10:43:17.833037",
+            "maxRankString": "GOLD 2",
+            "rankString": "SILVER 1"
+            }
+        }
+        ]
+    },
+    {
+        "season": 10,
+        "seasonData": [
+        {
+            "region": "apac",
+            "rankStat": {
+            "maxMmr": 2621,
+            "death": 0,
+            "rank": 9,
+            "maxRank": 10,
+            "kills": 0,
+            "abandons": 6,
+            "mmr": 2106,
+            "wins": 132,
+            "region": "apac",
+            "season": 10,
+            "losses": 119,
+            "createdTime": "2020-06-18T10:43:17.8320414",
+            "maxRankString": "BRONZE 1",
+            "rankString": "BRONZE 2"
+            }
+        }
+        ]
+    },
+    {
+        "season": 9,
+        "seasonData": [
+        {
+            "region": "apac",
+            "rankStat": {
+            "maxMmr": 2906,
+            "death": 0,
+            "rank": 10,
+            "maxRank": 15,
+            "kills": 0,
+            "abandons": 1,
+            "mmr": 2284,
+            "wins": 20,
+            "region": "apac",
+            "season": 9,
+            "losses": 23,
+            "createdTime": "2020-06-18T10:43:17.8310438",
+            "maxRankString": "SILVER 1",
+            "rankString": "BRONZE 1"
+            }
+        }]
+    }]
     return Response(json.dumps(list),  mimetype='application/json')
 
 #GENERALPVP
