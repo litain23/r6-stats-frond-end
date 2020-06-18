@@ -1,42 +1,27 @@
 import React from 'react'
 import '../../../App.css'
 
-import { RANKREGIONSTATAPI, RANKAPI }  from '../../../util/type'
+import { SEASONAPI, RANKAPI, RANKBYREGION }  from '../../../util/type'
 import { MmrCard } from './MmrCard'
 
 interface Props {
-    allRankData: RANKREGIONSTATAPI[]
+    allRankData: SEASONAPI[]
 }
 
 interface State {
     mmrList: RANKAPI[]
 }
 
-function getHighestMmr(mmrList : RANKREGIONSTATAPI[]) {
+function getHighestMmr(allSeasons : SEASONAPI[] ): RANKAPI[] {
+
     const list : RANKAPI[] = [];
-    for(const mmrRegion of mmrList ) {
-        for(const mmrStat of mmrRegion.rankStat) {
-            list.push(mmrStat);
-        }
+    
+    for(let season of allSeasons) {
+        const sortedMMR = season.seasonData.sort((a,b) => (a.rankStat.maxMmr < b.rankStat.maxMmr) ? 1 : -1);
+        list.push(sortedMMR[0].rankStat);
     }
 
-    list.sort((a, b) => (a.season < b.season) ? 1 : -1);
-    return list.reduce( (prev, currentRank) => {
-        if(prev.length == 0) {
-            prev.push(currentRank);
-        } else {
-            const lastRank: RANKAPI = prev[prev.length-1];
-            if(lastRank.season === currentRank.season) {
-                if(lastRank.maxMmr < currentRank.maxMmr) {
-                    prev.pop();
-                    prev.push(currentRank);
-                } 
-            } else {
-                prev.push(currentRank);
-            }
-        }
-        return prev;
-    }, [] as RANKAPI[]);
+    return list;
 }
 
 export class AllSeasonHighMmr extends React.Component<Props, State> {
@@ -48,13 +33,16 @@ export class AllSeasonHighMmr extends React.Component<Props, State> {
     }
 
     render() {
-        let result = [] as any;
-        for(const mmr of this.state.mmrList) {
-            result.push(<MmrCard mmr={mmr.maxMmr} rankString={mmr.maxRankString} rank={mmr.maxRank} season={mmr.season}></MmrCard>)
-        }
+
+        let MMRCARD: JSX.Element[] = [];
+
+        this.state.mmrList.forEach((mmr,index)=>{
+            MMRCARD.push(<MmrCard key={`MMR_CARD_${index}`} mmr={mmr.maxMmr} rankString={mmr.maxRankString} rank={mmr.maxRank} season={mmr.season}></MmrCard>)
+        })
+        
         return (
             <div style={{ width: "100%" }}>
-                { result }
+                { MMRCARD }
             </div>
         )
     }    

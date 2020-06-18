@@ -1,23 +1,19 @@
 import React from 'react';
 import '../../App.css'
 
-import { PVPAPI, RANKREGIONSTATAPI, GENERALAPI} from '../../util/type'
+import { PVPAPI, SEASONAPI, GENERALAPI} from '../../util/type'
 import { AllSeasonHighMmr } from './Overview/AllSeasonHighMmr'
 import { OverviewGeneralCard } from './Overview/GeneralPvpCard'
 import { OverviewPvpCard } from './Overview/PvpCard'
 
-import { Statistic , Typography} from 'antd';
-import { Row, Col } from 'antd';
-
 import styled from 'styled-components';
 
-const { Title , Paragraph , Text} = Typography
 
 interface Props {
     generalData: GENERALAPI,
     rankPvpData: PVPAPI,
     casualPvpData: PVPAPI,
-    allRankStat: RANKREGIONSTATAPI[]
+    allRankStat: SEASONAPI[]
 }
 
 const StatContainer = styled.div`
@@ -46,11 +42,10 @@ const B = styled.div`
 
 
 export default class SearchOverviewTab extends React.Component<Props> {
-    constructor(props: Props) {
-        super(props);
-    }
 
     render() {
+        console.log();
+
         return(
             <StatContainer>
                 <A>

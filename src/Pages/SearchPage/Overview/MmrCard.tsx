@@ -1,11 +1,9 @@
 import React from 'react';
 import '../../../App.css'
-
 import R6RankIcon from './../../../R6Components/R6RankIcon'
-import { SeasonColor } from './../../../R6Components/R6RankColor'
-import { SeasonName} from './../../../R6Components/R6RankSeasonName'
 
 import styled from 'styled-components'
+import { getSeasonName } from '../../../util/type';
 
 interface MmrContainerProps {
     season: number
@@ -32,7 +30,7 @@ const MmrContainer = styled.div<MmrContainerProps>`
     }
 
     background: #1f1f1f;
-    border-left: 4px solid ${props => SeasonColor[props.season]};
+    border-left: 4px solid ${props => props.theme.seasonColors(props.season)};
     margin-bottom: 4px;
 `;
 
@@ -42,7 +40,7 @@ const RankSeasonNameAndMmr = styled.div`
 `;
 
 const RankSeasonName = styled.div<RankSeasonNameColor>`
-    color: ${props => SeasonColor[props.season]};
+    color: ${props => props.theme.seasonColors(props.season)};
     font-size: 16px;
     font-weight: 700;
 `;
@@ -59,7 +57,7 @@ export const MmrCard = (props : Props) => (
     <MmrContainer season={props.season}>
         <RankIcon> <R6RankIcon rank={props.rank} size={40} /></RankIcon>
         <RankSeasonNameAndMmr>
-            <RankSeasonName season={props.season}>{SeasonName[props.season]}</RankSeasonName>
+            <RankSeasonName season={props.season}>{getSeasonName(props.season)}</RankSeasonName>
             <div>
                 {/* {props.mmr} Mmr */}
                 <span style={{

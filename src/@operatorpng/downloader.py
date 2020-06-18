@@ -1,17 +1,30 @@
 import requests
-import re;
+import re
 
 '''
 download all png badges.
 '''
-x = requests.get('https://r6unhash.tk/');
-json = x.json();
-url = json["unlocalized"]["data"]["operators"]["url"];
-x = requests.get(url);
-json = x.json();
+# x = requests.get('https://r6unhash.tk/');
+# json = x.json();
+# url = json["unlocalized"]["data"]["operators"]["url"];
+# x = requests.get(url);
+# json = x.json();
 
-contents = "";
-exportlist = [];
+# print(json);
+# contents = "";
+# exportlist = [];
+
+
+
+url = "https://game-rainbow6.ubi.com/assets/data/operators.f660ac39.json"
+x = requests.get(url)
+json = x.json()
+contents = ""
+exportlist = []
+
+'''
+download all page for season 18
+'''
 
 for operator in json:
     images = json[operator]["badge"]

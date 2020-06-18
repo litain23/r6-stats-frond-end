@@ -205,3 +205,4 @@ function router(Template: ComponentClass) {
 // //     }
 // // }
 export default router;
+

@@ -24,18 +24,24 @@ class App extends React.Component<RouteComponentProps> {
 
   constructor(props: RouteComponentProps) {
     super(props);
-    
+
     this.props.history.listen((location, action) => {
       if (location.pathname === "/") {
-        document.body.classList.add("scrollrable")
+        document.body.classList.add("not-scrollrable")
+        document.body.scrollTo(0,0);
       } else {
-        document.body.classList.remove("scrollrable")
+        document.body.classList.remove("not-scrollrable")
       }
     });
   }
 
   componentDidMount() {
-    
+    if (this.props.location.pathname === "/") {
+      document.body.classList.add("not-scrollrable")
+      document.body.scrollTo(0,0);
+    } else {
+      document.body.classList.remove("not-scrollrable")
+    }
   }
 
 

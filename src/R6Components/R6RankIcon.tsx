@@ -1,5 +1,4 @@
 import React from 'react';
-import styled , {ThemeProvider} from 'styled-components';
 import * as rankicons from '../@ranksvg'
 
 export type RankType = keyof typeof rankicons;
@@ -23,7 +22,7 @@ const R6RankIcon = ({ rank, size }: R6RankIconProps) => {
     if (rank) {
         const src = rankicons[rank];
         return (
-          <img src={src} style={{width:size, height:'auto'}}/>
+          <img src={src} alt={"rank"} style={{width:size, height:'auto'}}/>
         );
     } else {
         return (
