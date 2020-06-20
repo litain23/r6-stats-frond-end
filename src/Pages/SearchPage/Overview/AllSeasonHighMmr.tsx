@@ -1,7 +1,7 @@
 import React from 'react'
 import '../../../App.css'
 
-import { SEASONAPI, RANKAPI, RANKBYREGION }  from '../../../util/type'
+import { SEASONAPI, RANKAPI }  from '../../../util/type'
 import { MmrCard } from './MmrCard'
 
 interface Props {
@@ -35,7 +35,6 @@ export class AllSeasonHighMmr extends React.Component<Props, State> {
     render() {
 
         let MMRCARD: JSX.Element[] = [];
-
         this.state.mmrList.forEach((mmr,index)=>{
             MMRCARD.push(<MmrCard key={`MMR_CARD_${index}`} mmr={mmr.maxMmr} rankString={mmr.maxRankString} rank={mmr.maxRank} season={mmr.season}></MmrCard>)
         })

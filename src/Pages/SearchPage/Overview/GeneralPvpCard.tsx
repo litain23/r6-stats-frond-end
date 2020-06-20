@@ -10,9 +10,6 @@ interface Props {
 }
 
 export class OverviewGeneralCard extends React.Component<Props> {
-    constructor(props: Props){
-        super(props);
-    }
 
     render() {
         let generalCardList = [];

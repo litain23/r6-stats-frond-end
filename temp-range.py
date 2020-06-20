@@ -34,7 +34,6 @@ f = open("range.tsx", "w")
 
 contents += "export const rangeData = "
 contents += jsonData
-
 f.write(contents)
 f.close()
 

@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import abort, Flask, request, jsonify
 from flask import Response
 import json
 from flask_cors import CORS, cross_origin
@@ -225,6 +225,22 @@ def rankpvp():
             "createdTime": "2020-05-19T11:04:04.5581463"
         }       
     )
+    
+@app.errorhandler(400)
+def bad_request(e):
+    return jsonify({"status": 400, "message":"400-test-message"}), 400
+
+@app.errorhandler(401)
+def unauth(e):
+    return jsonify({"status": 401, "message":"401-test-message"}), 401
+
+@app.route('/api/v1/error/400')
+def error_400():
+    abort(400)
+
+@app.route('/api/v1/error/401')
+def error_401():
+    abort(401)
 
 #RANK
 @app.route('/api/v1/rank/uplay/piliot')

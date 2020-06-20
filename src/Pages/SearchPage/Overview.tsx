@@ -44,11 +44,9 @@ const B = styled.div`
 export default class SearchOverviewTab extends React.Component<Props> {
 
     render() {
-        console.log();
-
         return(
             <StatContainer>
-                <A>
+                 <A>
                     <AllSeasonHighMmr allRankData={this.props.allRankStat}></AllSeasonHighMmr>
                 </A>
                 <B>
