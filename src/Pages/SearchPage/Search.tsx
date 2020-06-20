@@ -4,13 +4,13 @@ import './search.css'
 
 import { API } from '../../util/API'
 import R6Spinner from '../../R6Components/R6Spinner'
-import {PVPAPI, GENERALAPI, RANKAPI, OPERATORAPI, SEASONAPI, RANKBYREGION} from '../../util/type'
+import {PVPAPI, GENERALAPI, OPERATORAPI, SEASONAPI, RANKBYREGION} from '../../util/type'
 import Profile from './Profile';
 import SearchOverviewTab from './Overview';
 import SearchSeasonsTab from './Seasons';
 import SearchOperators from './Operators';
 
-import { Menu, Skeleton } from 'antd';
+import { Menu } from 'antd';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 interface State {
@@ -70,27 +70,37 @@ class Search extends React.Component<Props, State> {
             case 'seasons':
                 return(<SearchSeasonsTab seasons={this.state.allRankData}></SearchSeasonsTab>);
             case 'operators':
-                return(<SearchOperators operators={this.state.operators}></SearchOperators>);
+                return(<SearchOperators></SearchOperators>);
         } 
 
     }
     
     async componentDidMount(){
-        const generalAPIs = await API<GENERALAPI>("generalpvp/uplay/piliot");
-		const rankAPIs = await API<RANKBYREGION[]>("rank/uplay/piliot");
-		const allRankAPIs = await API<SEASONAPI[]>("rank/uplay/piliot/all");
-        const operatorAPIs = await API<OPERATORAPI[]>("operator/uplay/piliot/");
-		const rankPvpAPIs = await API<PVPAPI>("rankpvp/uplay/piliot");
-		const casualPvpAPIs = await API<PVPAPI>("casualpvp/uplay/piliot");
-		this.setState({generalData: generalAPIs});
-		this.setState({currentRankData: rankAPIs});
-		this.setState({allRankData: allRankAPIs});
-        this.setState({operators: operatorAPIs});
-        this.setState({rankPvpData: rankPvpAPIs});
-        this.setState({casualPvpData: casualPvpAPIs});
-        this.setState({loading: false});
 
-        console.log(this.state.currentRankData);
+        // 초반 성능 향상을 위해 따로따로 요청하는것으로 합니다.
+        // const operatorAPIs = await API<OPERATORAPI[]>("operator/uplay/piliot/");
+        // const generalAPIs = await API<GENERALAPI>("generalpvp/uplay/piliot");
+
+        const [rankPvpAPIs, rankpvpError] = await API<PVPAPI>("rankpvp/uplay/piliot");
+        const [casualPvpAPIs, casuapvpError] = await API<PVPAPI>("casualpvp/uplay/piliot");
+        const [rankAPIs, rankapiError]= await API<RANKBYREGION[]>("rank/uplay/piliot");
+        const [generalAPIs, generalapiError] = await API<GENERALAPI>("generalpvp/uplay/piliot");
+        const [allRankAPIs, allrankapiError] = await API<SEASONAPI[]>("rank/uplay/piliot/all");
+
+
+        if (rankpvpError || casuapvpError || rankapiError || generalapiError || allrankapiError) {
+            alert("Error : 연결에 에러가 있습니다")
+            this.props.history.goBack();
+        } else {
+
+            this.setState({generalData: generalAPIs!});
+            this.setState({currentRankData: rankAPIs!});
+            this.setState({rankPvpData: rankPvpAPIs!});
+            this.setState({casualPvpData: casualPvpAPIs!});
+            this.setState({allRankData : allRankAPIs!})
+            this.setState({loading: false});
+
+        }
     }
 
     render(){

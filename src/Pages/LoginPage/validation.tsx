@@ -1,8 +1,4 @@
-import React, { CSSProperties, FormEvent, FormEventHandler, createRef, ComponentLifecycle } from 'react';
-import { useEffect } from 'react';
-
-import lottie from 'lottie-web';
-
+import React  from 'react';
 
 //lottie
 //https://github.com/airbnb/lottie-web#readme

@@ -4,13 +4,8 @@ import {
     Form,
     Input,
     Tooltip,
-    Cascader,
-    Select,
-    Row,
-    Col,
     Checkbox,
     Button,
-    AutoComplete,
     Typography
   } from 'antd';
   import { QuestionCircleOutlined } from '@ant-design/icons';
@@ -131,21 +126,7 @@ export default class SignUp extends React.Component<{},State> {
               sm: { span: 20 },
             },
           };
-          const tailFormItemLayout = {
-            wrapperCol: {
-              xs: {
-                span: 24,
-                offset: 0,
-              },
-              sm: {
-                span: 16,
-                offset: 8,
-              },
-            },
-          };
-
           
-
         return(
             <CONTAINER>
                 <WHITEBOX>

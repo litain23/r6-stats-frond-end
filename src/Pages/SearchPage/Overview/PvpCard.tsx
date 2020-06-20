@@ -12,10 +12,7 @@ interface Props {
 
 
 export class OverviewPvpCard extends React.Component<Props> {
-    constructor(props: Props) {
-        super(props);
-    }
-
+    
     render() {
         let parsedData : { [key: string]: number}  = {};
         parsedData["Kills"] = this.props.pvpData.kills;
@@ -35,6 +32,7 @@ export class OverviewPvpCard extends React.Component<Props> {
 
         return (
             <>
+
             <CardHeader>{this.props.title}</CardHeader>
             <CardContent>
             {

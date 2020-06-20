@@ -1,10 +1,10 @@
-import React, { CSSProperties } from 'react';
-import styled, { StyledComponent } from 'styled-components';
+import React from 'react';
+import styled from 'styled-components';
 import { withRouter } from "react-router-dom";
 import {RouteComponentProps} from "react-router";
 import { Form, Input, Button, Space } from 'antd';
 import { Typography } from 'antd';
-import { UserOutlined, IdcardOutlined, UserAddOutlined, LockOutlined } from '@ant-design/icons';
+import { UserOutlined, UserAddOutlined, LockOutlined } from '@ant-design/icons';
 const { Title } = Typography
 
 
@@ -54,10 +54,6 @@ const WHITEBOX = styled.section`
 
 
 class Login extends React.Component<RouteComponentProps> {
-
-    constructor(props:RouteComponentProps) {
-        super(props);
-    }
 
 
     gotoSignUp(){

@@ -6,20 +6,39 @@ import { OPERATORAPI } from '../../util/type';
 import { Table, Row } from 'antd';
 import { ColumnType } from 'antd/lib/table/interface'
 import { Typography } from 'antd';
+import { API } from '../../util/API';
+import { withRouter, RouteComponentProps} from 'react-router-dom';
 const { Text } = Typography;
 
 interface Props {
-    operators: OPERATORAPI[];
+    // operators: OPERATORAPI[];
 }
 
 interface State {
-
+    operators: OPERATORAPI[];
 }
 
-export default class SearchOperators extends React.Component<Props, State> {
-    constructor(props:Props) {
+class SearchOperators extends React.Component<RouteComponentProps, State> {
+
+    constructor(props:RouteComponentProps) {
         super(props);
+        
+        this.state = {
+            operators: [] as OPERATORAPI[]
+        }
     }
+
+    async componentDidMount() {
+        const [operatorAPIs, operatorError] = await API<OPERATORAPI[]>("operator/uplay/piliot/");
+
+        if (operatorError) {
+            alert("Error : 연결에 문제가 있습니다.")
+            this.props.history.goBack();
+        } else {
+            this.setState({operators : operatorAPIs!})
+        }
+    }
+
 
     row = (api : OPERATORAPI) => {
             return(
@@ -43,6 +62,8 @@ export default class SearchOperators extends React.Component<Props, State> {
     }
 
     render() {
+
+    
         const columns: ColumnType<OPERATORAPI>[] = [{
             title: 'Operator',
             dataIndex: "name",
@@ -61,7 +82,7 @@ export default class SearchOperators extends React.Component<Props, State> {
                 return(
                     <>  
                         <Row justify="center">
-                        <img style={{width:'50px'}} src={operators[record.name]}></img>
+                            <img style={{width:'50px'}} src={operators[record.name]}></img>
                         </Row>
                         <Row justify="center">
                         <Text strong>{record.name.toString().toUpperCase()}</Text>
@@ -127,7 +148,7 @@ export default class SearchOperators extends React.Component<Props, State> {
         <>
          <Table
             columns={columns}
-            dataSource={dataSource(this.props.operators)}
+            dataSource={dataSource(this.state.operators)}
             scroll={{x:true}}
             pagination={false}
             />
@@ -135,3 +156,5 @@ export default class SearchOperators extends React.Component<Props, State> {
         ) 
     }
 }
+
+export default withRouter(SearchOperators);

@@ -152,18 +152,33 @@ export default class SearchSeasonsTab extends React.Component<Props> {
 
     /** TO-DO : public, private, properies. */
 
+    
     render(){
+
         /** 
-         * 현재 season에 관련된것을 바꿔주기.
+         * 현재 season에 관련된것을 바꿔주7
          */
 
         let card : JSX.Element[] = [];
         this.props.seasons.forEach( (season, index) => {
             card.push(<RankCard key={`R6_CARD_${index}`} data={season}></RankCard>)
         })
+        
+
 
         return(
             <>
+            {/*
+            DUMMY CARD 입니다.
+            로딩방식이 달라질경우 사용합니다.
+            <div className="rankcard">
+                <div className="rankcard-header dummy">
+                    <Skeleton.Input active size={"small"}></Skeleton.Input>
+                </div>
+                <div className="rankcard-content dummy">
+                    <Skeleton active></Skeleton>
+                </div>
+            </div> */}
                 {
                     card
                 }
