@@ -84,7 +84,7 @@ class Search extends React.Component<Props, State> {
         // 병렬코드. 
 
         forkJoin(
-            APIObservable<PVPAPI>("rankpvp/uplay/piliot/"),
+            APIObservable<PVPAPI>("rankpvp/uplay/piliot"),
             APIObservable<PVPAPI>("casualpvp/uplay/piliot"),
             APIObservable<RANKBYREGION[]>("rank/uplay/piliot"),
             APIObservable<GENERALAPI>("generalpvp/uplay/piliot"),
