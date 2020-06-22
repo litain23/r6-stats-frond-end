@@ -8,8 +8,11 @@ CORS(app)
 
 
 #CASUALPVP
-@app.route('/api/v1/casualpvp/uplay/piliot')
-def casualpvp():
+@app.route('/api/v1/casualpvp/<string:platform>/<string:id>')
+def casualpvp(platform, id):
+    if platform != "uplay" or id != "piliot": 
+        abort(400)
+        
     return jsonify(
         {
             "death": 533,
@@ -23,8 +26,11 @@ def casualpvp():
     )
 
 #CASUALPVPALL
-@app.route('/api/v1/casualpvp/uplay/piliot/all')
-def casualpvpall():
+@app.route('/api/v1/casualpvp/<string:platform>/<string:id>/all')
+def casualpvpall(platform, id):
+    if platform != "uplay" or id != "piliot": 
+        abort(400)
+
     list = [{
 	"death": 537,
 	"kills": 524,
@@ -117,8 +123,11 @@ def casualpvpall():
     return Response(json.dumps(list),  mimetype='application/json')
 
 #RANKPVPALL
-@app.route('/api/v1/rankpvp/uplay/piliot/all')
-def rankpvpall():
+@app.route('/api/v1/rankpvp/<string:platform>/<string:id>/all')
+def rankpvpall(platform, id):
+    if platform != "uplay" or id != "piliot": 
+        abort(400)
+
     list = [{
         "death": 4765,
         "kills": 4784,
@@ -212,8 +221,11 @@ def rankpvpall():
     return Response(json.dumps(list),  mimetype='application/json')
 
 #RANKPVP
-@app.route('/api/v1/rankpvp/uplay/piliot')
-def rankpvp():
+@app.route('/api/v1/rankpvp/<string:platform>/<string:id>')
+def rankpvp(platform, id):
+    if platform != "uplay" or id != "piliot": 
+        abort(400)
+
     return jsonify(
         {
             "death": 4724,
@@ -228,11 +240,17 @@ def rankpvp():
     
 @app.errorhandler(400)
 def bad_request(e):
-    return jsonify({"status": 400, "message":"400-test-message"}), 400
+    return jsonify({
+        "status": 400, "message": "Not found player id or platform"
+        }), 400
 
 @app.errorhandler(401)
 def unauth(e):
-    return jsonify({"status": 401, "message":"401-test-message"}), 401
+     return jsonify({
+            "message": "Full authentication is required to access this resource",
+            "status": 401
+        }), 401
+
 
 @app.route('/api/v1/error/400')
 def error_400():
@@ -243,8 +261,10 @@ def error_401():
     abort(401)
 
 #RANK
-@app.route('/api/v1/rank/uplay/piliot')
-def rank():
+@app.route('/api/v1/rank/<string:platform>/<string:id>')
+def rank(platform, id):
+    if platform != "uplay" or id != "piliot": 
+        abort(400)
     list = [
         {
             "region": "ncsa",
@@ -307,8 +327,11 @@ def rank():
     return Response(json.dumps(list),  mimetype='application/json')
 
 #RANKALL
-@app.route('/api/v1/rank/uplay/piliot/all')
-def rankall():
+@app.route('/api/v1/rank/<string:platform>/<string:id>/all')
+def rankall(platform, id):
+    if platform != "uplay" or id != "piliot": 
+        abort(400)
+
     list = [{
         "season": 17,
         "seasonData": [
@@ -527,8 +550,11 @@ def rankall():
     return Response(json.dumps(list),  mimetype='application/json')
 
 #GENERALPVP
-@app.route('/api/v1/generalpvp/uplay/piliot')
-def general():
+@app.route('/api/v1/generalpvp/<string:platform>/<string:id>')
+def general(platform, id):
+    if platform != "uplay" or id != "piliot": 
+        abort(400)
+
     return jsonify(
         {
             "matchLost": 633,
@@ -547,8 +573,11 @@ def general():
     )
 
 #OPERATORS
-@app.route('/api/v1/operator/uplay/piliot/')
-def operators():
+@app.route('/api/v1/operator/<string:platform>/<string:id>')
+def operators(platform, id):
+    if platform != "uplay" or id != "piliot": 
+        abort(400)
+
     list = [{"name": "smoke", "operatorIndex": "2:1", "uniqueStatisticName": "operatorpvp_smoke_poisongaskill:2:1",
       "uniqueStatisticOasisId": 194660, "kills": 98, "death": 109, "headShot": 43, "meleeKills": 4, "totalXp": 289550,
       "timePlayed": 32991, "roundWon": 97, "roundLost": 68},

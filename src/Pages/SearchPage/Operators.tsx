@@ -26,10 +26,9 @@ class SearchOperators extends React.Component<RouteComponentProps, State> {
     }
 
     async componentDidMount() {
-        const [operatorAPIs, operatorError] = await API<OPERATORAPI[]>("operator/uplay/piliot/");
+        const [operatorAPIs, operatorError] = await API<OPERATORAPI[]>("operator/uplay/piliot");
 
         if (operatorError) {
-            alert("Error : 연결에 문제가 있습니다.")
             this.props.history.goBack();
         } else {
             this.setState({operators : operatorAPIs!})
@@ -60,7 +59,6 @@ class SearchOperators extends React.Component<RouteComponentProps, State> {
 
     render() {
 
-    
         const columns: ColumnType<OPERATORAPI>[] = [{
             title: 'Operator',
             dataIndex: "name",

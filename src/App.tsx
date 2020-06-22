@@ -26,6 +26,7 @@ class App extends React.Component<RouteComponentProps> {
   }
 
   componentDidMount() {
+
     if (this.props.location.pathname === "/") {
       document.body.classList.add("not-scrollrable")
       document.body.scrollTo(0,0);

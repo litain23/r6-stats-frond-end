@@ -7,17 +7,17 @@ export interface SizeRequired {
 
 
 /** TO-DO : 바로컨버팅 하는 기능? */
-type regionType = "ncsa" | "apac" | "emea"
-type playformType = "uplay" | "psn" | "xbl"
+export type RegionType = "ncsa" | "apac" | "emea"
+export type PlatformType = "uplay" | "psn" | "xbl"
 
 
 
 
 var errorMessage = {
     error_0 : "알수없는 에러입니다. 잠시 후 다시 시도해주세요",
-    error_404 : "존재하지 않는 페이지입니다!",
+    error_404 : "존재하지 않는 페이지입니다.",
     error_401 : "이 페이지에 접근할 수 있는 권한이 없습니다.",
-    error_400 : "잘못된 요청입니다",
+    error_400 : "없는 유저입니다.",
 }
 export type errorMessageCode = 400 | 401 | 404 | 0 
 export type errorMessageType = keyof typeof errorMessage;
@@ -92,7 +92,7 @@ export const getSeasonColorString = (rank: number) => {
     }
 }
 
-export const getRegion = (region : regionType) => {
+export const getRegion = (region : RegionType) => {
     switch(region) {
         case "ncsa":
             return "America";
@@ -103,7 +103,7 @@ export const getRegion = (region : regionType) => {
     }
 }
 
-export const getPlatform = (platform : playformType) => {
+export const getPlatform = (platform : PlatformType) => {
     switch(platform) {
         case "psn":
             return "PS4";
@@ -126,7 +126,7 @@ export interface SEASONAPI {
 }
 
 export interface RANKBYREGION {
-    region: regionType;
+    region: RegionType;
     rankStat: RANKAPI;
 }
 
@@ -140,7 +140,7 @@ export interface RANKAPI {
     abandons: number|string;
     mmr:number;
     wins:number;
-    region:regionType;
+    region:RegionType;
     season:number;
     losses:number;
     createdTime: string;

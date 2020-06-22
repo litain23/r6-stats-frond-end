@@ -1,21 +1,24 @@
 import React from 'react';
 import '../../App.css'
 import './Landing.css'
-import R6Icon from '../../R6Components/R6Icon';
+import R6PlatformIcon from '../../R6Components/R6PlatformIcon';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { PlatformType } from '../../util/type';
+import R6PlatformIonGroup from '../../R6Components/R6PlatformIconGroup';
 
 interface LandingState {
-    key:number
+    key:PlatformType
     text:string
 }
 
+  
 
 class Landing extends React.Component<RouteComponentProps,LandingState> {
 
     constructor(props: RouteComponentProps) {
         super(props);
         this.state = {
-            key: 0,
+            key: "uplay",
             text: ""
         }
     }
@@ -76,14 +79,15 @@ class Landing extends React.Component<RouteComponentProps,LandingState> {
                         </div>
                         <div className="input-container">
 
-                            <div className="icons">
-                                <R6Icon color={this.state.key === 0 ? color: undefined} icon={"windows"} onClick={()=>{this.setState({key:0})}}></R6Icon>
-                                <R6Icon color={this.state.key === 1 ? color: undefined} icon={"playstation"} onClick={()=>{this.setState({key:1})}}></R6Icon>
-                                <R6Icon color={this.state.key === 2 ? color: undefined}  icon={"xbox"} onClick={()=>{this.setState({key:2})}}></R6Icon>
-                            </div>
+                            <R6PlatformIonGroup className="icons" value={this.state.key} onChange={(value) => { this.setState({key: value})}}>
+                                <R6PlatformIcon value={"uplay"}></R6PlatformIcon>
+                                <R6PlatformIcon value={"psn"}></R6PlatformIcon>
+                                <R6PlatformIcon value={"xbl"}></R6PlatformIcon>
+                            </R6PlatformIonGroup>
+
                             <input placeholder="아이디를 입력해주세요" value={this.state.text} onChange={(e)=>{this.setState({text:e.currentTarget.value})}} onKeyDown={(event) => {
                                 if (event.keyCode === 13) {
-                                    this.props.history.push("/search/" + event.currentTarget.value)
+                                    this.props.history.push(`/search/query?platform=${this.state.key}&username=${this.state.text}`)
                                  }}}/>
                             <button onClick={()=>{this.props.history.push("/search/" + this.state.text)}} > Search </button>
                         </div>

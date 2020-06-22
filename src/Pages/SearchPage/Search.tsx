@@ -2,7 +2,7 @@ import React from 'react';
 import '../../App.css'
 import './search.css'
 
-import { BasicErrorFormat, APIObservable } from '../../util/API'
+import { BasicErrorFormat, APIObservable, API } from '../../util/API'
 import R6Spinner from '../../R6Components/R6Spinner'
 import {PVPAPI, GENERALAPI, OPERATORAPI, SEASONAPI, RANKBYREGION, getErrorMessage} from '../../util/type'
 import Profile from './Profile';
@@ -10,9 +10,9 @@ import SearchOverviewTab from './Overview';
 import SearchSeasonsTab from './Seasons';
 import SearchOperators from './Operators';
 
-import { Menu } from 'antd';
+import { Menu, Empty } from 'antd';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { forkJoin, of } from 'rxjs';
+import { forkJoin, of, EmptyError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 interface State {
@@ -24,7 +24,8 @@ interface State {
     rankPvpData: PVPAPI,
     loading: boolean,
     currentTab: number,
-	current:string,
+    current:string,
+    success:boolean,
 }
 
 interface Props extends RouteComponentProps {
@@ -36,7 +37,12 @@ interface Props extends RouteComponentProps {
  */
 
 class Search extends React.Component<Props, State> {
-      constructor(props: Props){
+
+    private username?:string | null;
+    private platform?:string | null;
+    private unlisten?:any;
+
+    constructor(props: Props){
         super(props);
         this.state = {
             currentRankData: [] as RANKBYREGION[],
@@ -48,6 +54,7 @@ class Search extends React.Component<Props, State> {
             loading:true,
             currentTab:1,
             current: 'overview',
+            success:false
         }
 
         this.handleClick = this.handleClick.bind(this)
@@ -77,42 +84,72 @@ class Search extends React.Component<Props, State> {
 
     }
     
+
+    updateFromAPI(){
+
+        const params = new URLSearchParams(this.props.history.location.search);
+        if (this.props.history.location.pathname !== "/search/query") {
+            return;
+        }
+
+        this.username = params.get('username')
+        this.platform = params.get('platform')
+
+
+        this.setState( {loading: true})
+
+        if (this.username && this.platform) {
+
+            forkJoin(
+                APIObservable<PVPAPI>(`rankpvp/${this.platform}/${this.username}`),
+                APIObservable<PVPAPI>(`casualpvp/${this.platform}/${this.username}`),
+                APIObservable<RANKBYREGION[]>(`rank/${this.platform}/${this.username}`),
+                APIObservable<GENERALAPI>(`generalpvp/${this.platform}/${this.username}`),
+                APIObservable<SEASONAPI[]>(`rank/${this.platform}/${this.username}/all`),
+            ).pipe(
+                catchError( err => {
+                    return of(err as BasicErrorFormat)
+                    
+                }),
+            ).subscribe(
+                res=> { 
+                    if (Array.isArray(res)){
+                        this.setState({
+                            rankPvpData : res[0],
+                            casualPvpData: res[1],
+                            currentRankData : res[2],
+                            generalData : res[3],
+                            allRankData : res[4],
+                            success:true
+                        })
+                    } else {
+                        alert(getErrorMessage(res.status));
+                        this.setState({success:false})
+                    }
+                }, 
+                ()=> {},
+                () =>{
+                    this.setState( {loading: false})
+                }
+                )       
+
+            } else {
+                alert(getErrorMessage(400));
+                this.setState( {loading: false, success:false})
+            }
+    }
+    
     async componentDidMount(){
 
+        this.updateFromAPI()
 
+        this.unlisten = this.props.history.listen( (location, action) => {
+            this.updateFromAPI()
+        })
+        
 
         // 병렬코드. 
-
-        forkJoin(
-            APIObservable<PVPAPI>("rankpvp/uplay/piliot"),
-            APIObservable<PVPAPI>("casualpvp/uplay/piliot"),
-            APIObservable<RANKBYREGION[]>("rank/uplay/piliot"),
-            APIObservable<GENERALAPI>("generalpvp/uplay/piliot"),
-            APIObservable<SEASONAPI[]>("rank/uplay/piliot/all"),
-          ).pipe(
-              catchError( err => {
-                  return of(err as BasicErrorFormat)
-              })
-          ).subscribe(
-              res=> { 
-                if (Array.isArray(res)){
-                    this.setState({
-                        rankPvpData : res[0],
-                        casualPvpData: res[1],
-                        currentRankData : res[2],
-                        generalData : res[3],
-                        allRankData : res[4],
-                        loading:false,
-                    })
-                } else {
-                    alert(getErrorMessage(res.status));
-                    this.props.history.goBack();
-                }
-              }
-          )        
-
         /** 기존코드 : 소스비교를 위해 나둡니다. */
-
         // 초반 성능 향상을 위해 따로따로 요청하는것으로 합니다.
         // const operatorAPIs = await API<OPERATORAPI[]>("operator/uplay/piliot/");
         // const generalAPIs = await API<GENERALAPI>("generalpvp/uplay/piliot");
@@ -134,18 +171,39 @@ class Search extends React.Component<Props, State> {
         // }
     }
 
+    componentWillUnmount(){
+
+        if(this.unlisten) {
+            this.unlisten();
+        }
+    }
+
     render(){
         
         if (this.state.loading) {
             return <R6Spinner presentationStyle="full"></R6Spinner>
+        } else if (!this.state.loading && !this.state.success) {
+            return (
+                <Empty
+                    imageStyle={{
+                    height: 500,
+                    }}
+                    description={
+                    <span>
+                        {getErrorMessage(400)}
+                    </span>
+                    }
+                >
+              </Empty>
+            
+            )
         } else {
             const tabContent = this.tabContentsHandler(this.state.current);
             return(
                 <>
                 <div className="search-page-container">
                     <div className="menu">
-
-                        <Profile currentRankData={this.state.currentRankData}></Profile>
+                        <Profile username={this.username!} currentRankData={this.state.currentRankData}></Profile>
                         <Menu mode="horizontal" selectedKeys={[this.state.current]} onClick={this.handleClick}>
                             <Menu.Item key="overview">
                             Overview

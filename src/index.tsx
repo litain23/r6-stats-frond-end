@@ -40,7 +40,7 @@ ReactDOM.render(
             <Route path="/login" exact component={Login}/>
             <Route path="/signup" exact component={SignUp}/>
             <Route path="/signup/result" exact component={SignUpResult}/>
-            <Route path="/search/:id" component={Search}/>
+            <Route path="/search/:searchTerm" component={Search}/>
             <Route component={createErrorPageComponent('antd', 404)}></Route>
           </Switch>
           </Suspense>
