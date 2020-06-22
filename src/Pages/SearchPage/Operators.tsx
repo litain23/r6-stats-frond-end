@@ -10,9 +10,6 @@ import { API } from '../../util/API';
 import { withRouter, RouteComponentProps} from 'react-router-dom';
 const { Text } = Typography;
 
-interface Props {
-    // operators: OPERATORAPI[];
-}
 
 interface State {
     operators: OPERATORAPI[];
@@ -29,10 +26,9 @@ class SearchOperators extends React.Component<RouteComponentProps, State> {
     }
 
     async componentDidMount() {
-        const [operatorAPIs, operatorError] = await API<OPERATORAPI[]>("operator/uplay/piliot/");
+        const [operatorAPIs, operatorError] = await API<OPERATORAPI[]>("operator/uplay/piliot");
 
         if (operatorError) {
-            alert("Error : 연결에 문제가 있습니다.")
             this.props.history.goBack();
         } else {
             this.setState({operators : operatorAPIs!})
@@ -44,7 +40,7 @@ class SearchOperators extends React.Component<RouteComponentProps, State> {
             return(
             <tr>
             <td>
-                <img style={{width:'40px'}}src={operators[api.name]}></img>
+                <img alt={"operators"} style={{width:'40px'}}src={operators[api.name]}></img>
                 <div>{api.name}</div> 
             </td>
             <td>{api.kills}</td>
@@ -63,7 +59,6 @@ class SearchOperators extends React.Component<RouteComponentProps, State> {
 
     render() {
 
-    
         const columns: ColumnType<OPERATORAPI>[] = [{
             title: 'Operator',
             dataIndex: "name",
@@ -82,7 +77,7 @@ class SearchOperators extends React.Component<RouteComponentProps, State> {
                 return(
                     <>  
                         <Row justify="center">
-                            <img style={{width:'50px'}} src={operators[record.name]}></img>
+                            <img alt={"operators"} style={{width:'50px'}} src={operators[record.name]}></img>
                         </Row>
                         <Row justify="center">
                         <Text strong>{record.name.toString().toUpperCase()}</Text>

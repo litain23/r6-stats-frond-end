@@ -1,32 +1,21 @@
 import React from 'react';
 import AntDesignErrorPage from './AntDesignErrorPage';
-
-/**
- * 이 프로젝트에서 대응하고 있는 에러메세지 코드의 종류입니다.
- */
-export type errorCodePresentType = 403|404|"403"|"404";
+import { errorMessageCode } from '../../util/type';
+import { withRouter , RouteComponentProps } from 'react-router-dom';
 
 /**
  * 에러메세지 표현을 위해 따라줘야하는 인터페이스 입니다.
  */
 export interface ErrorPagePresentable {
-    getErrorViewWhen(errorCode : errorCodePresentType, message?: string, onClick?:()=>{}):JSX.Element;
-}
-
-/**
- * 기본 에러 대응을 위한 메세지 세트 입니다.
- */
-export const defaultErrorMessageSet = {
-    "403":"앗! 이 페이지에 접근할 수 있는 권한이 없습니다.",
-    "404":"앗! 없는 페이지에 접근하였습니다."
+    getErrorViewWhen(errorCode : errorMessageCode, message?: string, onClick?:()=>void, goBack?:()=>void):JSX.Element;
 }
 
 /**
  * 에러메세지 컴포넌트를
  */
-interface ErrorPageProps {
+interface ErrorPageProps  {
     /** HTTP 에러 코드 */
-    errorCode:errorCodePresentType,
+    errorCode:errorMessageCode,
     /** 에러페이지에 표시할 메세지 (기본 에러페이지 사용시 출력) */
     message?: string,
     /** 에러 메세지 사용시에 사용할 버튼에 대한 이벤트 핸들러. (기본 에러페이지 사용시 활용)*/
@@ -38,16 +27,17 @@ interface ErrorPageProps {
 /**
  * 일반 사용자가 잘못된 페이지로 접근했을때, 에러 메세지를 표현하기 위한 컴포넌트입니다.
  */
-class ErrorPage extends React.Component<ErrorPageProps> implements ErrorPagePresentable{
+class ErrorPage extends React.Component<ErrorPageProps & RouteComponentProps> implements ErrorPagePresentable {
     
-    constructor(props:ErrorPageProps){
-        super(props);
+    
+    goBack(){
+        this.props.history.goBack();
     }
-    
-    getErrorViewWhen(errorCode : errorCodePresentType, message?: string, onClick?:()=>{}): JSX.Element {
+
+    getErrorViewWhen(errorCode : errorMessageCode, message?: string, onClick?:()=>void, goBack?:()=>void): JSX.Element {
 
         if (this.props.customView) {
-            return this.props.customView?.getErrorViewWhen(errorCode,message,onClick);
+            return this.props.customView?.getErrorViewWhen(errorCode,message,onClick,this.goBack.bind(this));
         } else {
             return (
                 <div> 
@@ -65,27 +55,35 @@ class ErrorPage extends React.Component<ErrorPageProps> implements ErrorPagePres
     }
 }
 
-export default ErrorPage;
+export default withRouter(ErrorPage);
 
 
 type designType = "antd" | null
 
-export function createErrorPage(type: designType, errorCode: errorCodePresentType):React.ComponentClass{ 
+export function createErrorPageComponent (type: designType, errorCode: errorMessageCode): React.ComponentClass { 
 
-    console.log("abc");
     let customView: ErrorPagePresentable | undefined;
 
     switch(type) {
         case "antd":
             customView = new AntDesignErrorPage();
+            break;
         default:
             customView = new AntDesignErrorPage();
+            break;
     }
     
-
-    return class extends React.Component {
+    return withRouter(class extends React.Component<RouteComponentProps> {
         render(){
-            return (<ErrorPage errorCode={errorCode} customView={customView}></ErrorPage>)
+            return(
+                <ErrorPage 
+                    location={this.props.location}
+                    match={this.props.match} 
+                    history={this.props.history}
+                    errorCode={errorCode}
+                    customView={customView}
+                ></ErrorPage>
+            )
         }
-    }
+    })
 }

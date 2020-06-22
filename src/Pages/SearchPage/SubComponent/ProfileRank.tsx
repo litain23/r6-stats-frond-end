@@ -44,7 +44,6 @@ class ProfileRank extends React.Component<ProfileRankProps> {
 
     render() {
         const {currentRankData} = this.props;
-        console.log("ADFADF", currentRankData);
         return(
             <RANK_CONTAINER>
                 <RANK_CONTAINER2>

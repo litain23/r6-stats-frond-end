@@ -112,12 +112,6 @@ body {
 
 }
 
-.input-container svg {
-    cursor: pointer;
-    width: 20px;
-    height: auto;
-    color:black;
-}
 
 
 
@@ -130,6 +124,13 @@ body {
     font-size:1.1rem;
     background-color:#1890ff;
     color:white;
+}
+
+.input-container svg {
+    cursor: pointer;
+    width: 20px;
+    height: auto;
+    color:black;
 }
 
 .input-container .icons {

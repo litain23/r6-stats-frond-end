@@ -9,22 +9,9 @@
 //https://stackoverflow.com/questions/42233987/how-to-configure-custom-global-interfaces-d-ts-files-for-typescript?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
 
 // }
-// export * from './R6Br';
 
-export { default as R6Br } from './R6Br';
-export type { R6BrProps } from './R6Br';
-export { default as R6Button } from './R6Button';
-export type { R6ButtonProps } from './R6Button';
-export { default as R6ButtonGroup } from './R6ButtonGroup';
-export type { R6ButtonGroupProps } from './R6ButtonGroup';
 export { default as R6RankIcon } from './R6RankIcon';
 export type { R6RankIconProps, RankType } from './R6RankIcon';
 export { default as R6Spinner } from './R6Spinner';
 export type { R6SpinnerProps } from './R6Spinner';
-export { default as R6ToggleButton } from './R6ToggleButton';
-export type { R6ToggleButtonProps } from './R6ToggleButton';
-export { default as R6ToggleButtonGroup } from './R6ToggleButtonGroup';
-export type { R6ToggleButtonGroupProps } from './R6ToggleButtonGroup';
-export { default as R6TypoComponent } from './R6TypoComponent';
-export type { R6TypoComponentProps } from './R6TypoComponent';
 

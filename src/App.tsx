@@ -1,25 +1,15 @@
 import React from 'react';
 import './App.css';
-
-
-
-import Search from './Pages/SearchPage/Search'
 import NavBar from './NavigationBar'
 
-// 임시 주석 처리
+// 임시 주석 처리 - 다크모드 테스트 
 // import 'antd/dist/antd.css';
 
 import './index.css';
-
-import styled from 'styled-components'
-
-import { BrowserRouter as browserHistory, Router, Route, Link, Switch, NavLink, RouteComponentProps } from "react-router-dom";
-
-
+import { RouteComponentProps } from 'react-router-dom';
 
 
 /** Pages */
-
 class App extends React.Component<RouteComponentProps> {
 
   constructor(props: RouteComponentProps) {
@@ -36,6 +26,7 @@ class App extends React.Component<RouteComponentProps> {
   }
 
   componentDidMount() {
+
     if (this.props.location.pathname === "/") {
       document.body.classList.add("not-scrollrable")
       document.body.scrollTo(0,0);
@@ -55,4 +46,5 @@ class App extends React.Component<RouteComponentProps> {
     );
   }
 }
+
 export default App;

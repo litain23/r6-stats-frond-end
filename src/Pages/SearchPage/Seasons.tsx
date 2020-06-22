@@ -23,7 +23,6 @@ const RankCard = (props:{data: SEASONAPI}) => {
 
 
     const {season, seasonData} = props.data;
-    
 
 
     seasonData.forEach((eachSeason, index) => {

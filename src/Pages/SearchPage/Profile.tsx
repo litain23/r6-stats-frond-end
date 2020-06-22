@@ -7,7 +7,8 @@ import ProfileRank from './SubComponent/ProfileRank'
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 interface Props extends RouteComponentProps<{id:string}>{
-    currentRankData: RANKBYREGION[]
+    currentRankData: RANKBYREGION[],
+    username:string,
 }
 
 class Profile extends React.Component<Props> {
@@ -22,7 +23,7 @@ class Profile extends React.Component<Props> {
                     <div className="profile">
                         <img alt="profile" src="https://ubisoft-avatars.akamaized.net/beec3d7b-a925-48a0-94bd-9896541dcbd5/default_256_256.png"></img>
                         <div className="profile-id">
-                            <h1>{this.props.match.params.id}</h1>
+                            <h1>{this.props.username}</h1>
                         </div>
                     </div>
                     <div className="rank">
