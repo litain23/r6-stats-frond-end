@@ -1,7 +1,11 @@
-import { RANKAPI } from "./type";
+import { RANKAPI, errorMessageCode } from "./type";
+import { StreamIterator } from "./Stream";
+import { Observable, Subscriber } from 'rxjs';
+
 
 const baseURL = (process.env.NODE_ENV !== "production")? "http://localhost:5000" : "http://ec2-52-78-165-226.ap-northeast-2.compute.amazonaws.com:8080/"
 const baseURLWithAPIVersion = baseURL + "/api/v1/" 
+
 
 type platform = "uplay" | "psn" | "xbl"
 
@@ -13,10 +17,9 @@ enum queryType {
     rankpvp = "/rankpvp/", /// all ranks pvp (total)
 }
 
-type ErrorStatus = 400 | 401 | 402 | 403 | 404 | 500 | 501 | 502 | "unexcepted"
 
-interface BasicErrorFormat {
-    status: ErrorStatus;
+export interface BasicErrorFormat {
+    status: errorMessageCode;
     message: any;
 }
 
@@ -44,10 +47,41 @@ export async function API<SUCCESS, FAILURE extends BasicErrorFormat = BasicError
         return [success, null]; 
 
     } catch (e) {
-        const unexpectedFailure = {status: "unexcepted", message:e} as FAILURE;
+        const unexpectedFailure = {status: 0, message:e} as FAILURE;
         return [null, unexpectedFailure]
     }
 
+}
+
+
+export function APIObservable<T, E extends BasicErrorFormat = BasicErrorFormat>(url:string , init?: RequestInit) { 
+
+
+    async function fetchLogic<T, E extends BasicErrorFormat = BasicErrorFormat>(subscriber : Subscriber<T> ) {
+        try {
+            const {href} = new URL(url, baseURLWithAPIVersion);
+            const response = await fetch(href, init);
+            if (!response.ok) { 
+                if (response.status === 400 || response.status === 401) {
+                    const json = await response.json() as E
+                    subscriber.error({ message: json.message, status: json.status } as E);
+                } else {
+                    const stauts = (response.status===404) ? 404 : 0
+                    subscriber.error({ message: response.statusText, status: stauts } as E);
+                }
+            } else {
+                const json = await response.json() as T
+                subscriber.next(json);
+                subscriber.complete();
+            }
+        } catch (e) {
+            subscriber.error({ message: e, status: 0 } as E);
+        }
+    }
+
+    return new Observable<T>( subscriber => {
+        fetchLogic<T,E>(subscriber);
+    })
 }
 
 export async function GETRANKS(id: string, platform: platform, all?: boolean) {
@@ -74,6 +108,12 @@ export class APISTREAM {
     private busy:boolean;
     private _catch!: (errorInfo:any, failedURL?:string) =>void;
 
+    //https://stackoverflow.com/questions/39185109/custom-error-response-handling-with-moya-rxswift
+
+    private _onNext!: (value:any) => void;
+    private _onCompleted!: () => void;
+    private _onError!: <T>(error:T)=>void;
+
     private constructor() {
         this.queue = [];
         this.busy = false;
@@ -82,7 +122,12 @@ export class APISTREAM {
     static stream() {
         return new APISTREAM();
     }
-    
+
+    static all( ...a :((stream : APISTREAM)=>void)[]) {
+        
+    }
+
+
     static zip(...APISTREAM: APISTREAM[]) {
         let newQueueList: Queue[] = [] as Queue[];
         for ( let eachObject of APISTREAM) {
@@ -91,28 +136,6 @@ export class APISTREAM {
             })
         }
     }
-    /** 
-     * TO-DO 
-     * 1) subscribe - RxSwift.
-     * 2) flatMap
-     * 3) flatMapLatest
-     * 4) Observable or Result.
-     * 5) finally \
-     * Rxswift
-     * // subscribe대상은 바로 최신 혹은 
-     * 혹은 조금더 단체로 묶어서 스트림할수있게
-     * request()
-     * request()
-     * .flatMap { 
-     *    결과값을 묶기.
-     *  }
-     * .zip {
-     *   리퀘스트를 묶기.
-     * }
-     * 
-     * //retry()
-     * //catchErrorWhenReturn[]
-     */
 
     request(url: string, init?: RequestInit) {
 
@@ -133,7 +156,7 @@ export class APISTREAM {
                 }
             }
         })
-        this.exec();
+        // this.exec();
         return this;
 
     }
@@ -146,14 +169,13 @@ export class APISTREAM {
                 save(prevData);
             }
         })
-        this.exec();
+        // this.exec();
         return this;
     }
 
-    
-
     catch<E extends BasicErrorFormat = BasicErrorFormat>(callback:(errorInfo:E, failedURL?:string) =>void) { 
         this._catch = callback;
+        return this;
     }
 
     /** To-Do : 추가사항. */
@@ -183,12 +205,11 @@ export class APISTREAM {
     //     onNext("abc");
     // }
  */
-
+    
     private exec(response? : any, url?: string): this | void {
         if (this.busy) return this; // 바쁘니까 다음에 다시 봅시다.
         var Q = this.queue.shift();
         let self = this;
-
         if (Q) {
             this.busy = true;
 
@@ -228,4 +249,50 @@ export class APISTREAM {
             }
         }
     }
+
+
+    subscribe(callback:{ onNext: ()=>void, onError: ()=>void, onCompleted: ()=>void}){
+        this._onNext = callback.onNext;
+        this._onError = callback.onNext;
+        this._onCompleted = callback.onCompleted;
+        this.exec(); // next call! 
+        //how to set type?
+    }
+
+
 }
+
+
+
+
+export function APIMaker<T,E extends BasicErrorFormat = BasicErrorFormat>(url :string, init?: RequestInit) : StreamIterator<T,E> {
+
+    return StreamIterator.create<T,E>( async (stream) => {
+
+        try {
+            const {href} = new URL(url, baseURLWithAPIVersion);
+            const response = await fetch(href, init);
+
+            if (!response.ok) {
+                if (response.status === 401 || response.status === 400 ) {
+                    const errorWrapped = await response.json();
+                    const failure = await errorWrapped;
+                    stream.error(failure);
+                } else {
+                    stream.error({message:response.statusText, status : response.status} as any);
+                }
+            } else {
+                const wrapped = await response.json() as Promise<T>
+                const success = await wrapped;
+                stream.next(success);
+            }
+            // promise를 까서줘야함?
+        } catch (e) {
+            stream.error(e);
+        }
+    })
+
+}
+
+
+

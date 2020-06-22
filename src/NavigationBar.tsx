@@ -5,7 +5,6 @@ import { TeamOutlined } from '@ant-design/icons';
 
 import { Link,  RouteComponentProps } from 'react-router-dom';
 
-import { Input } from 'antd';
 import SearchBar from './SearchBar'
 
 const navBar = ({history, match, location}: RouteComponentProps) => {

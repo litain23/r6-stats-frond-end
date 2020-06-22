@@ -2,9 +2,9 @@ import React from 'react';
 import '../../App.css'
 import './search.css'
 
-import { API, APISTREAM } from '../../util/API'
+import { BasicErrorFormat, APIObservable } from '../../util/API'
 import R6Spinner from '../../R6Components/R6Spinner'
-import {PVPAPI, GENERALAPI, OPERATORAPI, SEASONAPI, RANKBYREGION} from '../../util/type'
+import {PVPAPI, GENERALAPI, OPERATORAPI, SEASONAPI, RANKBYREGION, getErrorMessage} from '../../util/type'
 import Profile from './Profile';
 import SearchOverviewTab from './Overview';
 import SearchSeasonsTab from './Seasons';
@@ -12,6 +12,8 @@ import SearchOperators from './Operators';
 
 import { Menu } from 'antd';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 interface State {
     currentRankData : RANKBYREGION[],
@@ -78,34 +80,36 @@ class Search extends React.Component<Props, State> {
     async componentDidMount(){
 
 
-        // 테스트 중 -  APISTREAM
-        APISTREAM.stream()
-        .request("rankpvp/uplay/piliot")
-        .do<PVPAPI>( value => {
-            this.setState( {rankPvpData: value} )
-        })
-        .request("casualpvp/uplay/piliot")
-        .do<PVPAPI>( value => {
-            this.setState( {casualPvpData : value})
-        })
-        .request("rank/uplay/piliot")
-        .do<RANKBYREGION[]>( value => {
-            this.setState( {currentRankData : value})
-        })
-        .request("generalpvp/uplay/piliot")
-        .do<GENERALAPI>( value => {
-            this.setState( {generalData : value})
-        })
-        .request("rank/uplay/piliot/all")
-        .do<SEASONAPI[]>( value => {
-            this.setState( {allRankData : value})
-            this.setState( {loading: false} )
-        })
-        .catch( (errorInfo, failedURL) => {
-            console.log("에러발생")
-            console.log(errorInfo)
-            console.log(failedURL);
-        })
+
+        // 병렬코드. 
+
+        forkJoin(
+            APIObservable<PVPAPI>("rankpvp/uplay/piliot/"),
+            APIObservable<PVPAPI>("casualpvp/uplay/piliot"),
+            APIObservable<RANKBYREGION[]>("rank/uplay/piliot"),
+            APIObservable<GENERALAPI>("generalpvp/uplay/piliot"),
+            APIObservable<SEASONAPI[]>("rank/uplay/piliot/all"),
+          ).pipe(
+              catchError( err => {
+                  return of(err as BasicErrorFormat)
+              })
+          ).subscribe(
+              res=> { 
+                if (Array.isArray(res)){
+                    this.setState({
+                        rankPvpData : res[0],
+                        casualPvpData: res[1],
+                        currentRankData : res[2],
+                        generalData : res[3],
+                        allRankData : res[4],
+                        loading:false,
+                    })
+                } else {
+                    alert(getErrorMessage(res.status));
+                    this.props.history.goBack();
+                }
+              }
+          )        
 
         /** 기존코드 : 소스비교를 위해 나둡니다. */
 

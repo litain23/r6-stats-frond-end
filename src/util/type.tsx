@@ -11,6 +11,27 @@ type regionType = "ncsa" | "apac" | "emea"
 type playformType = "uplay" | "psn" | "xbl"
 
 
+
+
+var errorMessage = {
+    error_0 : "알수없는 에러입니다. 잠시 후 다시 시도해주세요",
+    error_404 : "존재하지 않는 페이지입니다!",
+    error_401 : "이 페이지에 접근할 수 있는 권한이 없습니다.",
+    error_400 : "잘못된 요청입니다",
+}
+export type errorMessageCode = 400 | 401 | 404 | 0 
+export type errorMessageType = keyof typeof errorMessage;
+
+export function getErrorMessage(errorCode: errorMessageCode ) {
+
+    if (!errorMessage[`error_${errorCode}` as errorMessageType]) {
+        console.log("대응 되지 않는 에러코드입니다. 수정을 요합니다.")
+    } else {
+        return errorMessage[`error_${errorCode}` as errorMessageType]
+    }
+}
+
+
 export const SeasonNames: string[] = [
     "BLACK ICE",
     "DUST LINE",

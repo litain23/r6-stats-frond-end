@@ -10,9 +10,6 @@ import { API } from '../../util/API';
 import { withRouter, RouteComponentProps} from 'react-router-dom';
 const { Text } = Typography;
 
-interface Props {
-    // operators: OPERATORAPI[];
-}
 
 interface State {
     operators: OPERATORAPI[];
@@ -44,7 +41,7 @@ class SearchOperators extends React.Component<RouteComponentProps, State> {
             return(
             <tr>
             <td>
-                <img style={{width:'40px'}}src={operators[api.name]}></img>
+                <img alt={"operators"} style={{width:'40px'}}src={operators[api.name]}></img>
                 <div>{api.name}</div> 
             </td>
             <td>{api.kills}</td>
@@ -82,7 +79,7 @@ class SearchOperators extends React.Component<RouteComponentProps, State> {
                 return(
                     <>  
                         <Row justify="center">
-                            <img style={{width:'50px'}} src={operators[record.name]}></img>
+                            <img alt={"operators"} style={{width:'50px'}} src={operators[record.name]}></img>
                         </Row>
                         <Row justify="center">
                         <Text strong>{record.name.toString().toUpperCase()}</Text>

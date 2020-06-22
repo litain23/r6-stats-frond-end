@@ -222,7 +222,7 @@ export default class SignUp extends React.Component<{},State> {
         ]}
       >
         <Checkbox>
-            <a href="">약관</a>에 동의합니다.
+            <a href="/">약관</a>에 동의합니다.
         </Checkbox>
       </Form.Item>
       <Form.Item>
