@@ -54,4 +54,5 @@ import nomad from './nomad.png'
 import nokk from './nokk.png'
 import pulse from './pulse.png'
 import warden from './warden.png'
-export { dokkaebi,maverick,goyo,mira,montagne,ace,glaz,fuze,frost,finka,ela,echo,wamai,doc,clash,caveira,castle,capitao,oryx,iana,buck,blitz,bandit,kapkan,ash,amaru,alibi,melusi,tachanka,thatcher,thermite,kali,zofia,twitch,valkyrie,vigil,gridlock,hibana,iq,jackal,jager,kaid,lesion,blackbeard,lion,maestro,ying,smoke,mozzie,sledge,mute,rook,nomad,nokk,pulse,warden, }
+import nakk from './nakk.png'
+export { dokkaebi,maverick,goyo,mira,montagne,ace,glaz,fuze,frost,finka,ela,echo,wamai,doc,clash,caveira,castle,capitao,oryx,iana,buck,blitz,bandit,kapkan,ash,amaru,alibi,melusi,tachanka,thatcher,thermite,kali,zofia,twitch,valkyrie,vigil,gridlock,hibana,iq,jackal,jager,kaid,lesion,blackbeard,lion,maestro,ying,smoke,mozzie,sledge,mute,rook,nomad,nokk,pulse,warden, nakk}

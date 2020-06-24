@@ -24,7 +24,7 @@ const searchbar = ({history, location, match}: RouteComponentProps) => {
                 <SearchOutlined className="search-icon"/>
                 <input type="text" value={value} onChange={(e)=>{setValue(e.currentTarget.value)}} className="search-field" autoComplete="false" placeholder="Search" onKeyDown={ (event) => {
                     if (event.keyCode === 13) {
-                        history.push(`/search/query?platform=${key}&username=${event.currentTarget.value}`)
+                        history.push(`/search/overview/query?platform=${key}&username=${event.currentTarget.value}`)
                     }
                 }}/>
                 <R6PlatformIonGroup className="icon-lists" value={key} onChange={(value)=>{setKey(value)}}>

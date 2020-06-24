@@ -20,7 +20,6 @@ import { createErrorPageComponent } from './Pages/ErrorPage/ErrorPage';
 import { theme } from './util/theme'
 import { ThemeProvider } from 'styled-components';
 
-
 /** Lazy Loading */
 const Landing = lazy( () =>  import('./Pages/LandingPage/Landing'))
 const Login = lazy( () =>  import('./Pages/LoginPage/Login'))

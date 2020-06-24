@@ -11,28 +11,31 @@ import { withRouter, RouteComponentProps} from 'react-router-dom';
 const { Text } = Typography;
 
 
-interface State {
+interface Props {
     operators: OPERATORAPI[];
+
+}
+interface State {
 }
 
-class SearchOperators extends React.Component<RouteComponentProps, State> {
+class SearchOperators extends React.Component<RouteComponentProps & Props, State> {
 
-    constructor(props:RouteComponentProps) {
+    constructor(props:RouteComponentProps & Props) {
         super(props);
-        
-        this.state = {
-            operators: [] as OPERATORAPI[]
-        }
+
+        // this.state = {
+        //     operators: [] as OPERATORAPI[]
+        // }
     }
 
     async componentDidMount() {
-        const [operatorAPIs, operatorError] = await API<OPERATORAPI[]>("operator/uplay/piliot");
+        // const [operatorAPIs, operatorError] = await API<OPERATORAPI[]>("operator/uplay/piliot");
 
-        if (operatorError) {
-            this.props.history.goBack();
-        } else {
-            this.setState({operators : operatorAPIs!})
-        }
+        // if (operatorError) {
+        //     this.props.history.goBack();
+        // } else {
+        //     this.setState({operators : operatorAPIs!})
+        // }
     }
 
 
@@ -59,14 +62,16 @@ class SearchOperators extends React.Component<RouteComponentProps, State> {
 
     render() {
 
+
         const columns: ColumnType<OPERATORAPI>[] = [{
             title: 'Operator',
             dataIndex: "name",
             sorter: (a, b) => a.name.localeCompare(b.name),
             filters: [
-                { text: '공격팀', value: 'attack' },
-                { text: '방어팀', value: 'deffense' },
+                { text: '공격팀', value: 'atk' },
+                { text: '방어팀', value: 'def' },
             ],
+            onFilter: (value, record) => { return record.category === value},
             ellipsis: false,
             showSorterTooltip:false,
             onCell: (record, index) => {
@@ -143,7 +148,7 @@ class SearchOperators extends React.Component<RouteComponentProps, State> {
         <>
          <Table
             columns={columns}
-            dataSource={dataSource(this.state.operators)}
+            dataSource={dataSource(this.props.operators)}
             scroll={{x:true}}
             pagination={false}
             />

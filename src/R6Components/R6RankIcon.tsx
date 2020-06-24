@@ -16,19 +16,21 @@ export type R6RankIconProps = {
 const R6RankIcon = ({ rank, size }: R6RankIconProps) => {
     
     if (typeof rank == 'number') {
-        rank = ("rank" + rank.toString()) as RankType
-    } 
-
-    if (rank) {
-        const src = rankicons[rank];
-        return (
-          <img src={src} alt={"rank"} style={{width:size, height:'auto'}}/>
-        );
-    } else {
-        return (
-            <div style={{width:size, height:size}}></div>
+        if (Object.keys(rankicons).length > rank) {
+            rank = ("rank" + rank.toString()) as RankType
+        } else {
+            return (
+                <div style={{width:size, height:size}}></div>
             )
         }
+    } 
+
+
+    const src = rankicons[rank];
+    return (
+        <img src={src} alt={"rank"} style={{width:size, height:'auto'}}/>
+    );
+
 }
 
 R6RankIcon.defaultProps = {

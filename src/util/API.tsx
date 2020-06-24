@@ -3,7 +3,8 @@ import { StreamIterator } from "./Stream";
 import { Observable, Subscriber } from 'rxjs';
 
 
-const baseURL = (process.env.NODE_ENV !== "production")? "http://localhost:5000" : "http://ec2-52-78-165-226.ap-northeast-2.compute.amazonaws.com:8080/"
+// const baseURL = (process.env.NODE_ENV !== "production")? "http://localhost:5000" : "http://ec2-52-78-165-226.ap-northeast-2.compute.amazonaws.com:8080/"
+const baseURL = "http://ec2-52-78-165-226.ap-northeast-2.compute.amazonaws.com:8080"
 const baseURLWithAPIVersion = baseURL + "/api/v1/" 
 
 
@@ -12,7 +13,7 @@ type platform = "uplay" | "psn" | "xbl"
 enum queryType {
     rank = "/rank", /// all ranks info.
     operator = "/operator/", /// operators info.
-    generalpvp = "/generalpvp/", /// general pvp.
+    generalpvp = "/general/", /// general pvp.
     casualpvp = "/casualpvp/", /// all casual pvp
     rankpvp = "/rankpvp/", /// all ranks pvp (total)
 }
