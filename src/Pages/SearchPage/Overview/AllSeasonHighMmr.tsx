@@ -3,6 +3,7 @@ import '../../../App.css'
 
 import { SEASONAPI, RANKAPI }  from '../../../util/type'
 import { MmrCard } from './MmrCard'
+import { CardHeader, CardContent } from './StyledCss'
 
 interface Props {
     allRankData: SEASONAPI[]
@@ -13,7 +14,6 @@ interface State {
 }
 
 function getHighestMmr(allSeasons : SEASONAPI[] ): RANKAPI[] {
-
     const list : RANKAPI[] = [];
     
     for(let season of allSeasons) {
@@ -33,16 +33,18 @@ export class AllSeasonHighMmr extends React.Component<Props, State> {
     }
 
     render() {
-
         let MMRCARD: JSX.Element[] = [];
         this.state.mmrList.forEach((mmr,index)=>{
             MMRCARD.push(<MmrCard key={`MMR_CARD_${index}`} mmr={mmr.maxMmr} rankString={mmr.maxRankString} rank={mmr.maxRank} season={mmr.season}></MmrCard>)
         })
         
         return (
-            <div style={{ width: "100%" }}>
+            <>
+            <CardHeader>Hightest Rank</CardHeader>
+            <div style={{ width: "100%", paddingTop: "4px" }}>
                 { MMRCARD }
             </div>
+            </>
         )
     }    
 }
