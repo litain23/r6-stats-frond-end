@@ -5,10 +5,15 @@ import json;
 '''
 download all svg files.
 '''
-url = "https://game-rainbow6.ubi.com/assets/data/ranks.31c8c84c.json"
+url = "https://game-rainbow6.ubi.com/assets/data/ranks.754ab452.json"
 x = requests.get(url);
 json1 = x.json();
 seasons = json1["seasons"]
+
+oasis = "https://game-rainbow6.ubi.com/assets/locales/locale.en-us.d43d058a.json"
+x = requests.get(oasis);
+json2 = x.json();
+
 contents = "";
 newData = []
 

@@ -87,8 +87,8 @@ class Landing extends React.Component<RouteComponentProps,LandingState> {
 
                             <input placeholder="아이디를 입력해주세요" value={this.state.text} onChange={(e)=>{this.setState({text:e.currentTarget.value})}} onKeyDown={(event) => {
                                 if (event.keyCode === 13) {
-                                    this.props.history.push(`/search/query?platform=${this.state.key}&username=${this.state.text}`)
-                                 }}}/>
+                                    this.props.history.push(`/search/overview/query?platform=${this.state.key}&username=${this.state.text}`)
+                            }}}/>
                             <button onClick={()=>{this.props.history.push("/search/" + this.state.text)}} > Search </button>
                         </div>
 

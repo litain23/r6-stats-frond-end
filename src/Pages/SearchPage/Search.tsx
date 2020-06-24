@@ -3,7 +3,7 @@ import '../../App.css'
 import './search.css'
 
 import { BasicErrorFormat, APIObservable, API } from '../../util/API'
-import R6Spinner from '../../R6Components/R6Spinner'
+// import R6Spinner from '../../R6Components/R6Spinner'
 import {PVPAPI, GENERALAPI, OPERATORAPI, SEASONAPI, RANKBYREGION, getErrorMessage} from '../../util/type'
 import Profile from './Profile';
 import SearchOverviewTab from './Overview';
@@ -11,9 +11,10 @@ import SearchSeasonsTab from './Seasons';
 import SearchOperators from './Operators';
 
 import { Menu, Empty } from 'antd';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { forkJoin, of, EmptyError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { withRouter, RouteComponentProps, Switch, Route } from 'react-router-dom';
+import { forkJoin, of } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+import LoadingWithCard from '../AnalyisPage/LoadingWithCard';
 
 interface State {
     currentRankData : RANKBYREGION[],
@@ -23,7 +24,6 @@ interface State {
     casualPvpData: PVPAPI,
     rankPvpData: PVPAPI,
     loading: boolean,
-    currentTab: number,
     current:string,
     success:boolean,
 }
@@ -38,8 +38,9 @@ interface Props extends RouteComponentProps {
 
 class Search extends React.Component<Props, State> {
 
-    private username?:string | null;
-    private platform?:string | null;
+    private username?:string | null = null;
+    private platform?:string | null = null;
+    private currentPage:string = "overview";
     private unlisten?:any;
 
     constructor(props: Props){
@@ -52,7 +53,6 @@ class Search extends React.Component<Props, State> {
             casualPvpData: {} as PVPAPI,
             rankPvpData: {} as PVPAPI,
             loading:true,
-            currentTab:1,
             current: 'overview',
             success:false
         }
@@ -61,25 +61,42 @@ class Search extends React.Component<Props, State> {
     }
 
     handleClick(e:any) {
+
+        // 바뀌지않은경우 반응하지않음.
+        if (this.currentPage === e.key) {
+            return;
+        }
+
         this.setState({
             current: e.key,
-          });
+        }, () => {
+            this.props.history.push(`/search/${this.state.current}/query?platform=${this.platform}&username=${this.username}`)
+        });
     }
 
-    tabContentsHandler(key: string): React.ReactNode {
+
+    tabContentsHandler(key: string) {
         switch(key){
             case 'overview':
-                return(
-                    <SearchOverviewTab 
-                        generalData={this.state.generalData}
-                        allRankStat={this.state.allRankData}
-                        casualPvpData={this.state.casualPvpData}
-                        rankPvpData={this.state.rankPvpData}
-                    />);
+                // this.props.history.push(`/search/overview/query?platform=${this.platform}&username=${this.username}`)
+                break;
+                // return(
+                //     <SearchOverviewTab 
+                //         generalData={this.state.generalData}
+                //         allRankStat={this.state.allRankData}
+                //         casualPvpData={this.state.casualPvpData}
+                //         rankPvpData={this.state.rankPvpData}
+                //     />);
             case 'seasons':
-                return(<SearchSeasonsTab seasons={this.state.allRankData}></SearchSeasonsTab>);
+                // this.props.history.push(`/search/seasons/query?platform=${this.platform}&username=${this.username}`)
+                // this.props.history.push('/search/seasons/:searchTerm')
+                break;
+                // return(<SearchSeasonsTab seasons={this.state.allRankData}></SearchSeasonsTab>);
             case 'operators':
-                return(<SearchOperators></SearchOperators>);
+                // this.props.history.push(`/search/operators/query?platform=${this.platform}&username=${this.username}`)
+                // this.props.history.push('/search/operators/:searchTerm')
+                break;
+                // return(<SearchOperators operators={this.state.operators}></SearchOperators>);
         } 
 
     }
@@ -88,15 +105,33 @@ class Search extends React.Component<Props, State> {
     updateFromAPI(){
 
         const params = new URLSearchParams(this.props.history.location.search);
-        if (this.props.history.location.pathname !== "/search/query") {
+
+        //만약 path에 search가 안들어간경우. 위에 네비바에서 히스토리 조작 거르기 위함.
+        if (!this.props.history.location.pathname.includes("/search")){
             return;
+        } 
+
+        /**
+         * 엣지케이스 URL Search Params가 안될경우
+         * 그래도 재시도해보고싶을경우 piliot => piliot // 쿼리가 안바뀌고, 서치 페이지만 바뀔경우. return 
+         */
+
+        // 1. 기존쿼리는 그대로 유지하면서
+        // 2. 탭만바뀐경우
+        if ( this.username === params.get('username') && this.platform === params.get('platform')) {
+            if (this.currentPage !== this.state.current ) {
+                this.currentPage = this.state.current;
+                return
+            } 
         }
+
+        // 1. 기존쿼리는 그대로 유지하는데
+        // 2. 탭이안바뀐경우 (이럴경우는 검색 재시도의 목적이 있으므로, 그대로 통과한다.)
 
         this.username = params.get('username')
         this.platform = params.get('platform')
 
-
-        this.setState( {loading: true})
+        this.setState({loading: true})
 
         if (this.username && this.platform) {
 
@@ -106,7 +141,9 @@ class Search extends React.Component<Props, State> {
                 APIObservable<RANKBYREGION[]>(`rank/${this.platform}/${this.username}`),
                 APIObservable<GENERALAPI>(`generalpvp/${this.platform}/${this.username}`),
                 APIObservable<SEASONAPI[]>(`rank/${this.platform}/${this.username}/all`),
+                APIObservable<OPERATORAPI[]>(`operator/${this.platform}/${this.username}`),
             ).pipe(
+                retry(1),
                 catchError( err => {
                     return of(err as BasicErrorFormat)
                     
@@ -120,6 +157,7 @@ class Search extends React.Component<Props, State> {
                             currentRankData : res[2],
                             generalData : res[3],
                             allRankData : res[4],
+                            operators: res[5],
                             success:true
                         })
                     } else {
@@ -141,12 +179,36 @@ class Search extends React.Component<Props, State> {
     
     async componentDidMount(){
 
-        this.updateFromAPI()
 
-        this.unlisten = this.props.history.listen( (location, action) => {
-            this.updateFromAPI()
-        })
-        
+        //1. search/...? 로 안들어온경우 => 메인 라우터에서 404로 보냄.
+        //2. search/...? 로 들어왔으나 내부 쿼리문법대로 안들어온경우
+        // search / tab 이름 / query? username & platform
+        if (
+            this.props.history.location.pathname.split('/').length === 4 &&
+            this.props.history.location.pathname.split('/')[3] === "query"
+        ) { 
+
+            // 쿼리문법 체크 통과! 
+            this.setState({current: this.props.history.location.pathname.split('/')[2]}, () => {
+                this.currentPage = this.state.current;
+                this.updateFromAPI();
+            })
+
+            this.unlisten = this.props.history.listen( (location, action) => {
+                this.updateFromAPI()
+            })
+
+        } else {
+            this.props.history.push('/404');
+            // 쿼리 문법 체크 비통과! 404 귀양.
+        }
+
+        //3 내부 쿼리문법대로 들어온경우
+        // 1. 탭 바꿔주기.
+        // 2. 리스너 등록시키기.
+        // 3. API요청하기.
+
+      
 
         // 병렬코드. 
         /** 기존코드 : 소스비교를 위해 나둡니다. */
@@ -181,7 +243,9 @@ class Search extends React.Component<Props, State> {
     render(){
         
         if (this.state.loading) {
-            return <R6Spinner presentationStyle="full"></R6Spinner>
+            // return <R6Spinner presentationStyle="full"></R6Spinner>
+            return <LoadingWithCard></LoadingWithCard>
+
         } else if (!this.state.loading && !this.state.success) {
             return (
                 <Empty
@@ -198,7 +262,7 @@ class Search extends React.Component<Props, State> {
             
             )
         } else {
-            const tabContent = this.tabContentsHandler(this.state.current);
+            // const tabContent = this.tabContentsHandler(this.state.current);
             return(
                 <>
                 <div className="search-page-container">
@@ -216,7 +280,23 @@ class Search extends React.Component<Props, State> {
                             </Menu.Item>
                         </Menu>
                     </div>
-                    {tabContent}
+                    <Switch>
+                        <Route path="/search/overview/:searchTerm">
+                            <SearchOverviewTab 
+                                generalData={this.state.generalData}
+                                allRankStat={this.state.allRankData}
+                                casualPvpData={this.state.casualPvpData}
+                                rankPvpData={this.state.rankPvpData}
+                            />
+                        </Route>
+                        <Route path="/search/seasons/:searchTerm">
+                            <SearchSeasonsTab seasons={this.state.allRankData}></SearchSeasonsTab>
+                        </Route>
+                        <Route path="/search/operators/:searchTerm">
+                            <SearchOperators operators={this.state.operators}></SearchOperators>
+                        </Route>
+                    </Switch>
+                    {/* {tabContent} */}
                 </div>
                 </>
             )

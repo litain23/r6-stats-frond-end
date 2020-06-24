@@ -31,7 +31,8 @@ class ErrorPage extends React.Component<ErrorPageProps & RouteComponentProps> im
     
     
     goBack(){
-        this.props.history.goBack();
+        this.props.history.push('/');
+        // this.props.history.goBack();
     }
 
     getErrorViewWhen(errorCode : errorMessageCode, message?: string, onClick?:()=>void, goBack?:()=>void): JSX.Element {
