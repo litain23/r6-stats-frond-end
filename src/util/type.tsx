@@ -98,7 +98,7 @@ export const getDayFromSecond = (second : number):string => {
         } else if (day < 0 && hour < 0 && min < 0) {
             return "0"
         } else {
-            return `${newday}d ${newhour}m`
+            return `${newday}d ${newhour}h`
         }
     } catch {
         return "0"
