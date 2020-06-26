@@ -81,10 +81,8 @@ export function convertThreeDemicalPoint(value : number) {
     return Math.round(value * 1000) / 1000;
 }
 
-export const getDayFromSecond = (second : number ):string => {
-
+export const getDayFromSecond = (second : number):string => {
     try { 
-
         const day = (second / 86400)
         const hour = (day - Math.floor(day)) * 24
         const min = (hour - Math.floor(hour)) * 60
@@ -100,7 +98,7 @@ export const getDayFromSecond = (second : number ):string => {
         } else if (day < 0 && hour < 0 && min < 0) {
             return "0"
         } else {
-            return `${newday}d ${newhour}h ${newmin}m`
+            return `${newday}d ${newhour}m`
         }
     } catch {
         return "0"

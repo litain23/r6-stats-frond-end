@@ -10,9 +10,7 @@ interface Props {
 }
 
 export class OverviewGeneralCard extends React.Component<Props> {
-
     render() {
-
         let parsedData : { [key: string]: string|number}  = {};
 
         parsedData["킬 수"] = this.props.generalData.kills;
@@ -27,8 +25,6 @@ export class OverviewGeneralCard extends React.Component<Props> {
         parsedData["승리"] = this.props.generalData.matchWon;
         parsedData["패배"] = this.props.generalData.matchLost;
         parsedData["플레이 시간"] = getDayFromSecond(this.props.generalData.timePlayed);
-        // parsedData["플레이 시간"] = this.props.generalData.timePlayed;
-
 
         let generalCardList = [];
         for(let [key, value] of Object.entries(parsedData)) {
