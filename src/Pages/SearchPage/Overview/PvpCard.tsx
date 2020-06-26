@@ -10,9 +10,7 @@ interface Props {
     pvpData: PVPAPI
 }
 
-
 export class OverviewPvpCard extends React.Component<Props> {
-    
     render() {
         let parsedData : { [key: string]: number|string}  = {};
         parsedData["킬 수"] = this.props.pvpData.kills;
@@ -35,7 +33,6 @@ export class OverviewPvpCard extends React.Component<Props> {
 
         return (
             <>
-
             <CardHeader>{this.props.title}</CardHeader>
             <CardContent>
             {

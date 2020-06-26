@@ -5,14 +5,14 @@ import styled from 'styled-components'
 
 interface Props {
     title: string,
-    data: any
+    data: number | string
 }
 
 const Card = styled.div`
     flex: 1 0 40%;
 
     margin: 12px;
-    @media(min-width: 954px) {
+    @media(min-width: 768px) {
         flex: 1 0 21%
     }
 `;

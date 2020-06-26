@@ -21,10 +21,7 @@ const RankCard = (props:{data: SEASONAPI}) => {
 
     let cardContents : JSX.Element[] = [];
 
-
     const {season, seasonData} = props.data;
-
-
     seasonData.forEach((eachSeason, index) => {
 
 

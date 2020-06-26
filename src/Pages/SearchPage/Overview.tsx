@@ -8,7 +8,6 @@ import { OverviewPvpCard } from './Overview/PvpCard'
 
 import styled from 'styled-components';
 
-
 interface Props {
     generalData: GENERALAPI,
     rankPvpData: PVPAPI,
@@ -19,7 +18,6 @@ interface Props {
 const StatContainer = styled.div`
     display: flex;
     flex-direction: column;
-    // background: red;
     height: 1080px;
 
     @media(min-width: 954px) {
@@ -29,15 +27,13 @@ const StatContainer = styled.div`
     margin-top: 2rem;
 `;
 
-const A = styled.div`
+const LeftSideContainer = styled.div`
     grid-column: 1;
     margin-right: 1rem;
-    // background: green;
 `;
 
-const B = styled.div`
+const MainContainer = styled.div`
     grid-column: 2;
-    // background: blue;
 `;
 
 
@@ -46,14 +42,14 @@ export default class SearchOverviewTab extends React.Component<Props> {
     render() {
         return(
             <StatContainer>
-                 <A>
+                 <LeftSideContainer>
                     <AllSeasonHighMmr allRankData={this.props.allRankStat}></AllSeasonHighMmr>
-                </A>
-                <B>
+                </LeftSideContainer>
+                <MainContainer>
                     <OverviewGeneralCard generalData={this.props.generalData}></OverviewGeneralCard>
                     <OverviewPvpCard title="Rank" pvpData={this.props.rankPvpData}></OverviewPvpCard>
                     <OverviewPvpCard title="Casual" pvpData={this.props.casualPvpData}></OverviewPvpCard>
-                </B>
+                </MainContainer>
             </StatContainer>
         )
     }
