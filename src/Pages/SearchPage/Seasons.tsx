@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../App.css'
 import './seasons.css'
-import { SEASONAPI , getRegion, getSeasonName, rangeData} from '../../util/type'
+import { SEASONAPI , getRegion, getSeasonName} from '../../util/type'
 
 
 import { R6RankIcon } from '../../R6Components';
@@ -54,8 +54,6 @@ const RankCard = (props:{data: SEASONAPI}) => {
         }
 
         const {region, rankStat} = eachSeason
-        const maxRangeNullable = rangeData[season-2].ranks[rankStat.rank];
-        const maxRange = (maxRangeNullable !== null)? maxRangeNullable + 1 : rankStat.mmr;
 
         console.log(rankStat);
         cardContents.push(

@@ -6,7 +6,6 @@ import { OPERATORAPI } from '../../util/type';
 import { Table, Row } from 'antd';
 import { ColumnType } from 'antd/lib/table/interface'
 import { Typography } from 'antd';
-import { API } from '../../util/API';
 import { withRouter, RouteComponentProps} from 'react-router-dom';
 const { Text } = Typography;
 
@@ -20,13 +19,6 @@ interface State {
 
 class SearchOperators extends React.Component<RouteComponentProps & Props, State> {
 
-    constructor(props:RouteComponentProps & Props) {
-        super(props);
-
-        // this.state = {
-        //     operators: [] as OPERATORAPI[]
-        // }
-    }
 
     async componentDidMount() {
         // const [operatorAPIs, operatorError] = await API<OPERATORAPI[]>("operator/uplay/piliot");

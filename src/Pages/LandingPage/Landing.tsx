@@ -5,7 +5,6 @@ import R6PlatformIcon from '../../R6Components/R6PlatformIcon';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { PlatformType } from '../../util/type';
 import R6PlatformIonGroup from '../../R6Components/R6PlatformIconGroup';
-import chart from 'chart.js'
 
 interface LandingState {
     key:PlatformType
@@ -60,7 +59,6 @@ class Landing extends React.Component<RouteComponentProps,LandingState> {
 
 
     render() {
-        const color = "#1890ff";
         return (
                
             <div className="landing-container">

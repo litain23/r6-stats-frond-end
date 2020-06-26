@@ -1,8 +1,6 @@
-import * as icons from '../@platform-iconsvg';
 import React from 'react';
 import { PlatformType } from '../util/type'
-import { blue } from '@ant-design/colors';
-import R6PlatformIcon, { R6PlatformIconProps } from './R6PlatformIcon';
+import { R6PlatformIconProps } from './R6PlatformIcon';
 // type R6IconType = keyof typeof icons;
 // export const PlatformIcons: PlatformType[] = Object.keys(icons) as PlatformType[]; // 다른파일에서 사용하기 위한 구현체.
 

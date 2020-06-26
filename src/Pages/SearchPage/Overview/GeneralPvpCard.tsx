@@ -35,7 +35,7 @@ export class OverviewGeneralCard extends React.Component<Props> {
             if (typeof value === "number") {
                 value = Math.round(value * 1000) / 1000;
             }
-            generalCardList.push(<InnerCard title={key} data={value}></InnerCard>)
+            generalCardList.push(<InnerCard key={`__GENERAL_CARD__${key}`}title={key} data={value}></InnerCard>)
         }
 
         return (

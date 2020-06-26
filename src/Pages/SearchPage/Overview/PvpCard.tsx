@@ -28,7 +28,7 @@ export class OverviewPvpCard extends React.Component<Props> {
             if (typeof value === "number") {
                 value = Math.round(value * 1000) / 1000;
             }
-            result.push(<InnerCard title={key} data={value}></InnerCard>);
+            result.push(<InnerCard key={`___PVP___${key}`}title={key} data={value}></InnerCard>);
         }
 
         return (
