@@ -40,6 +40,8 @@ class SearchOperators extends React.Component<RouteComponentProps & Props, State
 
 
     row = (api : OPERATORAPI) => {
+
+
             return(
             <tr>
             <td>
@@ -48,10 +50,8 @@ class SearchOperators extends React.Component<RouteComponentProps & Props, State
             </td>
             <td>{api.kills}</td>
             <td>{api.death}</td>
-            <td> "K/D" </td>
             <td>{api.roundWon}</td>
             <td>{api.roundLost}</td>
-            <td> "W/L" </td>
             <td>{api.headShot}</td>
             <td>{api.meleeKills}</td>
             <td>{api.totalXp}</td>
@@ -64,7 +64,7 @@ class SearchOperators extends React.Component<RouteComponentProps & Props, State
 
 
         const columns: ColumnType<OPERATORAPI>[] = [{
-            title: 'Operator',
+            title: '오퍼레이터',
             dataIndex: "name",
             sorter: (a, b) => a.name.localeCompare(b.name),
             filters: [
@@ -74,15 +74,11 @@ class SearchOperators extends React.Component<RouteComponentProps & Props, State
             onFilter: (value, record) => { return record.category === value},
             ellipsis: false,
             showSorterTooltip:false,
-            onCell: (record, index) => {
-                return {
-                }
-            },
             render: (value, record, index) => {
                 return(
                     <>  
                         <Row justify="center">
-                            <img alt={"operators"} style={{width:'50px'}} src={operators[record.name]}></img>
+                            <img alt={"operators"} style={{width:'50px' , height:'50px'}} src={operators[record.name]}></img>
                         </Row>
                         <Row justify="center">
                         <Text strong>{record.name.toString().toUpperCase()}</Text>
@@ -93,46 +89,49 @@ class SearchOperators extends React.Component<RouteComponentProps & Props, State
             },  
             
             {
-                title: 'Kills',
+                title: '킬 수',
                 dataIndex: 'kills',
                 ellipsis: false,
+                sorter: (a, b) => (a.kills > b.kills)? 1 : -1,
+                showSorterTooltip:false,
             },{
-                title: 'Deaths',
+                title: '데스 수',
                 dataIndex: 'death',
                 ellipsis: false,
+                sorter: (a, b) => (a.death > b.death)? 1 : -1,
+                showSorterTooltip:false,
             },{
-                title: 'K/D',
-                dataIndex: 'K/D',
-                ellipsis: false,
-            }, {
-                title: 'Wins',
+                title: '승리 수',
                 dataIndex: 'roundWon',
                 ellipsis: false,
+                sorter: (a, b) => (a.roundWon > b.roundWon)? 1 : -1,
+                showSorterTooltip:false,
             },{
-                title: 'Losses',
+                title: '패배 수',
                 dataIndex: 'roundLost',
                 ellipsis: false,
+                sorter: (a, b) => (a.roundLost > b.roundLost)? 1 : -1,
+                showSorterTooltip:false,
+
             },{
-                title: 'W/L',
-                dataIndex: 'W/L',
-                ellipsis: false,
-            },{
-                title: 'Headshots',
+                title: '헤드샷 수',
                 dataIndex: 'headShot',
                 ellipsis: false,
+                sorter: (a, b) => (a.headShot > b.headShot)? 1 : -1,
+                showSorterTooltip:false,
             },{
-                title: 'Melee Kills',
+                title: '근접 킬 수',
                 dataIndex: 'meleeKills',
                 ellipsis: false,
+                sorter: (a, b) => (a.meleeKills > b.meleeKills)? 1 : -1,
+                showSorterTooltip:false,
             },{
-                title: 'Total XP',
+                title: '총 XP',
                 dataIndex: 'totalXp',
                 ellipsis: false,
-            },{
-                title: 'Playtime',
-                dataIndex: 'timePlayed',
-                ellipsis: false,
-            }
+                sorter: (a, b) => (a.totalXp > b.totalXp)? 1 : -1,
+                showSorterTooltip:false,
+            },
         ]
 
         const dataSource = (operators : OPERATORAPI[]): (OPERATORAPI & { key : string })[] =>{

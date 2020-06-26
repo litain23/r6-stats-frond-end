@@ -34,7 +34,7 @@
     color:white;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 576px) {
 
     .container1{
         height:120px;

@@ -57,10 +57,15 @@ export async function API<SUCCESS, FAILURE extends BasicErrorFormat = BasicError
 
 export function APIObservable<T, E extends BasicErrorFormat = BasicErrorFormat>(url:string , init?: RequestInit) { 
 
+    const {href} = new URL(url, baseURLWithAPIVersion);
+
+    if (process.env.NODE_ENV !== "production") {
+        console.log("-------DEV MODE API LOG---------")
+        console.log(href)
+    }
 
     async function fetchLogic<T, E extends BasicErrorFormat = BasicErrorFormat>(subscriber : Subscriber<T> ) {
         try {
-            const {href} = new URL(url, baseURLWithAPIVersion);
             const response = await fetch(href, init);
             if (!response.ok) { 
                 if (response.status === 400 || response.status === 401) {

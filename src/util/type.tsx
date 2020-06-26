@@ -71,7 +71,31 @@ export const SeasonColors: string[] = [
     "#2b7f9b",
 ]
 
+export const getDayFromSecond = (second : number ):string => {
 
+    try { 
+
+        const day = (second / 86400)
+        const hour = (day - Math.floor(day)) * 24
+        const min = (hour - Math.floor(hour)) * 60
+
+        const newday = Math.floor(day);
+        const newhour = Math.floor(hour);
+        const newmin = Math.floor(min);
+
+        if (day < 0) {
+            return `${newhour}h ${newmin}m`
+        } else if (day < 0 && hour < 0) {
+            return `${min}m`
+        } else if (day < 0 && hour < 0 && min < 0) {
+            return "0"
+        } else {
+            return `${newday}d ${newhour}h ${newmin}m`
+        }
+    } catch {
+        return "0"
+    }
+}
 export const getSeasonName = (rank: number) => {
     if (rank > 0 && rank <= SeasonNames.length) {
         return SeasonNames[rank-1];
@@ -91,13 +115,13 @@ export const getSeasonColorString = (rank: number) => {
 export const getRegion = (region : RegionType) => {
     switch(region) {
         case "ncsa":
-            return "America";
+            return "북미";
         case "apac":
-            return "Asia";
+            return "아시아";
         case "emea":
-            return "Europe";
+            return "유럽";
         case "global":
-            return "Global";
+            return "통합(글로벌)";
     }
 }
 
@@ -141,8 +165,13 @@ export interface RANKAPI {
     season:number;
     losses:number;
     createdTime: string;
+    /** 시즌 최고 랭크의 String 입니다. */
     maxRankString: string;
     rankString: string;
+    /** 현재 랭크 기준 다음 랭크의 String 입니다. */
+    nextRankString: string;
+    /** 현재 랭크 기준 다음 랭크 시작 mmr 입니다. */
+    nextRankMmr: number;
 }
 
 export interface GENERALAPI {
@@ -167,6 +196,10 @@ export interface PVPAPI {
     matchWon: number,
     matchPlayed: number,
     timePlayed: number
+}
+
+export interface PROFILEAPI {
+    profileId : string
 }
 
 export type operators = keyof typeof badges;

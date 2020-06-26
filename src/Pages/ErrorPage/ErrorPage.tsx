@@ -59,7 +59,7 @@ class ErrorPage extends React.Component<ErrorPageProps & RouteComponentProps> im
 export default withRouter(ErrorPage);
 
 
-type designType = "antd" | null
+type designType = "antd" | "serverError" | null
 
 export function createErrorPageComponent (type: designType, errorCode: errorMessageCode): React.ComponentClass { 
 
@@ -67,6 +67,9 @@ export function createErrorPageComponent (type: designType, errorCode: errorMess
 
     switch(type) {
         case "antd":
+            customView = new AntDesignErrorPage();
+            break;
+        case "serverError":
             customView = new AntDesignErrorPage();
             break;
         default:

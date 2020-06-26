@@ -2,9 +2,9 @@ import React from 'react';
 import '../../App.css'
 import './search.css'
 
-import { BasicErrorFormat, APIObservable, API } from '../../util/API'
+import { BasicErrorFormat, APIObservable } from '../../util/API'
 // import R6Spinner from '../../R6Components/R6Spinner'
-import {PVPAPI, GENERALAPI, OPERATORAPI, SEASONAPI, RANKBYREGION, getErrorMessage} from '../../util/type'
+import {PVPAPI, GENERALAPI, OPERATORAPI, SEASONAPI, RANKBYREGION, getErrorMessage, PROFILEAPI} from '../../util/type'
 import Profile from './Profile';
 import SearchOverviewTab from './Overview';
 import SearchSeasonsTab from './Seasons';
@@ -12,9 +12,9 @@ import SearchOperators from './Operators';
 
 import { Menu, Empty } from 'antd';
 import { withRouter, RouteComponentProps, Switch, Route } from 'react-router-dom';
-import { forkJoin, of } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
-import LoadingWithCard from '../AnalyisPage/LoadingWithCard';
+import { forkJoin  } from 'rxjs';
+import { flatMap, retry } from 'rxjs/operators';
+import R6LottieLoader from '../../R6Components/R6LottieLoader';
 
 interface State {
     currentRankData : RANKBYREGION[],
@@ -23,6 +23,7 @@ interface State {
     operators: OPERATORAPI[],
     casualPvpData: PVPAPI,
     rankPvpData: PVPAPI,
+    profileData: PROFILEAPI,
     loading: boolean,
     current:string,
     success:boolean,
@@ -52,6 +53,7 @@ class Search extends React.Component<Props, State> {
             operators: [] as OPERATORAPI[],
             casualPvpData: {} as PVPAPI,
             rankPvpData: {} as PVPAPI,
+            profileData: {} as PROFILEAPI,
             loading:true,
             current: 'overview',
             success:false
@@ -74,34 +76,6 @@ class Search extends React.Component<Props, State> {
         });
     }
 
-
-    tabContentsHandler(key: string) {
-        switch(key){
-            case 'overview':
-                // this.props.history.push(`/search/overview/query?platform=${this.platform}&username=${this.username}`)
-                break;
-                // return(
-                //     <SearchOverviewTab 
-                //         generalData={this.state.generalData}
-                //         allRankStat={this.state.allRankData}
-                //         casualPvpData={this.state.casualPvpData}
-                //         rankPvpData={this.state.rankPvpData}
-                //     />);
-            case 'seasons':
-                // this.props.history.push(`/search/seasons/query?platform=${this.platform}&username=${this.username}`)
-                // this.props.history.push('/search/seasons/:searchTerm')
-                break;
-                // return(<SearchSeasonsTab seasons={this.state.allRankData}></SearchSeasonsTab>);
-            case 'operators':
-                // this.props.history.push(`/search/operators/query?platform=${this.platform}&username=${this.username}`)
-                // this.props.history.push('/search/operators/:searchTerm')
-                break;
-                // return(<SearchOperators operators={this.state.operators}></SearchOperators>);
-        } 
-
-    }
-    
-
     updateFromAPI(){
 
         const params = new URLSearchParams(this.props.history.location.search);
@@ -111,6 +85,7 @@ class Search extends React.Component<Props, State> {
             return;
         } 
 
+        
         /**
          * 엣지케이스 URL Search Params가 안될경우
          * 그래도 재시도해보고싶을경우 piliot => piliot // 쿼리가 안바뀌고, 서치 페이지만 바뀔경우. return 
@@ -135,22 +110,25 @@ class Search extends React.Component<Props, State> {
 
         if (this.username && this.platform) {
 
-            forkJoin(
-                APIObservable<PVPAPI>(`rankpvp/${this.platform}/${this.username}`),
-                APIObservable<PVPAPI>(`casualpvp/${this.platform}/${this.username}`),
-                APIObservable<RANKBYREGION[]>(`rank/${this.platform}/${this.username}`),
-                APIObservable<GENERALAPI>(`generalpvp/${this.platform}/${this.username}`),
-                APIObservable<SEASONAPI[]>(`rank/${this.platform}/${this.username}/all`),
-                APIObservable<OPERATORAPI[]>(`operator/${this.platform}/${this.username}`),
-            ).pipe(
-                retry(1),
-                catchError( err => {
-                    return of(err as BasicErrorFormat)
-                    
-                }),
-            ).subscribe(
-                res=> { 
-                    if (Array.isArray(res)){
+            APIObservable<PROFILEAPI>(`profile/${this.platform}/${this.username}`)
+                .pipe(
+                    flatMap(
+                        (value) => {
+                            this.setState({profileData: value})
+                            return forkJoin(
+                                APIObservable<PVPAPI>(`rankpvp/${this.platform}/${this.username}`),
+                                APIObservable<PVPAPI>(`casualpvp/${this.platform}/${this.username}`),
+                                APIObservable<RANKBYREGION[]>(`rank/${this.platform}/${this.username}`),
+                                APIObservable<GENERALAPI>(`generalpvp/${this.platform}/${this.username}`),
+                                APIObservable<SEASONAPI[]>(`rank/${this.platform}/${this.username}/all`),
+                                APIObservable<OPERATORAPI[]>(`operator/${this.platform}/${this.username}`),
+                            )
+                        }
+                    )
+                ).pipe(
+                    retry(1)
+                ).subscribe(
+                    res => {
                         this.setState({
                             rankPvpData : res[0],
                             casualPvpData: res[1],
@@ -158,22 +136,20 @@ class Search extends React.Component<Props, State> {
                             generalData : res[3],
                             allRankData : res[4],
                             operators: res[5],
-                            success:true
+                            success:true,
+                            loading:false
                         })
-                    } else {
-                        alert(getErrorMessage(res.status));
-                        this.setState({success:false})
+                    },
+                    err => {
+                        let message = err as BasicErrorFormat;
+                        alert(getErrorMessage(message.status))
+                        this.setState({loading: false, success:false})
                     }
-                }, 
-                ()=> {},
-                () =>{
-                    this.setState( {loading: false})
-                }
-                )       
+                )
 
             } else {
                 alert(getErrorMessage(400));
-                this.setState( {loading: false, success:false})
+                this.setState({loading: false, success:false})
             }
     }
     
@@ -208,29 +184,6 @@ class Search extends React.Component<Props, State> {
         // 2. 리스너 등록시키기.
         // 3. API요청하기.
 
-      
-
-        // 병렬코드. 
-        /** 기존코드 : 소스비교를 위해 나둡니다. */
-        // 초반 성능 향상을 위해 따로따로 요청하는것으로 합니다.
-        // const operatorAPIs = await API<OPERATORAPI[]>("operator/uplay/piliot/");
-        // const generalAPIs = await API<GENERALAPI>("generalpvp/uplay/piliot");
-        // const [rankPvpAPIs, rankpvpError] = await API<PVPAPI>("rankpvp/uplay/piliot");
-        // const [casualPvpAPIs, casuapvpError] = await API<PVPAPI>("casualpvp/uplay/piliot");
-        // const [rankAPIs, rankapiError]= await API<RANKBYREGION[]>("rank/uplay/piliot");
-        // const [generalAPIs, generalapiError] = await API<GENERALAPI>("generalpvp/uplay/piliot");
-        // const [allRankAPIs, allrankapiError] = await API<SEASONAPI[]>("rank/uplay/piliot/all");
-        // if (rankpvpError || casuapvpError || rankapiError || generalapiError || allrankapiError) {
-        //     alert("Error : 연결에 에러가 있습니다")
-        //     this.props.history.goBack();
-        // } else {
-        //     this.setState({generalData: generalAPIs!});
-        //     this.setState({currentRankData: rankAPIs!});
-        //     this.setState({rankPvpData: rankPvpAPIs!});
-        //     this.setState({casualPvpData: casualPvpAPIs!});
-        //     this.setState({allRankData : allRankAPIs!})
-        //     this.setState({loading: false});
-        // }
     }
 
     componentWillUnmount(){
@@ -242,9 +195,19 @@ class Search extends React.Component<Props, State> {
 
     render(){
         
+
+
         if (this.state.loading) {
-            // return <R6Spinner presentationStyle="full"></R6Spinner>
-            return <LoadingWithCard></LoadingWithCard>
+            return (
+              <div className="center-container-fixed">
+                    <R6LottieLoader 
+                        path={"https://assets9.lottiefiles.com/packages/lf20_9p6Smt.json"} 
+                        width={100}
+                        height={100}
+                        speed={2}
+                    />
+                </div>
+            )
 
         } else if (!this.state.loading && !this.state.success) {
             return (
@@ -262,21 +225,22 @@ class Search extends React.Component<Props, State> {
             
             )
         } else {
-            // const tabContent = this.tabContentsHandler(this.state.current);
+
+
             return(
                 <>
                 <div className="search-page-container">
                     <div className="menu">
-                        <Profile username={this.username!} currentRankData={this.state.currentRankData}></Profile>
+                        <Profile profileID={this.state.profileData} username={this.username!} currentRankData={this.state.currentRankData}></Profile>
                         <Menu mode="horizontal" selectedKeys={[this.state.current]} onClick={this.handleClick}>
                             <Menu.Item key="overview">
-                            Overview
+                            OVERVIEW
                             </Menu.Item>
                             <Menu.Item key="seasons">
-                            Seasons
+                            ALL SEASONS
                             </Menu.Item>
                             <Menu.Item key="operators">
-                            Operators
+                            OPERATORS
                             </Menu.Item>
                         </Menu>
                     </div>

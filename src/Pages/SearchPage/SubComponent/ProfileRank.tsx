@@ -79,7 +79,7 @@ class ProfileRank extends React.Component<ProfileRankProps> {
         return(
             <RANK_CONTAINER>
                 <RANK_PART>
-                    <R6RankIcon rank={currentRankData[0].rankStat.rank} size={70}></R6RankIcon>
+                    <R6RankIcon rank={currentRankData[0].rankStat.rankString} size={70}></R6RankIcon>
                 </RANK_PART>
                 <CONTENT_PART>
                     <div id="rank">{currentRankData[0].rankStat.rankString.toUpperCase()}</div> 

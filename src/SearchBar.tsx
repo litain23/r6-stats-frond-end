@@ -32,9 +32,7 @@ const searchbar = ({history, location, match}: RouteComponentProps) => {
                     <R6PlatformIcon value={"psn"}></R6PlatformIcon>
                     <R6PlatformIcon value={"xbl"}></R6PlatformIcon>
                 </R6PlatformIonGroup>
-
             </div>
-
             <div className="suggestion-list">
             </div>
         </div>
