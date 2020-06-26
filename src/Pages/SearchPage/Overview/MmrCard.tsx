@@ -55,13 +55,12 @@ interface Props {
 
 export const MmrCard = (props : Props) => (
     <MmrContainer season={props.season}>
-        <RankIcon> <R6RankIcon rank={props.rank} size={40} /></RankIcon>
+        <RankIcon> <R6RankIcon rank={props.rankString} size={40} /></RankIcon>
         <RankSeasonNameAndMmr>
             <RankSeasonName season={props.season}>{getSeasonName(props.season)}</RankSeasonName>
             <div>
                 {/* {props.mmr} Mmr */}
                 <span style={{
-                    fontFamily: "Roboto, sans-serif"
                 }}> {props.rankString}</span>
             </div>
         </RankSeasonNameAndMmr> 

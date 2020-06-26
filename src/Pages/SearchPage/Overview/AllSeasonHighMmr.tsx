@@ -3,7 +3,7 @@ import '../../../App.css'
 
 import { SEASONAPI, RANKAPI }  from '../../../util/type'
 import { MmrCard } from './MmrCard'
-import { CardHeader, CardContent } from './StyledCss'
+import { CardHeader } from './StyledCss'
 
 interface Props {
     allRankData: SEASONAPI[]
@@ -14,13 +14,13 @@ interface State {
 }
 
 function getHighestMmr(allSeasons : SEASONAPI[] ): RANKAPI[] {
+
     const list : RANKAPI[] = [];
     
     for(let season of allSeasons) {
         const sortedMMR = season.seasonData.sort((a,b) => (a.rankStat.maxMmr < b.rankStat.maxMmr) ? 1 : -1);
         list.push(sortedMMR[0].rankStat);
     }
-
     return list;
 }
 

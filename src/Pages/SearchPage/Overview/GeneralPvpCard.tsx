@@ -1,38 +1,41 @@
 import React from 'react';
 import '../../../App.css'
 
-import { GENERALAPI}  from '../../../util/type'
+import { GENERALAPI, getDayFromSecond}  from '../../../util/type'
 import { InnerCard } from './InnerCard'
 import { CardHeader, CardContent } from './StyledCss'
-import { convertSecondToHour, convertThreeDemicalPoint } from './util';
 
 interface Props {
     generalData : GENERALAPI
 }
 
-const parsing = (data : GENERALAPI) => {
-    let parsedData : { [key: string]: number | string } = {};
-    parsedData["KILLS"] = data.kills;
-    parsedData["DEATH"] = data.death;
-    parsedData["K/D"] = convertThreeDemicalPoint(data.kills / data.death);
-    parsedData["PLAY TIME"] = convertSecondToHour(data.timePlayed);
-    parsedData["PENETRATION KILL"] = data.penetrationKills
-    parsedData["HEAD SHOT"] = data.headShot
-    parsedData["HEAD SHOT %"] = convertThreeDemicalPoint(data.headShot / data.kills);
-    parsedData["MELEE KILL"] = data.meleeKills;
-    parsedData["WIN"] = data.matchWon;
-    parsedData["LOSE"] = data.matchLost;
-    parsedData["WIN %"] = convertThreeDemicalPoint(data.matchWon / data.matchPlayed);
-    parsedData["KILL / MATCH"] = convertThreeDemicalPoint(data.kills / data.matchPlayed);
-    return parsedData;
-}
-
 export class OverviewGeneralCard extends React.Component<Props> {
+
     render() {
-        const parsedData = parsing(this.props.generalData);
+
+        let parsedData : { [key: string]: string|number}  = {};
+
+        parsedData["킬 수"] = this.props.generalData.kills;
+        parsedData["데스 수"] = this.props.generalData.death;
+        parsedData["헤드샷률"] = (this.props.generalData.headShot / this.props.generalData.kills) * 100;
+        parsedData["벽관통 킬"] = this.props.generalData.penetrationKills;
+        parsedData["근접 킬"] = this.props.generalData.meleeKills;
+        parsedData["헤드샷 킬"] = this.props.generalData.headShot;
+        parsedData["승률"] = this.props.generalData.matchWon / this.props.generalData.matchLost;
+        parsedData["매치당 킬"] = this.props.generalData.kills / this.props.generalData.matchPlayed;
+        parsedData["K/D"] = this.props.generalData.kills / this.props.generalData.death;
+        parsedData["승리"] = this.props.generalData.matchWon;
+        parsedData["패배"] = this.props.generalData.matchLost;
+        parsedData["플레이 시간"] = getDayFromSecond(this.props.generalData.timePlayed);
+        // parsedData["플레이 시간"] = this.props.generalData.timePlayed;
+
+
         let generalCardList = [];
         for(let [key, value] of Object.entries(parsedData)) {
-            generalCardList.push(<InnerCard title={key} data={value}></InnerCard>)
+            if (typeof value === "number") {
+                value = Math.round(value * 1000) / 1000;
+            }
+            generalCardList.push(<InnerCard key={`__GENERAL_CARD__${key}`}title={key} data={value}></InnerCard>)
         }
 
         return (

@@ -1,7 +1,52 @@
 
 * {-webkit-font-smoothing: antialiased;}
 
-.not-scrollrable {
-    overflow:hidden;
+
+body {
+    font-size: 14px;
 }
 
+.header {
+    font-size:1.8rem;
+    font-weight: bolder;
+    line-height: 0px;
+
+}
+
+.sub-header {
+    font-size:1.5rem;
+    font-weight: bold;
+}
+
+.sub-sub-header {
+    font-size:1.3rem;
+
+}
+
+.white-text {
+    color:white;
+}
+
+@media (min-width: 1024px) {
+
+    .header {
+        font-size: 4vw;
+    }
+
+    .sub-header {
+        font-size:2rem;
+    }
+}
+
+
+.center-container-fixed {
+    position: fixed;
+    height:100vh;
+    width:100vw;
+    top:0;
+    left:0;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+  

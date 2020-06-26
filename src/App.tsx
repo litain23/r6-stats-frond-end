@@ -15,24 +15,26 @@ class App extends React.Component<RouteComponentProps> {
   constructor(props: RouteComponentProps) {
     super(props);
 
-    this.props.history.listen((location, action) => {
-      if (location.pathname === "/") {
-        document.body.classList.add("not-scrollrable")
-        document.body.scrollTo(0,0);
-      } else {
-        document.body.classList.remove("not-scrollrable")
-      }
-    });
+    // this.props.history.listen((location, action) => {
+    //   if (location.pathname === "/") {
+    //     document.body.classList.add("not-scrollrable")
+    //     document.body.scrollTo(0,0);
+    //   } else {
+    //     document.body.classList.remove("not-scrollrable")
+    //   }
+    // });
+    //스크롤을 내려 새로운 영웅 알아보기.
+    //딱딱이동시켜주기
   }
 
   componentDidMount() {
 
-    if (this.props.location.pathname === "/") {
-      document.body.classList.add("not-scrollrable")
-      document.body.scrollTo(0,0);
-    } else {
-      document.body.classList.remove("not-scrollrable")
-    }
+    // if (this.props.location.pathname === "/") {
+    //   document.body.classList.add("not-scrollrable")
+    //   document.body.scrollTo(0,0);
+    // } else {
+    //   document.body.classList.remove("not-scrollrable")
+    // }
   }
 
 

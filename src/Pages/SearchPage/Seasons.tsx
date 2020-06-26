@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../App.css'
 import './seasons.css'
-import { SEASONAPI , getRegion, getSeasonName, rangeData} from '../../util/type'
+import { SEASONAPI , getRegion, getSeasonName} from '../../util/type'
 
 
 import { R6RankIcon } from '../../R6Components';
@@ -21,19 +21,41 @@ const RankCard = (props:{data: SEASONAPI}) => {
 
     let cardContents : JSX.Element[] = [];
 
-
     const {season, seasonData} = props.data;
-
-
     seasonData.forEach((eachSeason, index) => {
 
 
+        let parsedData : { [key: string]: string|number}  = {};
+        parsedData["킬 수"] = eachSeason.rankStat.kills;
+        parsedData["데스 수"] = eachSeason.rankStat.death;
+        parsedData["K/D"] = eachSeason.rankStat.kills / eachSeason.rankStat.death;
+        parsedData["승률"] = (eachSeason.rankStat.wins / (eachSeason.rankStat.wins+eachSeason.rankStat.losses)) * 100
+        parsedData["승리"] = eachSeason.rankStat.wins;
+        parsedData["패배"] = eachSeason.rankStat.losses;
+        parsedData["현재 MMR"] = eachSeason.rankStat.mmr
+        parsedData["이 시즌 최대 MMR"] = eachSeason.rankStat.maxMmr
+        parsedData["이 시즌 최대 RANK"] = eachSeason.rankStat.maxRankString
+
+        let stats = [];
+        for(let [key, value] of Object.entries(parsedData)) {
+            if (typeof value === "number") {
+                value = Math.round(value * 1000) / 1000;
+            }
+
+            stats.push(
+                <div className="item"> 
+                <div className="item-header">
+                {key}
+                </div>
+                <div className="item-data">
+                    {value}
+                </div>
+                </div>)
+        }
+
         const {region, rankStat} = eachSeason
 
-        const maxRangeNullable = rangeData[season-2].ranks[rankStat.rank];
-        const maxRange = (maxRangeNullable !== null)? maxRangeNullable + 1 : rankStat.mmr;
-
-
+        console.log(rankStat);
         cardContents.push(
             <div key={`R6_CARD_CONTENT_${index}`} className="rankcard-content">
             <div className="rankcard-content-info">
@@ -44,100 +66,30 @@ const RankCard = (props:{data: SEASONAPI}) => {
                     {rankStat.rankString.toUpperCase()}
                 </div>
                 <div className="rankcard-content-info-progress">
-                    <R6RankIcon rank={rankStat.rank} size={40}></R6RankIcon>
+                    <R6RankIcon rank={rankStat.rankString} size={40}></R6RankIcon>
                     <div className="rankcard-content-info-progress-progressbar">
-                        <SEASONBACKGROUND season={rankStat.season} fill={((rankStat.mmr/maxRange) * 100).toFixed()} className="rankcard-content-info-progress-progressbar-fill">
-                            {`${rankStat.mmr} / ${maxRange}`}
+                        <SEASONBACKGROUND season={rankStat.season} fill={((rankStat.mmr/rankStat.nextRankMmr) * 100).toFixed()} className="rankcard-content-info-progress-progressbar-fill">
+                            {`${rankStat.mmr} / ${rankStat.nextRankMmr}`}
                         </SEASONBACKGROUND>
                     </div>
-                    <R6RankIcon rank={rankStat.rank+1} size={40}></R6RankIcon>
+                    <R6RankIcon rank={rankStat.nextRankString} size={40}></R6RankIcon>
                 </div>
             </div>
             <div className="rankcard-content-stats">
-                <div className="item"> 
-                    <div className="item-header">
-                        Kills
-                    </div>
-                    <div className="item-data">
-                        {rankStat.kills}
-                    </div>
-                </div>
-                <div className="item"> 
-                    <div className="item-header">
-                        Death
-                    </div>
-                    <div className="item-data">
-                        {rankStat.death}
-                    </div>
-                </div>
-                <div className="item"> 
-                    <div className="item-header">
-                        Wins
-                    </div>
-                    <div className="item-data">
-                        {rankStat.wins}
-                    </div>
-                </div>
-                <div className="item"> 
-                    <div className="item-header">
-                        Losses
-                    </div>
-                    <div className="item-data">
-                        {rankStat.losses}
-                    </div>
-                </div>
-                <div className="item"> 
-                    <div className="item-header">
-                        Abandons
-                    </div>
-                    <div className="item-data">
-                        {rankStat.abandons}
-                    </div>
-                </div>
-                <div className="item"> 
-                    <div className="item-header">
-                        Rank
-                    </div>
-                    <div className="item-data">
-                        {rankStat.rank}
-                    </div>
-                </div>
-                <div className="item"> 
-                    <div className="item-header">
-                        Max Rank
-                    </div>
-                    <div className="item-data">
-                        {rankStat.maxRankString}
-                    </div>
-                </div>
-                <div className="item"> 
-                    <div className="item-header">
-                        MMR
-                    </div>
-                    <div className="item-data">
-                        {rankStat.mmr}
-                    </div>
-                </div>
-                <div className="item"> 
-                    <div className="item-header">
-                        Max MMR
-                    </div>
-                    <div className="item-data">
-                        {rankStat.maxMmr}
-                    </div>
-                </div>
-
+                {stats}
             </div>
         </div>  
 
         )
     })
 
+
+
     return(
         <>
             <div className="rankcard">
                 <SEASONBACKGROUND season={season} className="rankcard-header">
-                    <span> {getSeasonName(season)} </span>
+                    <span> OPERATION : {getSeasonName(season)} </span>
                 </SEASONBACKGROUND>
                 {cardContents}
             </div>
@@ -154,9 +106,8 @@ export default class SearchSeasonsTab extends React.Component<Props> {
     
     render(){
 
-        /** 
-         * 현재 season에 관련된것을 바꿔주7
-         */
+        
+
 
         let card : JSX.Element[] = [];
         this.props.seasons.forEach( (season, index) => {

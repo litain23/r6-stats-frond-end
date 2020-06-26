@@ -28,6 +28,7 @@ class Landing extends React.Component<RouteComponentProps,LandingState> {
         window.addEventListener('resize', this.setLayout);
         window.addEventListener('load', this.setLayout);
         this.setLayout();
+
     }
 
     componentWillUnmount(){
@@ -57,26 +58,29 @@ class Landing extends React.Component<RouteComponentProps,LandingState> {
     }
 
 
-
     render() {
-        const color = "#1890ff";
         return (
                
             <div className="landing-container">
 
                <div className="background-video" style={{}}>
-                    <video id="background-video-content" style={{}} muted={true} autoPlay={true} loop={true} preload="auto" src="background_void_edge.mp4">
+                    <video id="background-video-content" style={{}} muted={true} autoPlay={true} loop={true} preload="auto" src="season18.mp4">
                     </video>
                 </div>
 
                 <div className="black-layer"></div>
 
                 <div className="search-container">
-                <div className="search-items">
+                <div className="search-items" style={{lineHeight:1.5}}>
 
-                    <div className="logo">
-                                Rain Box Six Seige
+                        <div className="sub-header white-text">
+                                시즌 18 : Operation Steel Wave
                         </div>
+                        <div className="sub-sub-header white-text ">
+                            내 계정의 최근 전적을 확인하세요
+                        </div>
+
+                        
                         <div className="input-container">
 
                             <R6PlatformIonGroup className="icons" value={this.state.key} onChange={(value) => { this.setState({key: value})}}>
@@ -90,7 +94,10 @@ class Landing extends React.Component<RouteComponentProps,LandingState> {
                                     this.props.history.push(`/search/overview/query?platform=${this.state.key}&username=${this.state.text}`)
                             }}}/>
                             <button onClick={()=>{this.props.history.push("/search/" + this.state.text)}} > Search </button>
+
+
                         </div>
+
 
                     </div>
                 </div>

@@ -79,19 +79,19 @@ class ProfileRank extends React.Component<ProfileRankProps> {
         return(
             <RANK_CONTAINER>
                 <RANK_PART>
-                    <R6RankIcon rank={currentRankData[0].rankStat.rank} size={70}></R6RankIcon>
+                    <R6RankIcon rank={sortedMMR[0].rankStat.rankString} size={70}></R6RankIcon>
                 </RANK_PART>
                 <CONTENT_PART>
-                    <div id="rank">{currentRankData[0].rankStat.rankString.toUpperCase()}</div> 
+                    <div id="rank">{sortedMMR[0].rankStat.rankString.toUpperCase()}</div> 
                     <div id="mmr">
-                        <span className="data">{currentRankData[0].rankStat.mmr}</span>
+                        <span className="data">{sortedMMR[0].rankStat.mmr}</span>
                         <span className="format"> MMR - </span>
-                        <span className="data">{currentRankData[0].rankStat.wins}</span>
+                        <span className="data">{sortedMMR[0].rankStat.wins}</span>
                         <span className="format"> W </span>
-                        <span className="data">{currentRankData[0].rankStat.losses}</span>
+                        <span className="data">{sortedMMR[0].rankStat.losses}</span>
                         <span className="format"> L </span>
                     </div> 
-                    <div id="server">{getRegion(currentRankData[0].rankStat.region)}</div> 
+                    <div id="server">{getRegion(sortedMMR[0].rankStat.region)}</div> 
                 </CONTENT_PART>
             </RANK_CONTAINER>
         )

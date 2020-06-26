@@ -1,7 +1,6 @@
 
 import React from 'react';
 import './navigationbar.css'
-import { TeamOutlined } from '@ant-design/icons';
 
 import { Link,  RouteComponentProps } from 'react-router-dom';
 
@@ -12,11 +11,11 @@ const navBar = ({history, match, location}: RouteComponentProps) => {
         <>
         <nav className="global-navbar">
             <div className="global-nav-links">
-                <Link to='/' ><span className="brand-logo">R6 Stats</span></Link>
+                <Link to='/' ><span className="brand-logo">R6 Search Me</span></Link>
                 <div className="desktop-search-bar">
                     <SearchBar history={history} match={match} location={location}></SearchBar>
                 </div>
-                <Link to='/login'> <span> <TeamOutlined/> Sign In / Sign Up</span></Link>
+                {/* <Link to='/login'> <span> <TeamOutlined/> Sign In / Sign Up</span></Link> */}
             </div>
         </nav>
         <nav className="mobile-search-navbar">

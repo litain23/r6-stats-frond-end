@@ -71,7 +71,41 @@ export const SeasonColors: string[] = [
     "#2b7f9b",
 ]
 
+export function convertSecondToHour(second : number) {
+    const hour = Math.floor(second / (60 * 60));
+    const minute = Math.floor(second / 60) - hour * 60;
+    return `${hour}H ${minute}M`;
+}
 
+export function convertThreeDemicalPoint(value : number) {
+    return Math.round(value * 1000) / 1000;
+}
+
+export const getDayFromSecond = (second : number ):string => {
+
+    try { 
+
+        const day = (second / 86400)
+        const hour = (day - Math.floor(day)) * 24
+        const min = (hour - Math.floor(hour)) * 60
+
+        const newday = Math.floor(day);
+        const newhour = Math.floor(hour);
+        const newmin = Math.floor(min);
+
+        if (day < 0) {
+            return `${newhour}h ${newmin}m`
+        } else if (day < 0 && hour < 0) {
+            return `${min}m`
+        } else if (day < 0 && hour < 0 && min < 0) {
+            return "0"
+        } else {
+            return `${newday}d ${newhour}h ${newmin}m`
+        }
+    } catch {
+        return "0"
+    }
+}
 export const getSeasonName = (rank: number) => {
     if (rank > 0 && rank <= SeasonNames.length) {
         return SeasonNames[rank-1];
@@ -91,13 +125,13 @@ export const getSeasonColorString = (rank: number) => {
 export const getRegion = (region : RegionType) => {
     switch(region) {
         case "ncsa":
-            return "America";
+            return "북미";
         case "apac":
-            return "Asia";
+            return "아시아";
         case "emea":
-            return "Europe";
+            return "유럽";
         case "global":
-            return "Global";
+            return "글로벌";
     }
 }
 
@@ -116,7 +150,6 @@ export const getPlatform = (platform : PlatformType) => {
 /** 임시로 만들었습니다.
  * 서버가 지원하면 삭제해주세요.
  */
-export const rangeData = [{"season": 2, "ranks": [0, 2199, 2399, 2549, 2699, 2799, 2899, 3049, 3199, 3349, 3519, 3699, 3929, 4159, 4399, 4639, 4899, 5159, 5449, 5999, null]}, {"season": 3, "ranks": [0, 2199, 2399, 2549, 2699, 2799, 2899, 3049, 3199, 3349, 3519, 3699, 3929, 4159, 4399, 4639, 4899, 5159, 5449, 5999, null]}, {"season": 4, "ranks": [0, 1399, 1499, 1599, 1699, 1799, 1899, 1999, 2099, 2199, 2299, 2399, 2499, 2599, 2699, 2799, 2999, 3199, 3399, 3699, null]}, {"season": 5, "ranks": [0, 1399, 1499, 1599, 1699, 1799, 1899, 1999, 2099, 2199, 2299, 2399, 2499, 2699, 2899, 3099, 3299, 3699, 4099, 4499, null]}, {"season": 6, "ranks": [0, 1399, 1499, 1599, 1699, 1799, 1899, 1999, 2099, 2199, 2299, 2399, 2499, 2699, 2899, 3099, 3299, 3699, 4099, 4499, null]}, {"season": 7, "ranks": [0, 1399, 1499, 1599, 1699, 1799, 1899, 1999, 2099, 2199, 2299, 2399, 2499, 2699, 2899, 3099, 3299, 3699, 4099, 4499, null]}, {"season": 8, "ranks": [0, 1399, 1499, 1599, 1699, 1799, 1899, 1999, 2099, 2199, 2299, 2399, 2499, 2699, 2899, 3099, 3299, 3699, 4099, 4499, null]}, {"season": 9, "ranks": [0, 1399, 1499, 1599, 1699, 1799, 1899, 1999, 2099, 2199, 2299, 2399, 2499, 2699, 2899, 3099, 3299, 3699, 4099, 4499, null]}, {"season": 10, "ranks": [0, 1399, 1499, 1599, 1699, 1799, 1899, 1999, 2099, 2199, 2299, 2399, 2499, 2699, 2899, 3099, 3299, 3699, 4099, 4499, null]}, {"season": 11, "ranks": [0, 1399, 1499, 1599, 1699, 1799, 1899, 1999, 2099, 2199, 2299, 2399, 2499, 2699, 2899, 3099, 3299, 3699, 4099, 4499, null]}, {"season": 12, "ranks": [0, 1399, 1499, 1599, 1699, 1799, 1899, 1999, 2099, 2199, 2299, 2399, 2499, 2699, 2899, 3099, 3299, 3699, 4099, 4499, null]}, {"season": 13, "ranks": [0, 1399, 1499, 1599, 1699, 1799, 1899, 1999, 2099, 2199, 2299, 2399, 2499, 2699, 2899, 3099, 3299, 3699, 4099, 4499, null]}, {"season": 14, "ranks": [0, 1399, 1499, 1599, 1699, 1799, 1899, 1999, 2099, 2199, 2299, 2399, 2499, 2699, 2899, 3099, 3299, 3699, 4099, 4499, null]}, {"season": 15, "ranks": [0, 1199, 1299, 1399, 1499, 1599, 1699, 1799, 1899, 1999, 2099, 2199, 2299, 2399, 2499, 2599, 2799, 2999, 3199, 3599, 3999, 4399, 4999, null]}, {"season": 16, "ranks": [0, 1199, 1299, 1399, 1499, 1599, 1699, 1799, 1899, 1999, 2099, 2199, 2299, 2399, 2499, 2599, 2799, 2999, 3199, 3599, 3999, 4399, 4999, null]}, {"season": 17, "ranks": [0, 1199, 1299, 1399, 1499, 1599, 1699, 1799, 1899, 1999, 2099, 2199, 2299, 2399, 2499, 2599, 2799, 2999, 3199, 3599, 3999, 4399, 4999, null]}, {"season": 18, "ranks": [0, 1199, 1299, 1399, 1499, 1599, 1699, 1799, 1899, 1999, 2099, 2199, 2299, 2399, 2499, 2599, 2799, 2999, 3199, 3599, 3999, 4399, 4999, null]}]
 export interface SEASONAPI {
     season : number;
     seasonData : RANKBYREGION[];
@@ -141,8 +174,13 @@ export interface RANKAPI {
     season:number;
     losses:number;
     createdTime: string;
+    /** 시즌 최고 랭크의 String 입니다. */
     maxRankString: string;
     rankString: string;
+    /** 현재 랭크 기준 다음 랭크의 String 입니다. */
+    nextRankString: string;
+    /** 현재 랭크 기준 다음 랭크 시작 mmr 입니다. */
+    nextRankMmr: number;
 }
 
 export interface GENERALAPI {
@@ -167,6 +205,10 @@ export interface PVPAPI {
     matchWon: number,
     matchPlayed: number,
     timePlayed: number
+}
+
+export interface PROFILEAPI {
+    profileId : string
 }
 
 export type operators = keyof typeof badges;
