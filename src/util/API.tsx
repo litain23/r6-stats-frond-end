@@ -55,38 +55,37 @@ export async function API<SUCCESS, FAILURE extends BasicErrorFormat = BasicError
 }
 
 
-export function APIObservable<T, E extends BasicErrorFormat = BasicErrorFormat>(url:string , init?: RequestInit) { 
 
+export function urlConverter(url:string) {
     const {href} = new URL(url, baseURLWithAPIVersion);
+    return href;
+}
 
-    if (process.env.NODE_ENV !== "production") {
-        console.log("-------DEV MODE API LOG---------")
-        console.log(href)
-    }
+export async function fetchLogic<T, E extends BasicErrorFormat = BasicErrorFormat>(url:string,subscriber : Subscriber<T>, init?: RequestInit) {
 
-    async function fetchLogic<T, E extends BasicErrorFormat = BasicErrorFormat>(subscriber : Subscriber<T> ) {
-        try {
-            const response = await fetch(href, init);
-            if (!response.ok) { 
-                if (response.status === 400 || response.status === 401) {
-                    const json = await response.json() as E
-                    subscriber.error({ message: json.message, status: json.status } as E);
-                } else {
-                    const stauts = (response.status===404) ? 404 : 0
-                    subscriber.error({ message: response.statusText, status: stauts } as E);
-                }
+    try {
+        const response = await fetch(urlConverter(url), init);
+        if (!response.ok) { 
+            if (response.status === 400 || response.status === 401) {
+                const json = await response.json() as E
+                subscriber.error({ message: json.message, status: json.status } as E);
             } else {
-                const json = await response.json() as T
-                subscriber.next(json);
-                subscriber.complete();
+                const stauts = (response.status===404) ? 404 : 0
+                subscriber.error({ message: response.statusText, status: stauts } as E);
             }
-        } catch (e) {
-            subscriber.error({ message: e, status: 0 } as E);
+        } else {
+            const json = await response.json() as T
+            subscriber.next(json);
+            subscriber.complete();
         }
+    } catch (e) {
+        subscriber.error({ message: e, status: 0 } as E);
     }
+}
 
+export function APIObservable<T, E extends BasicErrorFormat = BasicErrorFormat>(url:string,init?: RequestInit) { 
     return new Observable<T>( subscriber => {
-        fetchLogic<T,E>(subscriber);
+        fetchLogic<T,E>(url, subscriber, init);
     })
 }
 
@@ -106,7 +105,6 @@ interface Queue {
     callbackOnMap?: (save: (processedData:any) => void, prevData: any)=>void; //save하는함수 받기.
     callbackOnDo?: (passData:(data:any)=> void, prevData:any)=>void;
 }
-
 
 export class APISTREAM {
 

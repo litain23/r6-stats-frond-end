@@ -71,41 +71,52 @@ export const SeasonColors: string[] = [
     "#2b7f9b",
 ]
 
-export function convertSecondToHour(second : number) {
-    const hour = Math.floor(second / (60 * 60));
-    const minute = Math.floor(second / 60) - hour * 60;
-    return `${hour}H ${minute}M`;
-}
 
-export function convertThreeDemicalPoint(value : number) {
-    return Math.round(value * 1000) / 1000;
-}
 
-export const getDayFromSecond = (second : number ):string => {
-
-    try { 
-
-        const day = (second / 86400)
-        const hour = (day - Math.floor(day)) * 24
-        const min = (hour - Math.floor(hour)) * 60
-
-        const newday = Math.floor(day);
-        const newhour = Math.floor(hour);
-        const newmin = Math.floor(min);
-
-        if (day < 0) {
-            return `${newhour}h ${newmin}m`
-        } else if (day < 0 && hour < 0) {
-            return `${min}m`
-        } else if (day < 0 && hour < 0 && min < 0) {
-            return "0"
+/**
+ * 
+ * @param rankData rankData입니다.
+ * @param customSorter 기본은 maxMMR기준으로 정렬하나, customSorter가 있을경우 sort함수를 넣어주세요.
+ */
+export function getFirstAmongRanks(rankData : RANKAPI[], customSorter?: (a:RANKAPI,b:RANKAPI)=>number) : RANKAPI { 
+    if (rankData.length === 1){
+        return rankData[0];
+    } else {
+        if (customSorter) {
+            return rankData.sort(customSorter)[0];
         } else {
-            return `${newday}d ${newhour}h ${newmin}m`
+            return rankData.sort((a,b) => (a.maxMmr < b.maxMmr) ? 1 : -1)[0];
         }
-    } catch {
-        return "0"
     }
 }
+
+
+
+let unit = ["d", "h", "m"];
+export function getDayFromSecond(second : number ):string {
+    
+    let day = second / (60 * 60 * 24)
+    let hour = (second / (60 * 60)) % 24
+    let min = (second / 60) % 60.
+    return [day, hour, min].reduce(( prev, curr, index, array )=>{
+        if (Math.floor(curr) < 1) {  
+
+            if (index === array.length-1) {
+                return prev + Math.floor(curr).toString() + unit[index] + " "
+            } 
+
+            if (prev !== "") {
+                return prev + Math.floor(curr).toString() + unit[index] + " "
+            }
+
+            return prev;
+        } else {
+            return prev + Math.floor(curr).toString() + unit[index] + " "
+        }
+    }, "")
+}
+
+    
 export const getSeasonName = (rank: number) => {
     if (rank > 0 && rank <= SeasonNames.length) {
         return SeasonNames[rank-1];
@@ -115,11 +126,13 @@ export const getSeasonName = (rank: number) => {
 }
 
 export const getSeasonColorString = (rank: number) => {
+
     if (rank > 0 && rank <= SeasonColors.length) {
         return SeasonColors[rank-1];
     } else {
         return "#FFF"
     }
+    
 }
 
 export const getRegion = (region : RegionType) => {

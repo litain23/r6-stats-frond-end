@@ -3,7 +3,8 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom/extend-expect';
-import "@testing-library/react/cleanup-after-each"
+import "@testing-library/react/cleanup-after-each";
+import 'jest-canvas-mock';
 
 /**
  * fix: `matchMedia` not present, legacy browsers require a polyfill

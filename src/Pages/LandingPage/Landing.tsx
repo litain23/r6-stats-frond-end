@@ -15,6 +15,10 @@ interface LandingState {
 
 class Landing extends React.Component<RouteComponentProps,LandingState> {
 
+    private videoElement! : HTMLElement;
+    private videoContent! : HTMLElement;
+    private imageContent! : HTMLElement;
+
     constructor(props: RouteComponentProps) {
         super(props);
         this.state = {
@@ -25,9 +29,9 @@ class Landing extends React.Component<RouteComponentProps,LandingState> {
     
     componentDidMount(){
         // this.setLayout();
+        this.setLayout();
         window.addEventListener('resize', this.setLayout);
         window.addEventListener('load', this.setLayout);
-        this.setLayout();
 
     }
 
@@ -39,8 +43,8 @@ class Landing extends React.Component<RouteComponentProps,LandingState> {
     setLayout(){
 
         /** scale to fit */
-        const videoElement = document.querySelector(".background-video") as HTMLElement;
-        const videoContent = document.querySelector("#background-video-content") as HTMLElement
+        // const videoElement = document.querySelector(".background-video") as HTMLElement;
+        // const videoContent = document.querySelector("#background-video-content") as HTMLElement
 
         const heightRatio = window.innerHeight / 900;
         const widthRatio = window.innerWidth / 1560;
@@ -52,9 +56,12 @@ class Landing extends React.Component<RouteComponentProps,LandingState> {
             ratio = widthRatio;
         }
 
-        if (videoElement && videoContent) {
-            videoContent.style.transform = `translate3d(-50%,-50%,0) scale(${ratio})`;
+        if (this.videoElement && this.videoContent) {
+            this.imageContent.style.transform = `translate3d(-50%,-50%,0) scale(${ratio})`
+            this.videoContent.style.transform = `translate3d(-50%,-50%,0) scale(${ratio})`;
         }
+
+        
     }
 
 
@@ -63,8 +70,9 @@ class Landing extends React.Component<RouteComponentProps,LandingState> {
                
             <div className="landing-container">
 
-               <div className="background-video" style={{}}>
-                    <video id="background-video-content" style={{}} muted={true} autoPlay={true} loop={true} preload="auto" src="season18.mp4">
+               <div ref={ (ref) => {this.videoElement = ref!}} className="background-video">
+                    <img alt="" ref={(ref)=>{this.imageContent = ref!}} id="background-img-content" src="images/season18.jpg"></img>
+                    <video ref={ (ref) => {this.videoContent = ref!}} id="background-video-content" muted={true} autoPlay={true} loop={true} preload="auto" src="season18.mp4">
                     </video>
                 </div>
 
@@ -73,9 +81,7 @@ class Landing extends React.Component<RouteComponentProps,LandingState> {
                 <div className="search-container">
                 <div className="search-items" style={{lineHeight:1.5}}>
 
-                        <div className="sub-header white-text">
-                                시즌 18 : Operation Steel Wave
-                        </div>
+                        <img alt="" id="img-logo" src="images/season18logo.png"></img>
                         <div className="sub-sub-header white-text ">
                             내 계정의 최근 전적을 확인하세요
                         </div>
