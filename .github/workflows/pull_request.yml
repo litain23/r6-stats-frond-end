@@ -1,14 +1,11 @@
 # This is a basic workflow to help you get started with Actions
 
-name: TESTING
+name: PULL_REQUEST_TESTING
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
   pull_request:
-    branches: master
-  push:
-    branches: master
-    
+    branches: master    
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -29,10 +26,18 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            await github.issues.createReview({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '테스트코드를 다시한번 확인해주세요'
+            const ref = "${{github.ref}}"
+            const pull_number = Number(ref.split("/")[2])
+            await github.pulls.createReview({
+              ...context.repo,
+              pull_number,
+              body:"테스트코드를 다시 확인해주세요. ",
+              event: "REQUEST_CHANGES"
+            })
+            await github.pulls.update({
+              ...context.repo,
+              pull_number,
+              state: "closed"
             })
         if: failure()      
+  
