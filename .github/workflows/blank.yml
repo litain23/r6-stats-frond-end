@@ -19,22 +19,18 @@ jobs:
       matrix:
         node-version: [12.x] # ".x" 로 최신 버전도 사용하고 직접 버전 지정도 가능하다
     steps:
-      - name : npm install
-        run: npm install
+      - uses: actions/checkout@v1
       - name : npm test
-        run: react-app-rewired test
+        run: yarn test
       - name: if fail
         uses: actions/github-script@0.2.0
         with:
-          github-token: ${{github.token}}
+          github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            await github.pulls.createReview({
-              ...context.repo,
-              body:"테스트코드를 다시 확인해주세요. ",
-              event: "REQUEST_CHANGES"
-            })
-            await github.pulls.update({
-              ...context.repo,
-              state: "closed"
+            await github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '테스트코드를 다시한번 확인해주세요'
             })
         if: failure()      
