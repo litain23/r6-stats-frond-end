@@ -26,7 +26,7 @@ python3 proxy-like-server.py // 현재 라이브 API 서버에서 결과를 가�
 ### Proposal (in-progress)
 [Proposal](https://www.notion.so/R6-Stats-fb0b362be1334d53a49469a3fecbcabc)
 
-### test
+### test1
 
 ### How to start stroybook server
 ```
