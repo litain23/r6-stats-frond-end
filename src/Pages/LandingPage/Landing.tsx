@@ -93,7 +93,7 @@ class Landing extends React.Component<RouteComponentProps,LandingState> {
                                 if (event.keyCode === 13) {
                                     this.props.history.push(`/search/overview/query?platform=${this.state.key}&username=${this.state.text}`)
                             }}}/>
-                            <button onClick={()=>{this.props.history.push("/search/" + this.state.text)}} > Search </button>
+                            <button onClick={()=>{this.props.history.push(`/search/overview/query?platform=${this.state.key}&username=${this.state.text}`)}} > Search </button>
 
 
                         </div>
