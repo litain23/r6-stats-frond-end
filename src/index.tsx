@@ -33,7 +33,7 @@ ReactDOM.render(
     <Router>
       <ThemeProvider theme={theme}>
         <AppContainer>
-        <Suspense fallback={<div>...loading...</div>}>
+        <Suspense fallback={<div></div>}>
           <Switch>
             <Route path="/" exact component={Landing}/>
             <Route path="/login" exact component={Login}/>
@@ -42,7 +42,7 @@ ReactDOM.render(
             <Route path="/search/:searchTerm" component={Search}/>
             <Route component={createErrorPageComponent('antd', 404)}></Route>
           </Switch>
-          </Suspense>
+        </Suspense>
         </AppContainer>
       </ThemeProvider>
     </Router>

@@ -54,8 +54,6 @@ const RankCard = (props:{data: SEASONAPI}) => {
         }
 
         const {region, rankStat} = eachSeason
-
-        console.log(rankStat);
         cardContents.push(
             <div key={`R6_CARD_CONTENT_${index}`} className="rankcard-content">
             <div className="rankcard-content-info">
