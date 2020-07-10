@@ -1,7 +1,7 @@
 
 import styled from 'styled-components';
 import React from 'react';
-import { RANKBYREGION, getRegion } from '../../../util/type';
+import { RANKBYREGION, getRegion, getFirstAmongRanks } from '../../../util/type';
 import { R6RankIcon } from '../../../R6Components'
 
 const RANK_CONTAINER = styled.div`
@@ -72,26 +72,25 @@ interface ProfileRankProps {
  */
 class ProfileRank extends React.Component<ProfileRankProps> {
 
+
     render() {
-        const {currentRankData} = this.props;
-        const sortedMMR = currentRankData.sort((a,b) => (a.rankStat.maxMmr < b.rankStat.maxMmr) ? 1 : -1);
-        
+        let sortedData = getFirstAmongRanks(this.props.currentRankData.map( (value) => value.rankStat), (a,b) => (a.mmr < b.mmr) ? 1 : -1);
         return(
             <RANK_CONTAINER>
                 <RANK_PART>
-                    <R6RankIcon rank={sortedMMR[0].rankStat.rankString} size={70}></R6RankIcon>
+                    <R6RankIcon rank={sortedData.rankString} size={70}></R6RankIcon>
                 </RANK_PART>
                 <CONTENT_PART>
-                    <div id="rank">{sortedMMR[0].rankStat.rankString.toUpperCase()}</div> 
+                    <div id="rank">{sortedData.rankString.toUpperCase()}</div> 
                     <div id="mmr">
-                        <span className="data">{sortedMMR[0].rankStat.mmr}</span>
+                        <span className="data">{sortedData.mmr}</span>
                         <span className="format"> MMR - </span>
-                        <span className="data">{sortedMMR[0].rankStat.wins}</span>
+                        <span className="data">{sortedData.wins}</span>
                         <span className="format"> W </span>
-                        <span className="data">{sortedMMR[0].rankStat.losses}</span>
+                        <span className="data">{sortedData.losses}</span>
                         <span className="format"> L </span>
                     </div> 
-                    <div id="server">{getRegion(sortedMMR[0].rankStat.region)}</div> 
+                    <div id="server">{getRegion(sortedData.region)}</div> 
                 </CONTENT_PART>
             </RANK_CONTAINER>
         )

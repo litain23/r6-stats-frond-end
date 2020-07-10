@@ -1,0 +1,43 @@
+# This is a basic workflow to help you get started with Actions
+
+name: PULL_REQUEST_TESTING
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  pull_request:
+    branches: master    
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  TEST:
+    name: jest-test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x] # ".x" 로 최신 버전도 사용하고 직접 버전 지정도 가능하다
+    steps:
+      - uses: actions/checkout@v1
+      - name: npm install
+        run : yarn
+      - name : npm test
+        run: yarn test
+      - name: if fail
+        uses: actions/github-script@0.2.0
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const ref = "${{github.ref}}"
+            const pull_number = Number(ref.split("/")[2])
+            await github.pulls.createReview({
+              ...context.repo,
+              pull_number,
+              body:"테스트코드를 다시 확인해주세요. ",
+              event: "REQUEST_CHANGES"
+            })
+            await github.pulls.update({
+              ...context.repo,
+              pull_number,
+              state: "closed"
+            })
+        if: failure()      
+  

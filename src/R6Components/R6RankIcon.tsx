@@ -19,8 +19,6 @@ export type R6RankIconProps = {
 const R6RankIcon = ({ rank, size }: R6RankIconProps) => {
     
     //이제 rank에 들어오는 string은  받을 수 있습니다. 다만 확실하지 않을경우 
-
-
     try {
         let parsableRankString = rank.replace(" ", "_") as RankType;
         const src = rankicons[parsableRankString];

@@ -1,0 +1,25 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    name: test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x] # ".x" 로 최신 버전도 사용하고 직접 버전 지정도 가능하
+    steps: 
+      - uses: actions/checkout@v1
+      - name: npm install
+        run : yarn
+      - name : npm test
+        run: yarn test
